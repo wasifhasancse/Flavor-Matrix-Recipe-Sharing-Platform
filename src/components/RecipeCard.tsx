@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import { Recipe } from "@/data/recipes";
-import { Heart, Clock, ChefHat, User } from "lucide-react";
+import { Link } from "@heroui/react";
+import { Heart, Clock, ChefHat, User, ArrowRight } from "lucide-react";
 
 interface RecipeCardProps {
   recipe: Recipe;
@@ -85,7 +86,6 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
 
         <hr className="border-default-100 dark:border-zinc-800/80 my-1" />
 
-        {/* Author and Likes Counter */}
         <div className="flex justify-between items-center text-xs mt-auto">
           <div className="flex items-center gap-1.5 text-default-500">
             <User className="h-3.5 w-3.5" />
@@ -96,6 +96,15 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
             {likesCount}
           </span>
         </div>
+
+        {/* View Details Button */}
+        <Link
+          href={`/recipes/${recipe.id}`}
+          className="mt-3 font-semibold text-xs text-primary border border-primary/20 dark:border-zinc-800 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all rounded-lg py-2 flex items-center justify-center gap-1.5"
+        >
+          View Details
+          <ArrowRight className="h-3 w-3" />
+        </Link>
       </div>
     </div>
   );
