@@ -57,6 +57,8 @@ import {
   CheckCircle2,
   ShieldCheck,
   Tag,
+  Receipt,
+  User,
 } from "lucide-react";
 import { mockRecipes, Recipe } from "@/data/recipes";
 import { EmptyState } from "@/components/shared/EmptyState";
@@ -589,8 +591,22 @@ function DashboardContent() {
             { label: "My Recipes", icon: BookOpen, tab: "my-recipes" },
             { label: "Favorites", icon: Star, tab: "favorites" },
             { label: "Purchased", icon: ShoppingBag, tab: "purchased" },
+            { label: "Transactions", icon: Receipt, href: "/dashboard/user/transactions" },
+            { label: "My Profile", icon: User, href: "/dashboard/user/profile" },
             { label: "Add Recipe", icon: PlusCircle, tab: "add-recipe" },
           ].map((item) => {
+            if (item.href) {
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors w-full text-left cursor-pointer no-underline text-default-600 hover:bg-default-100 dark:hover:bg-zinc-800/60 hover:text-foreground"
+                >
+                  <item.icon className="h-4.5 w-4.5" />
+                  <span>{item.label}</span>
+                </Link>
+              );
+            }
             const isSelected = activeTab === item.tab;
             return (
               <button
