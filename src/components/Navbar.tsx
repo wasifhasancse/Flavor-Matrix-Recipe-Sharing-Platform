@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Button, Link } from "@heroui/react";
-import { ThemeSwitcher } from "./ThemeSwitcher";
+import { ThemeSwitcher } from "@/components/shared/ThemeSwitcher";
 import { authClient } from "@/lib/auth-client";
 import { ChefHat, LayoutDashboard, LogOut, Settings, Menu, X } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
