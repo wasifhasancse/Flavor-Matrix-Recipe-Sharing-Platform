@@ -44,18 +44,19 @@ export default function Home() {
 
       {/* 2. Featured Recipes Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 w-full">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-8 border-b border-default-100 dark:border-zinc-800/80 pb-4">
           <div className="flex flex-col gap-1">
-            <div className="flex items-center gap-2 text-primary font-semibold text-sm uppercase tracking-wider">
-              <Sparkles className="h-4 w-4" />
+            <div className="flex items-center gap-2 text-amber-500 font-bold text-xs uppercase tracking-wider">
+              <Sparkles className="h-4 w-4 fill-amber-400" />
               <span>Chef Handpicked</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-orange-500 via-amber-500 to-rose-500">
               Featured Creations
             </h2>
           </div>
-          <Link href="/recipes" className="text-sm font-semibold text-primary hover:underline">
-            View all featured &rarr;
+          <Link href="/recipes" className="text-xs font-bold text-primary hover:text-orange-500 transition-colors flex items-center gap-1">
+            <span>Explore All Featured</span>
+            <span>&rarr;</span>
           </Link>
         </div>
 
@@ -77,18 +78,19 @@ export default function Home() {
 
       {/* 3. Popular Recipes Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 w-full">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-8 border-b border-default-100 dark:border-zinc-800/80 pb-4">
           <div className="flex flex-col gap-1">
-            <div className="flex items-center gap-2 text-danger font-semibold text-sm uppercase tracking-wider">
-              <Flame className="h-4 w-4" />
+            <div className="flex items-center gap-2 text-rose-500 font-bold text-xs uppercase tracking-wider">
+              <Flame className="h-4 w-4 fill-rose-500" />
               <span>Trending Now</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-rose-500 via-pink-500 to-orange-500">
               Popular Recipes
             </h2>
           </div>
-          <Link href="/recipes" className="text-sm font-semibold text-primary hover:underline">
-            View all popular &rarr;
+          <Link href="/recipes" className="text-xs font-bold text-primary hover:text-rose-500 transition-colors flex items-center gap-1">
+            <span>Explore Trending</span>
+            <span>&rarr;</span>
           </Link>
         </div>
 

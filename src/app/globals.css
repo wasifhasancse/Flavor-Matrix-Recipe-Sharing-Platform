@@ -4,3 +4,53 @@
 @source "../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}";
 
 @custom-variant dark (&:is(.dark *));
+
+@layer utilities {
+  .text-gradient-primary {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-orange-500 via-amber-500 to-rose-500;
+  }
+  .text-gradient-emerald {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-500;
+  }
+  .text-gradient-blue {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500;
+  }
+  .glass-card {
+    @apply bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl border border-default-100 dark:border-zinc-800/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)];
+  }
+  .glass-card-hover {
+    @apply hover:shadow-[0_12px_40px_rgba(249,115,22,0.12)] hover:-translate-y-0.5 transition-all duration-300 ease-out;
+  }
+  .ambient-glow-orange {
+    @apply shadow-[0_8px_30px_rgba(249,115,22,0.08)];
+  }
+  .ambient-glow-blue {
+    @apply shadow-[0_8px_30px_rgba(59,130,246,0.08)];
+  }
+  .ambient-glow-emerald {
+    @apply shadow-[0_8px_30px_rgba(16,185,129,0.08)];
+  }
+}
+
+/* Smooth Scrolling & Custom Scrollbar */
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.3);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.5);
+}

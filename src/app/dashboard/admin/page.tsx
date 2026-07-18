@@ -332,8 +332,8 @@ function AdminDashboardContent() {
         {activeTab === "overview" && (
           <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="flex flex-col gap-8">
             <div className="flex flex-col gap-1">
-              <h1 className="text-3xl font-extrabold tracking-tight text-foreground flex items-center gap-2.5">
-                <LayoutDashboard className="h-7 w-7 text-danger" />
+              <h1 className="text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 flex items-center gap-2.5">
+                <LayoutDashboard className="h-7 w-7 text-rose-500" />
                 <span>Administrative Console Overview</span>
               </h1>
               <p className="text-xs text-default-400">Real-time system metrics, analytics & moderation highlights</p>
