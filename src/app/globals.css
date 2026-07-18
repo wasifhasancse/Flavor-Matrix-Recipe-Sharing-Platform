@@ -16,7 +16,7 @@
     @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500;
   }
   .glass-card {
-    @apply bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl border border-default-100 dark:border-zinc-800/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)];
+    @apply bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)];
   }
   .glass-card-hover {
     @apply hover:shadow-[0_12px_40px_rgba(249,115,22,0.12)] hover:-translate-y-0.5 transition-all duration-300 ease-out;
