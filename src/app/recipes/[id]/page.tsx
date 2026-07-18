@@ -31,6 +31,8 @@ import {
   Users,
   AlertCircle,
   X,
+  Bookmark,
+  BookmarkCheck,
 } from "lucide-react";
 import { mockRecipes, Recipe } from "@/data/recipes";
 
@@ -67,6 +69,17 @@ function RecipeDetailsContent({ id }: { id: string }) {
 
   const [isFavorited, setIsFavorited] = useState<boolean>(false);
   const [isFavoriteLoading, setIsFavoriteLoading] = useState<boolean>(false);
+
+  // Bookmark State
+  const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
+  const [isBookmarkLoading, setIsBookmarkLoading] = useState<boolean>(false);
+
+  // Rating State
+  const [userRating, setUserRating] = useState<number>(0);
+  const [hoverRating, setHoverRating] = useState<number>(0);
+  const [avgRating, setAvgRating] = useState<number>(4.8);
+  const [totalRatings, setTotalRatings] = useState<number>(42);
+  const [isRatingSubmitting, setIsRatingSubmitting] = useState<boolean>(false);
 
   const [isPurchased, setIsPurchased] = useState<boolean>(false);
   const [isPurchasing, setIsPurchasing] = useState<boolean>(false);
@@ -199,6 +212,63 @@ function RecipeDetailsContent({ id }: { id: string }) {
       console.error("Failed to update favorite status:", err);
     } finally {
       setIsFavoriteLoading(false);
+    }
+  };
+
+  // Handle Bookmark Action (POST/DELETE)
+  const handleBookmark = async () => {
+    if (!recipe || isBookmarkLoading) return;
+
+    const nextBookmarked = !isBookmarked;
+    setIsBookmarked(nextBookmarked);
+    setIsBookmarkLoading(true);
+
+    try {
+      if (nextBookmarked) {
+        await fetch("/api/bookmarks", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ recipeId: recipe.id }),
+        });
+      } else {
+        await fetch(`/api/bookmarks/${recipe.id}`, {
+          method: "DELETE",
+        });
+      }
+    } catch (err) {
+      console.error("Failed to update bookmark status:", err);
+    } finally {
+      setIsBookmarkLoading(false);
+    }
+  };
+
+  // Handle Rating Submission (POST)
+  const handleRateSubmit = async (score: number) => {
+    if (!recipe || isRatingSubmitting) return;
+
+    setUserRating(score);
+    setIsRatingSubmitting(true);
+
+    try {
+      const res = await fetch(`/api/recipes/${recipe.id}/rate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ score }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data.data?.averageRating) {
+          setAvgRating(data.data.averageRating);
+        }
+        if (data.data?.totalRatings) {
+          setTotalRatings(data.data.totalRatings);
+        }
+      }
+    } catch (err) {
+      console.error("Failed to submit recipe rating:", err);
+    } finally {
+      setIsRatingSubmitting(false);
     }
   };
 
@@ -514,6 +584,72 @@ function RecipeDetailsContent({ id }: { id: string }) {
               )}
             </Button>
           </div>
+
+          {/* Interactive Multi-Star Rating Component & Score Breakdown */}
+          <div className="p-6 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl flex flex-col sm:flex-row gap-6 items-center justify-between mt-2">
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-2">
+                <span className="text-4xl font-extrabold text-foreground tracking-tight">
+                  {avgRating.toFixed(1)}
+                </span>
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-0.5 text-amber-400">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <Star
+                        key={star}
+                        className={`h-4 w-4 ${
+                          star <= Math.round(avgRating)
+                            ? "fill-amber-400 text-amber-400"
+                            : "text-default-300 dark:text-zinc-700"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  <span className="text-xs text-default-400 font-semibold mt-0.5">
+                    Based on {totalRatings} community ratings
+                  </span>
+                </div>
+              </div>
+              <span className="text-xs text-default-500">
+                Rate & share your cooking experience with home chefs worldwide!
+              </span>
+            </div>
+
+            {/* Interactive Multi-Star Input Component */}
+            <div className="flex flex-col items-center sm:items-end gap-2 bg-default-50/70 dark:bg-zinc-950/80 p-4 rounded-2xl border border-default-100 dark:border-zinc-800/80 shrink-0">
+              <span className="text-xs font-bold text-default-400 uppercase tracking-wider">
+                {userRating > 0 ? "Your Rating" : "Tap Stars to Rate"}
+              </span>
+              <div className="flex items-center gap-1.5">
+                {[1, 2, 3, 4, 5].map((score) => {
+                  const isActive = (hoverRating || userRating) >= score;
+                  return (
+                    <button
+                      key={score}
+                      type="button"
+                      onMouseEnter={() => setHoverRating(score)}
+                      onMouseLeave={() => setHoverRating(0)}
+                      onClick={() => handleRateSubmit(score)}
+                      className="p-1 rounded-lg hover:scale-125 transition-transform cursor-pointer focus:outline-none"
+                    >
+                      <Star
+                        className={`h-6 w-6 transition-colors ${
+                          isActive
+                            ? "fill-amber-400 text-amber-400"
+                            : "text-default-300 dark:text-zinc-700 hover:text-amber-400"
+                        }`}
+                      />
+                    </button>
+                  );
+                })}
+              </div>
+              {userRating > 0 && (
+                <span className="text-[11px] font-bold text-emerald-500 flex items-center gap-1">
+                  <Check className="h-3 w-3" /> Score {userRating} submitted!
+                </span>
+              )}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -811,6 +947,27 @@ function RecipeDetailsContent({ id }: { id: string }) {
                 <span>{isFavorited ? "Saved" : "Save"}</span>
               </Button>
             </div>
+
+            {/* Bookmark Action Button */}
+            <Button
+              variant="outline"
+              onClick={handleBookmark}
+              isDisabled={isBookmarkLoading}
+              className={`w-full font-semibold rounded-xl flex items-center justify-center gap-2 border transition-all cursor-pointer ${
+                isBookmarked
+                  ? "bg-primary/10 border-primary/30 text-primary"
+                  : "border-default-200 dark:border-zinc-800 text-foreground"
+              }`}
+            >
+              {isBookmarkLoading ? (
+                <Loader2 className="h-4 w-4 animate-spin text-primary" />
+              ) : isBookmarked ? (
+                <BookmarkCheck className="h-4.5 w-4.5 text-primary" />
+              ) : (
+                <Bookmark className="h-4.5 w-4.5" />
+              )}
+              <span>{isBookmarked ? "Bookmarked" : "Bookmark Recipe"}</span>
+            </Button>
 
             {/* Report Recipe Button (Triggers HeroUI Modal) */}
             <Button

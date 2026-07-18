@@ -59,6 +59,8 @@ import {
   Tag,
   Receipt,
   User,
+  Bookmark,
+  BarChart3,
 } from "lucide-react";
 import { mockRecipes, Recipe } from "@/data/recipes";
 import { EmptyState } from "@/components/shared/EmptyState";
@@ -591,6 +593,8 @@ function DashboardContent() {
             { label: "My Recipes", icon: BookOpen, tab: "my-recipes" },
             { label: "Favorites", icon: Star, tab: "favorites" },
             { label: "Purchased", icon: ShoppingBag, tab: "purchased" },
+            { label: "My Bookmarks", icon: Bookmark, href: "/dashboard/user/bookmarks" },
+            { label: "Recipe Analytics", icon: BarChart3, href: "/dashboard/user/analytics" },
             { label: "Transactions", icon: Receipt, href: "/dashboard/user/transactions" },
             { label: "My Profile", icon: User, href: "/dashboard/user/profile" },
             { label: "Add Recipe", icon: PlusCircle, tab: "add-recipe" },
