@@ -98,7 +98,8 @@ export default function AdminRecipesPage() {
 
     // Call Backend API
     try {
-      fetch(`/api/admin/recipes/${recipeId}/feature`, {
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+      fetch(`${baseUrl}/api/admin/recipes/${recipeId}/feature`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ isFeatured: nextFeatured }),
@@ -164,7 +165,8 @@ export default function AdminRecipesPage() {
       setRecipesList((prev) => prev.filter((r) => r.id !== recipeToDelete.id));
 
       // Fire API call
-      fetch(`/api/admin/recipes/${recipeToDelete.id}`, {
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+      fetch(`${baseUrl}/api/admin/recipes/${recipeToDelete.id}`, {
         method: "DELETE",
       }).catch(() => {});
 

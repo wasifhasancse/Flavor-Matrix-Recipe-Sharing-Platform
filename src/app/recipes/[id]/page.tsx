@@ -111,7 +111,8 @@ function RecipeDetailsContent({ id }: { id: string }) {
       setFetchError(null);
 
       try {
-        const res = await fetch(`/api/recipes/${id}`);
+        const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+        const res = await fetch(`${baseUrl}/api/recipes/${id}`);
         if (res.ok) {
           const data = await res.json();
           if (isMounted && data.recipe) {
@@ -173,7 +174,8 @@ function RecipeDetailsContent({ id }: { id: string }) {
     setIsLikeLoading(true);
 
     try {
-      const res = await fetch(`/api/recipes/${recipe.id}/like`, {
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+      const res = await fetch(`${baseUrl}/api/recipes/${recipe.id}/like`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: nextHasLiked ? "like" : "unlike" }),
@@ -203,7 +205,8 @@ function RecipeDetailsContent({ id }: { id: string }) {
     setIsFavoriteLoading(true);
 
     try {
-      await fetch(`/api/recipes/${recipe.id}/favorite`, {
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+      await fetch(`${baseUrl}/api/recipes/${recipe.id}/favorite`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ favorited: nextFavorited }),
@@ -224,14 +227,15 @@ function RecipeDetailsContent({ id }: { id: string }) {
     setIsBookmarkLoading(true);
 
     try {
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
       if (nextBookmarked) {
-        await fetch("/api/bookmarks", {
+        await fetch(`${baseUrl}/api/bookmarks`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ recipeId: recipe.id }),
         });
       } else {
-        await fetch(`/api/bookmarks/${recipe.id}`, {
+        await fetch(`${baseUrl}/api/bookmarks/${recipe.id}`, {
           method: "DELETE",
         });
       }
@@ -250,7 +254,8 @@ function RecipeDetailsContent({ id }: { id: string }) {
     setIsRatingSubmitting(true);
 
     try {
-      const res = await fetch(`/api/recipes/${recipe.id}/rate`, {
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+      const res = await fetch(`${baseUrl}/api/recipes/${recipe.id}/rate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ score }),
@@ -286,7 +291,8 @@ function RecipeDetailsContent({ id }: { id: string }) {
     setIsSubmittingReport(true);
 
     try {
-      const res = await fetch("/api/reports", {
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+      const res = await fetch(`${baseUrl}/api/reports`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -42,7 +42,8 @@ export default function CheckoutSummaryPage(props: CheckoutPageProps) {
     async function fetchRecipe() {
       setIsLoadingRecipe(true);
       try {
-        const res = await fetch(`/api/recipes/${recipeId}`);
+        const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+        const res = await fetch(`${baseUrl}/api/recipes/${recipeId}`);
         if (res.ok) {
           const data = await res.json();
           if (isMounted && data.recipe) {
@@ -74,7 +75,8 @@ export default function CheckoutSummaryPage(props: CheckoutPageProps) {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch("/api/checkout-session", {
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+      const res = await fetch(`${baseUrl}/api/checkout-session`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ recipeId: recipe.id }),

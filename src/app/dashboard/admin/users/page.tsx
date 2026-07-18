@@ -174,7 +174,8 @@ export default function AdminUsersPage() {
       localStorage.setItem("admin_mock_users_aggregated", JSON.stringify(updatedList));
 
       // Fire backend PATCH /admin/users/:id/status
-      fetch(`/api/admin/users/${userId}/status`, {
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+      fetch(`${baseUrl}/api/admin/users/${userId}/status`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ isBlocked: nextBlockedState }),

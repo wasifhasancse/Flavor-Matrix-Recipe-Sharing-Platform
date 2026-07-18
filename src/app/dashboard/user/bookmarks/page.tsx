@@ -81,7 +81,8 @@ export default function UserBookmarksPage() {
     localStorage.setItem("user_bookmarks_list", JSON.stringify(updated));
 
     // Call Backend API
-    fetch(`/api/bookmarks/${recipeId}`, {
+    const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+    fetch(`${baseUrl}/api/bookmarks/${recipeId}`, {
       method: "DELETE",
     }).catch(() => {});
 

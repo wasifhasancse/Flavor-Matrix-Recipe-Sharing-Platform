@@ -165,7 +165,8 @@ export default function AdminReportsPage() {
     setIsFetchingDetails(true);
 
     try {
-      const res = await fetch(`/api/admin/reports/${reportItem.recipeId}/details`);
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+      const res = await fetch(`${baseUrl}/api/admin/reports/${reportItem.recipeId}/details`);
       const data = await res.json();
       if (data.details && data.details.length > 0) {
         setDetailsList(data.details);
@@ -190,7 +191,8 @@ export default function AdminReportsPage() {
       localStorage.setItem("admin_aggregated_reports", JSON.stringify(updated));
 
       // Call Backend API
-      fetch(`/api/admin/reports/${recipeToDismiss.recipeId}/dismiss`, {
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+      fetch(`${baseUrl}/api/admin/reports/${recipeToDismiss.recipeId}/dismiss`, {
         method: "PATCH",
       }).catch(() => {});
 
@@ -212,7 +214,8 @@ export default function AdminReportsPage() {
       localStorage.setItem("admin_aggregated_reports", JSON.stringify(updated));
 
       // Call Backend Cascading DELETE API
-      fetch(`/api/admin/recipes/${recipeToDelete.recipeId}`, {
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+      fetch(`${baseUrl}/api/admin/recipes/${recipeToDelete.recipeId}`, {
         method: "DELETE",
       }).catch(() => {});
 
