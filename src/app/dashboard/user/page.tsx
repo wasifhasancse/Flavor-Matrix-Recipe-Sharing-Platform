@@ -59,6 +59,7 @@ import {
   Tag,
 } from "lucide-react";
 import { mockRecipes, Recipe } from "@/data/recipes";
+import { EmptyState } from "@/components/shared/EmptyState";
 
 type TabType = "overview" | "add-recipe" | "my-recipes" | "favorites" | "purchased";
 
@@ -1349,20 +1350,14 @@ function DashboardContent() {
                 </table>
               </div>
             ) : (
-              <div className="py-20 text-center border border-dashed rounded-3xl flex flex-col items-center gap-4">
-                <span className="text-3xl">🍲</span>
-                <h3 className="font-bold text-foreground">No Recipes Published</h3>
-                <p className="text-xs text-default-500 max-w-xs">
-                  You haven&apos;t published any recipes yet. Share your culinary creations with our community!
-                </p>
-                <Button
-                  variant="outline"
-                  onClick={() => handleTabChange("add-recipe")}
-                  className="font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
-                >
-                  Create First Recipe
-                </Button>
-              </div>
+              <EmptyState
+                icon={BookOpen}
+                variant="primary"
+                title="No Recipes Published"
+                description="You haven't published any recipes yet. Share your culinary creations with our global community!"
+                actionLabel="Create First Recipe"
+                onAction={() => handleTabChange("add-recipe")}
+              />
             )}
           </div>
         )}
@@ -1424,21 +1419,14 @@ function DashboardContent() {
                 </table>
               </div>
             ) : (
-              <div className="py-20 text-center border border-dashed rounded-3xl flex flex-col items-center gap-4">
-                <span className="text-3xl">⭐</span>
-                <h3 className="font-bold text-foreground">No Favorited Recipes</h3>
-                <p className="text-xs text-default-500 max-w-xs">
-                  Recipes you bookmark as favorites will show up here. Go explore some dishes!
-                </p>
-                <Link href="/recipes" className="no-underline">
-                  <Button
-                    variant="outline"
-                    className="font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
-                  >
-                    Explore Dishes
-                  </Button>
-                </Link>
-              </div>
+              <EmptyState
+                icon={Star}
+                variant="amber"
+                title="No Favorited Recipes"
+                description="Recipes you bookmark as favorites will show up here. Go explore some delicious dishes!"
+                actionLabel="Explore Dishes"
+                actionLink="/recipes"
+              />
             )}
           </div>
         )}
@@ -1494,21 +1482,14 @@ function DashboardContent() {
                 </table>
               </div>
             ) : (
-              <div className="py-20 text-center border border-dashed rounded-3xl flex flex-col items-center gap-4">
-                <span className="text-3xl">🔑</span>
-                <h3 className="font-bold text-foreground">No Purchased Recipes</h3>
-                <p className="text-xs text-default-500 max-w-xs">
-                  When you buy premium chef recipes through our Stripe integration, they will display here with lifetime access keys.
-                </p>
-                <Link href="/recipes" className="no-underline">
-                  <Button
-                    variant="outline"
-                    className="font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
-                  >
-                    Browse Premium Catalog
-                  </Button>
-                </Link>
-              </div>
+              <EmptyState
+                icon={ShoppingBag}
+                variant="emerald"
+                title="No Purchased Recipes"
+                description="When you buy premium chef recipes through our Stripe integration, they will display here with lifetime access keys."
+                actionLabel="Browse Premium Catalog"
+                actionLink="/recipes"
+              />
             )}
           </div>
         )}

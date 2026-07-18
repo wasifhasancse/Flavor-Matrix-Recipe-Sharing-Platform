@@ -33,6 +33,7 @@ import {
   Award,
 } from "lucide-react";
 import { mockRecipes, Recipe } from "@/data/recipes";
+import { EmptyState } from "@/components/shared/EmptyState";
 
 // Helper Disclosure Hook for Modals
 function useModalDisclosure(initialState = false) {
@@ -467,30 +468,18 @@ export default function MyRecipesPage() {
           </div>
         </div>
       ) : (
-        /* Empty State Layout */
-        <div className="py-20 px-4 text-center border-2 border-dashed border-default-200 dark:border-zinc-800 rounded-3xl flex flex-col items-center gap-5 bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md">
-          <div className="h-20 w-20 rounded-full bg-primary/10 text-primary flex items-center justify-center border border-primary/20 shadow-inner">
-            <Utensils className="h-10 w-10" />
-          </div>
-          <div className="flex flex-col gap-1.5 max-w-sm">
-            <h3 className="text-xl font-extrabold text-foreground">No Recipes Found</h3>
-            <p className="text-xs text-default-500 leading-relaxed">
-              {searchTerm || selectedCategory !== "All"
-                ? "No published recipes matched your search query or filter. Try clearing your search filters."
-                : "You haven't created any recipes yet. Share your culinary expertise with our global foodie community!"}
-            </p>
-          </div>
-
-          <Link href="/dashboard/user?tab=add-recipe" className="no-underline mt-2">
-            <Button
-              variant="primary"
-              className="bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold py-3 px-6 rounded-2xl text-xs flex items-center gap-2 shadow-lg shadow-orange-500/20 border-none cursor-pointer"
-            >
-              <PlusCircle className="h-4 w-4" />
-              <span>Create Your First Recipe</span>
-            </Button>
-          </Link>
-        </div>
+        <EmptyState
+          icon={Utensils}
+          variant="primary"
+          title={searchTerm || selectedCategory !== "All" ? "No Matching Recipes" : "No Recipes Found"}
+          description={
+            searchTerm || selectedCategory !== "All"
+              ? "No published recipes matched your search query or category filter. Try clearing your search filters."
+              : "You haven't created any recipes yet. Share your culinary expertise with our global foodie community!"
+          }
+          actionLabel="Create Your First Recipe"
+          actionLink="/dashboard/user?tab=add-recipe"
+        />
       )}
 
       {/* 2. EDIT / UPDATE RECIPE HEROUI MODAL */}

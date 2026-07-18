@@ -28,6 +28,7 @@ import {
   Search,
 } from "lucide-react";
 import { mockRecipes, Recipe } from "@/data/recipes";
+import { EmptyState } from "@/components/shared/EmptyState";
 
 // Interface for Purchased Recipe Data Mapping
 export interface PurchasedRecipeItem {
@@ -326,38 +327,18 @@ export default function PurchasedRecipesPage() {
           )}
         </motion.div>
       ) : (
-        /* Empty State Layout */
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4 }}
-          className="py-20 px-6 text-center border-2 border-dashed border-default-200 dark:border-zinc-800 rounded-3xl flex flex-col items-center gap-5 bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md"
-        >
-          <div className="h-20 w-20 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center border border-emerald-500/20 shadow-inner">
-            <KeyRound className="h-10 w-10 stroke-[2]" />
-          </div>
-
-          <div className="flex flex-col gap-1.5 max-w-md">
-            <h3 className="text-xl font-extrabold text-foreground">
-              {searchTerm ? "No Matching Purchased Recipes" : "No Purchased Recipes Yet"}
-            </h3>
-            <p className="text-xs text-default-500 leading-relaxed">
-              {searchTerm
-                ? "No purchased recipes matched your search criteria. Try clearing your search input."
-                : "When you buy premium chef recipes through our secure Stripe integration, they will display here with permanent lifetime access keys."}
-            </p>
-          </div>
-
-          <Link href="/recipes" className="no-underline mt-2">
-            <Button
-              variant="primary"
-              className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold py-3 px-6 rounded-2xl text-xs flex items-center gap-2 shadow-lg shadow-emerald-500/20 border-none cursor-pointer"
-            >
-              <Compass className="h-4 w-4" />
-              <span>Explore Premium Catalog</span>
-            </Button>
-          </Link>
-        </motion.div>
+        <EmptyState
+          icon={KeyRound}
+          variant="emerald"
+          title={searchTerm ? "No Matching Purchased Recipes" : "No Purchased Recipes Yet"}
+          description={
+            searchTerm
+              ? "No purchased recipes matched your search criteria. Try clearing your search input."
+              : "When you buy premium chef recipes through our secure Stripe integration, they will display here with permanent lifetime access keys."
+          }
+          actionLabel="Explore Premium Catalog"
+          actionLink="/recipes"
+        />
       )}
     </div>
   );
