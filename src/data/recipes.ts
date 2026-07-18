@@ -10,6 +10,7 @@ export interface Recipe {
   cookTime: string;
   difficulty: "Easy" | "Medium" | "Hard";
   category: string;
+  cuisineType?: string;
   ingredients: string[];
   instructions: string[];
   price?: number; // In USD, e.g. 4.99. If undefined or 0, it's free.

@@ -4,6 +4,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button, Link } from "@heroui/react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   AreaChart,
   Area,
@@ -186,28 +187,45 @@ function AdminDashboardContent() {
     }
   };
 
-  // Action: Delete Recipe
-  const handleDeleteRecipe = (recipeId: string) => {
-    if (!confirm("Are you sure you want to permanently delete this recipe?")) return;
+  // Action: Delete Recipe Modal State
+  const [recipeToDelete, setRecipeToDelete] = useState<Recipe | null>(null);
+  const [isAdminDeleteOpen, setIsAdminDeleteOpen] = useState<boolean>(false);
+  const [isDeletingAdmin, setIsDeletingAdmin] = useState<boolean>(false);
 
-    // 1. Filter out from allRecipes state
-    const updated = allRecipes.filter((r) => r.id !== recipeId);
-    setAllRecipes(updated);
+  const openDeleteModal = (recipe: Recipe) => {
+    setRecipeToDelete(recipe);
+    setIsAdminDeleteOpen(true);
+  };
 
-    // 2. Update created user recipes in localStorage if applicable
-    if (recipeId.startsWith("user-rec-") && session?.user) {
-      const userRecipesKey = `created_recipes_${session.user.id}`;
-      const userRecipes = localStorage.getItem(userRecipesKey)
-        ? JSON.parse(localStorage.getItem(userRecipesKey)!)
-        : [];
-      const updatedUser = userRecipes.filter((r: Recipe) => r.id !== recipeId);
-      localStorage.setItem(userRecipesKey, JSON.stringify(updatedUser));
-    }
+  const confirmAdminDelete = () => {
+    if (!recipeToDelete) return;
+    setIsDeletingAdmin(true);
 
-    // 3. Remove corresponding reports if any
-    const updatedReports = reportsList.filter((r) => r.recipeId !== recipeId);
-    setReportsList(updatedReports);
-    localStorage.setItem(`admin_mock_reports`, JSON.stringify(updatedReports));
+    setTimeout(() => {
+      const recipeId = recipeToDelete.id;
+      // 1. Filter out from allRecipes state
+      const updated = allRecipes.filter((r) => r.id !== recipeId);
+      setAllRecipes(updated);
+
+      // 2. Update created user recipes in localStorage if applicable
+      if (recipeId.startsWith("user-rec-") && session?.user) {
+        const userRecipesKey = `created_recipes_${session.user.id}`;
+        const userRecipes = localStorage.getItem(userRecipesKey)
+          ? JSON.parse(localStorage.getItem(userRecipesKey)!)
+          : [];
+        const updatedUser = userRecipes.filter((r: Recipe) => r.id !== recipeId);
+        localStorage.setItem(userRecipesKey, JSON.stringify(updatedUser));
+      }
+
+      // 3. Remove corresponding reports if any
+      const updatedReports = reportsList.filter((r) => r.recipeId !== recipeId);
+      setReportsList(updatedReports);
+      localStorage.setItem(`admin_mock_reports`, JSON.stringify(updatedReports));
+
+      setIsDeletingAdmin(false);
+      setIsAdminDeleteOpen(false);
+      setRecipeToDelete(null);
+    }, 500);
   };
 
   // Action: Resolve Report
@@ -503,8 +521,8 @@ function AdminDashboardContent() {
                             <Eye className="h-4 w-4" />
                           </Link>
                           <button
-                            onClick={() => handleDeleteRecipe(recipe.id)}
-                            className="p-1.5 rounded-lg border border-danger/10 hover:border-danger/30 text-danger hover:bg-danger/5 transition-colors"
+                            onClick={() => openDeleteModal(recipe)}
+                            className="p-1.5 rounded-lg border border-danger/10 hover:border-danger/30 text-danger hover:bg-danger/5 transition-colors cursor-pointer"
                             title="Delete Recipe"
                           >
                             <Trash2 className="h-4 w-4" />
@@ -571,7 +589,16 @@ function AdminDashboardContent() {
                               </Button>
                             )}
                             <Button
-                              onPress={() => handleDeleteRecipe(rep.recipeId)}
+                              onPress={() => {
+                                const target = allRecipes.find((r) => r.id === rep.recipeId) || ({
+                                  id: rep.recipeId,
+                                  title: rep.recipeTitle || "Reported Item",
+                                  category: "Reported Dish",
+                                  image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80",
+                                  author: "User",
+                                } as Recipe);
+                                openDeleteModal(target);
+                              }}
                               variant="outline"
                               className="py-1 px-2.5 rounded-lg border border-danger/20 text-danger hover:bg-danger/5 text-xs font-semibold inline-flex items-center gap-1"
                             >
@@ -597,6 +624,85 @@ function AdminDashboardContent() {
           </div>
         )}
       </main>
+
+      {/* CUSTOM ADMIN DELETE CONFIRMATION MODAL */}
+      <AnimatePresence>
+        {isAdminDeleteOpen && recipeToDelete && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsAdminDeleteOpen(false)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              className="relative w-full max-w-md p-6 rounded-3xl bg-white dark:bg-zinc-950 border border-rose-500/30 shadow-2xl flex flex-col gap-5 z-10"
+            >
+              {/* Warning Header */}
+              <div className="flex items-center gap-3 border-b border-default-100 dark:border-zinc-800 pb-3">
+                <div className="p-2.5 rounded-2xl bg-rose-500/10 text-rose-500 border border-rose-500/20">
+                  <AlertTriangle className="h-6 w-6 stroke-[2.5]" />
+                </div>
+                <div className="flex flex-col">
+                  <h3 className="text-base font-extrabold text-rose-600 dark:text-rose-400">
+                    Admin Moderation Deletion
+                  </h3>
+                  <span className="text-xs text-default-400">Permanent Removal Action</span>
+                </div>
+              </div>
+
+              {/* Recipe Snapshot */}
+              <div className="p-3 rounded-2xl bg-default-50 dark:bg-zinc-900 border border-default-100 dark:border-zinc-800 flex items-center gap-3">
+                <img
+                  src={recipeToDelete.image}
+                  alt={recipeToDelete.title}
+                  className="h-12 w-16 rounded-xl object-cover border"
+                />
+                <div className="flex flex-col">
+                  <span className="font-bold text-xs text-foreground">{recipeToDelete.title}</span>
+                  <span className="text-[10px] text-default-400">{recipeToDelete.category} • by {recipeToDelete.author}</span>
+                </div>
+              </div>
+
+              <p className="text-xs text-default-500 leading-relaxed">
+                As an Administrator, are you sure you want to permanently purge <strong className="text-foreground">&ldquo;{recipeToDelete.title}&rdquo;</strong> from the platform platform-wide?
+              </p>
+
+              {/* Action Buttons */}
+              <div className="flex gap-2 justify-end pt-2">
+                <Button
+                  variant="outline"
+                  onClick={() => setIsAdminDeleteOpen(false)}
+                  isDisabled={isDeletingAdmin}
+                  className="font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="primary"
+                  onClick={confirmAdminDelete}
+                  isDisabled={isDeletingAdmin}
+                  className="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl px-5 py-2 flex items-center gap-1.5 shadow-md shadow-rose-600/20 border-none cursor-pointer"
+                >
+                  {isDeletingAdmin ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <>
+                      <Trash2 className="h-4 w-4" />
+                      <span>Confirm Delete</span>
+                    </>
+                  )}
+                </Button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

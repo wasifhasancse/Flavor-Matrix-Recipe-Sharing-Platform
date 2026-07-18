@@ -431,14 +431,30 @@ function DashboardContent() {
     setActiveTab("add-recipe");
   };
 
-  const handleDeleteRecipe = (id: string) => {
-    if (!session?.user) return;
-    if (!confirm("Are you sure you want to delete this recipe?")) return;
+  // Delete Recipe Modal State
+  const deleteModal = useDisclosure(false);
+  const [recipeToDelete, setRecipeToDelete] = useState<Recipe | null>(null);
+  const [isDeletingRecipe, setIsDeletingRecipe] = useState(false);
 
-    const createdKey = `created_recipes_${session.user.id}`;
-    const updated = myRecipes.filter((r) => r.id !== id);
-    setMyRecipes(updated);
-    localStorage.setItem(createdKey, JSON.stringify(updated));
+  const openDeleteModal = (recipe: Recipe) => {
+    setRecipeToDelete(recipe);
+    deleteModal.onOpen();
+  };
+
+  const handleConfirmDelete = () => {
+    if (!recipeToDelete || !session?.user) return;
+    setIsDeletingRecipe(true);
+
+    setTimeout(() => {
+      const createdKey = `created_recipes_${session.user.id}`;
+      const updated = myRecipes.filter((r) => r.id !== recipeToDelete.id);
+      setMyRecipes(updated);
+      localStorage.setItem(createdKey, JSON.stringify(updated));
+
+      setIsDeletingRecipe(false);
+      deleteModal.onClose();
+      setRecipeToDelete(null);
+    }, 500);
   };
 
   const handleUnfavorite = (id: string) => {
@@ -1319,7 +1335,7 @@ function DashboardContent() {
                               <Edit className="h-4 w-4" />
                             </button>
                             <button
-                              onClick={() => handleDeleteRecipe(recipe.id)}
+                              onClick={() => openDeleteModal(recipe)}
                               className="p-2 rounded-xl border border-default-200 dark:border-zinc-800 text-default-500 hover:text-rose-500 hover:bg-rose-500/5 transition-colors cursor-pointer"
                               title="Delete Recipe"
                             >
@@ -1698,6 +1714,85 @@ function DashboardContent() {
                   </div>
                 </form>
               )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* CUSTOM DELETE CONFIRMATION MODAL */}
+      <AnimatePresence>
+        {deleteModal.isOpen && recipeToDelete && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={deleteModal.onClose}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              className="relative w-full max-w-md p-6 rounded-3xl bg-white dark:bg-zinc-950 border border-rose-500/30 shadow-2xl flex flex-col gap-5 z-10"
+            >
+              {/* Modal Warning Header */}
+              <div className="flex items-center gap-3 border-b border-default-100 dark:border-zinc-800 pb-3">
+                <div className="p-2.5 rounded-2xl bg-rose-500/10 text-rose-500 border border-rose-500/20">
+                  <AlertTriangle className="h-6 w-6 stroke-[2.5]" />
+                </div>
+                <div className="flex flex-col">
+                  <h3 className="text-base font-extrabold text-rose-600 dark:text-rose-400">
+                    Confirm Recipe Deletion
+                  </h3>
+                  <span className="text-xs text-default-400">Destructive action</span>
+                </div>
+              </div>
+
+              {/* Recipe Snapshot Card */}
+              <div className="p-3 rounded-2xl bg-default-50 dark:bg-zinc-900 border border-default-100 dark:border-zinc-800 flex items-center gap-3">
+                <img
+                  src={recipeToDelete.image}
+                  alt={recipeToDelete.title}
+                  className="h-12 w-16 rounded-xl object-cover border"
+                />
+                <div className="flex flex-col">
+                  <span className="font-bold text-xs text-foreground">{recipeToDelete.title}</span>
+                  <span className="text-[10px] text-default-400">{recipeToDelete.category}</span>
+                </div>
+              </div>
+
+              <p className="text-xs text-default-500 leading-relaxed">
+                Are you sure you want to permanently delete <strong className="text-foreground">&ldquo;{recipeToDelete.title}&rdquo;</strong>? This action cannot be undone.
+              </p>
+
+              {/* Action Buttons */}
+              <div className="flex gap-2 justify-end pt-2">
+                <Button
+                  variant="outline"
+                  onClick={deleteModal.onClose}
+                  isDisabled={isDeletingRecipe}
+                  className="font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="primary"
+                  onClick={handleConfirmDelete}
+                  isDisabled={isDeletingRecipe}
+                  className="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl px-5 py-2 flex items-center gap-1.5 shadow-md shadow-rose-600/20 border-none cursor-pointer"
+                >
+                  {isDeletingRecipe ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <>
+                      <Trash2 className="h-4 w-4" />
+                      <span>Delete Recipe</span>
+                    </>
+                  )}
+                </Button>
+              </div>
             </motion.div>
           </div>
         )}
