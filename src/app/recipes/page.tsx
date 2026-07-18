@@ -30,7 +30,10 @@ async function fetchRecipes(params: Record<string, string | undefined>) {
   });
   
   if (!res.ok) {
-    throw new Error("Failed to fetch recipes");
+    // If there's an error (e.g. database connection failed or empty database causing 500),
+    // gracefully return an empty result so the UI shows the "No Recipes Found" message
+    console.error("Failed to fetch recipes, returning empty data.");
+    return { recipes: [], pagination: { total: 0, page: 1, limit: 6, totalPages: 1 } };
   }
   
   return res.json();
