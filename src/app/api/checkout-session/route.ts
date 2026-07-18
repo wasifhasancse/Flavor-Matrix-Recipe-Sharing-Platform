@@ -24,21 +24,21 @@ export async function POST(request: Request) {
 
     const origin = request.headers.get("origin") || "http://localhost:3000";
 
-    // Check if Stripe is configured
+    // Check if Stripe key is configured
     if (!process.env.STRIPE_SECRET_KEY) {
       console.warn(
-        "STRIPE_SECRET_KEY is not defined. Simulating Stripe checkout session in development mode."
+        "STRIPE_SECRET_KEY is not defined. Simulating Stripe checkout session redirect."
       );
-      // Return a simulated checkout redirect that immediately lands on the success page
+      const simSessionId = `cs_sim_${Math.random().toString(36).substring(2, 11)}`;
       return NextResponse.json({
-        url: `${origin}/recipes/${recipeId}?payment_success=true`,
+        url: `${origin}/payment/success?session_id=${simSessionId}&recipe_id=${recipeId}&amount=${price}`,
         simulated: true,
       });
     }
 
     // Initialize real Stripe client
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-      apiVersion: "2025-01-27.accompany" as any, // fallback dynamic cast for testing
+      apiVersion: "2025-01-27.accompany" as any,
     });
 
     const session = await stripe.checkout.sessions.create({
@@ -58,8 +58,8 @@ export async function POST(request: Request) {
         },
       ],
       mode: "payment",
-      success_url: `${origin}/recipes/${recipeId}?payment_success=true`,
-      cancel_url: `${origin}/recipes/${recipeId}?payment_cancelled=true`,
+      success_url: `${origin}/payment/success?session_id={CHECKOUT_SESSION_ID}&recipe_id=${recipeId}&amount=${price}`,
+      cancel_url: `${origin}/payment/cancel?recipe_id=${recipeId}`,
     });
 
     return NextResponse.json({ url: session.url });

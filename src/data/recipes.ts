@@ -28,6 +28,7 @@ export const mockRecipes: Recipe[] = [
     cookTime: "15 mins",
     difficulty: "Medium",
     category: "Italian",
+    price: 3.99, // Premium recipe
     ingredients: [
       "350g Spaghetti",
       "150g Pancetta or Guanciale (cubed)",

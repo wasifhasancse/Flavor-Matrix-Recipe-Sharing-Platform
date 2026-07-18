@@ -202,30 +202,10 @@ function RecipeDetailsContent({ id }: { id: string }) {
     }
   };
 
-  // Handle Stripe Purchase Action (POST)
-  const handlePurchase = async () => {
-    if (!recipe || isPurchasing) return;
-    setIsPurchasing(true);
-
-    try {
-      const res = await fetch("/api/checkout-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ recipeId: recipe.id }),
-      });
-
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        alert(data.error || "Failed to initiate payment session.");
-        setIsPurchasing(false);
-      }
-    } catch (err) {
-      console.error("Purchase error:", err);
-      alert("Failed to connect to checkout service. Please try again.");
-      setIsPurchasing(false);
-    }
+  // Handle Purchase Navigation to Payment Checkout
+  const handlePurchase = () => {
+    if (!recipe) return;
+    window.location.href = `/checkout/${recipe.id}`;
   };
 
   // Handle Report Form Submission (POST)
@@ -732,19 +712,15 @@ function RecipeDetailsContent({ id }: { id: string }) {
                 </p>
               </div>
 
-              <Button
-                variant="primary"
-                onClick={handlePurchase}
-                isDisabled={isPurchasing}
-                className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-extrabold px-10 py-4 rounded-2xl shadow-xl shadow-orange-500/25 flex items-center gap-2.5 text-base border-none hover:scale-105 transition-all cursor-pointer"
-              >
-                {isPurchasing ? (
-                  <Loader2 className="h-5 w-5 animate-spin" />
-                ) : (
+              <Link href={`/checkout/${recipe.id}`} className="no-underline">
+                <Button
+                  variant="primary"
+                  className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-extrabold px-10 py-4 rounded-2xl shadow-xl shadow-orange-500/25 flex items-center gap-2.5 text-base border-none hover:scale-105 transition-all cursor-pointer"
+                >
                   <ShoppingBag className="h-5 w-5" />
-                )}
-                <span>Unlock Now for ${recipe.price?.toFixed(2)}</span>
-              </Button>
+                  <span>Unlock Now for ${recipe.price?.toFixed(2)}</span>
+                </Button>
+              </Link>
             </div>
           )}
         </div>
@@ -778,21 +754,15 @@ function RecipeDetailsContent({ id }: { id: string }) {
                     <span>Lifetime Unlocked</span>
                   </div>
                 ) : (
-                  <Button
-                    variant="primary"
-                    onClick={handlePurchase}
-                    isDisabled={isPurchasing}
-                    className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-orange-500/20 border-none cursor-pointer"
-                  >
-                    {isPurchasing ? (
-                      <Loader2 className="h-4.5 w-4.5 animate-spin" />
-                    ) : (
-                      <>
-                        <ShoppingBag className="h-4.5 w-4.5" />
-                        <span>Buy Recipe Access</span>
-                      </>
-                    )}
-                  </Button>
+                  <Link href={`/checkout/${recipe.id}`} className="no-underline w-full">
+                    <Button
+                      variant="primary"
+                      className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-orange-500/20 border-none cursor-pointer"
+                    >
+                      <ShoppingBag className="h-4.5 w-4.5" />
+                      <span>Buy Recipe Access</span>
+                    </Button>
+                  </Link>
                 )}
               </div>
             )}
