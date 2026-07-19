@@ -269,14 +269,6 @@ export default function UserProfilePage() {
       {/* Header Breadcrumb Navigation */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div className="flex flex-col gap-1">
-          <div className="flex items-center gap-2 text-xs text-default-400">
-            <Link href="/dashboard/user" className="hover:text-primary transition-smooth flex items-center gap-1">
-              <ArrowLeft className="h-3.5 w-3.5" />
-              <span>Dashboard</span>
-            </Link>
-            <ChevronRight className="h-3 w-3" />
-            <span className="text-foreground font-semibold">User Profile</span>
-          </div>
           <h1 className="text-3xl font-extrabold text-foreground tracking-tight flex items-center gap-2.5">
             <User className="h-7 w-7 text-primary" />
             <span>Chef Profile & Settings</span>

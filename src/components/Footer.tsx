@@ -38,6 +38,10 @@ export function Footer() {
   const pathname = usePathname();
   const isDashboard = pathname?.startsWith("/dashboard");
 
+  if (isDashboard) {
+    return null;
+  }
+
   const footerLinks = {
     explore: [
       { label: "All Recipes", href: "/recipes" },
@@ -59,7 +63,7 @@ export function Footer() {
   };
 
   return (
-    <footer className={`w-full bg-gradient-subtle transition-smooth py-16 px-4 md:px-8 ${isDashboard ? 'lg:pl-64' : ''}`}>
+    <footer className="w-full bg-gradient-subtle transition-smooth py-16 px-4 md:px-8">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12">
         {/* Brand Information Column */}
         <div className="col-span-1 md:col-span-2 flex flex-col gap-4">

@@ -4,6 +4,7 @@ import "./globals.css";
 import { Providers } from "@/components/providers";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { DynamicBreadcrumb } from "@/components/shared/DynamicBreadcrumb";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,6 +36,7 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           <main className="flex-grow pt-16 flex flex-col">
+            <DynamicBreadcrumb />
             {children}
           </main>
           <Footer />

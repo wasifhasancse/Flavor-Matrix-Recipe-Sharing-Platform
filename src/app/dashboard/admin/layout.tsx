@@ -15,6 +15,7 @@ import {
   X,
   Shield,
   Loader2,
+  LogOut,
 } from "lucide-react";
 
 export default function AdminDashboardLayout({ children }: { children: React.ReactNode }) {
@@ -96,7 +97,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
         </nav>
 
         {/* Transactions Direct Link */}
-        <div className="pb-8 lg:pb-0">
+        <div className="pb-4">
           <Link href="/dashboard/admin/transactions" className="no-underline block" onClick={() => setIsSidebarOpen(false)}>
             <Button
               variant="outline"
@@ -110,6 +111,19 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
               <span>Transaction Logs</span>
             </Button>
           </Link>
+        </div>
+
+        {/* Sign Out Button */}
+        <div className="mt-auto pb-8 lg:pb-0">
+          <Button
+            variant="flat"
+            color="danger"
+            onClick={() => authClient.signOut()}
+            className="w-full font-bold text-xs py-2.5 rounded-xl flex items-center justify-center gap-2 cursor-pointer transition-smooth bg-danger/10 text-danger hover:bg-danger hover:text-white"
+          >
+            <LogOut className="h-4 w-4" />
+            <span>Sign Out</span>
+          </Button>
         </div>
       </aside>
 

@@ -24,6 +24,7 @@ import {
   Sparkles,
   ArrowDownToLine,
   Loader2,
+  LogOut,
 } from "lucide-react";
 
 export default function UserDashboardLayout({ children }: { children: React.ReactNode }) {
@@ -141,6 +142,19 @@ export default function UserDashboardLayout({ children }: { children: React.Reac
           >
             <ArrowDownToLine className="h-3.5 w-3.5" />
             <span>Withdraw Money</span>
+          </Button>
+        </div>
+
+        {/* Sign Out Button */}
+        <div className="pb-8 lg:pb-0">
+          <Button
+            variant="flat"
+            color="danger"
+            onClick={() => authClient.signOut()}
+            className="w-full font-bold text-xs py-2.5 rounded-xl flex items-center justify-center gap-2 cursor-pointer transition-smooth bg-danger/10 text-danger hover:bg-danger hover:text-white"
+          >
+            <LogOut className="h-4 w-4" />
+            <span>Sign Out</span>
           </Button>
         </div>
       </aside>
