@@ -17,6 +17,9 @@ import {
   Loader2,
   LogOut,
   Settings,
+  Wallet,
+  Tags,
+  Radio,
 } from "lucide-react";
 
 export default function AdminDashboardLayout({ children }: { children: React.ReactNode }) {
@@ -78,6 +81,9 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
             { label: "Recipe Approvals", icon: BookOpen, href: "/dashboard/admin/recipes" },
             { label: "Moderation Reports", icon: Flag, href: "/dashboard/admin/reports" },
             { label: "Platform Settings", icon: Settings, href: "/dashboard/admin/settings" },
+            { label: "Revenue & Withdrawals", icon: Wallet, href: "/dashboard/admin/withdrawals" },
+            { label: "Categories", icon: Tags, href: "/dashboard/admin/categories" },
+            { label: "Broadcasts", icon: Radio, href: "/dashboard/admin/broadcasts" },
           ].map((item) => {
             const isSelected = pathname === item.href;
             return (
