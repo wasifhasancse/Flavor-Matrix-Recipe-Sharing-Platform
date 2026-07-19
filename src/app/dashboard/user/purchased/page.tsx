@@ -63,7 +63,7 @@ export default function PurchasedRecipesPage() {
 
         // Map payments to UI items, enriching with recipe metadata from mock data
         const enriched: PurchasedRecipeItem[] = payments
-          .filter((p) => p.paymentStatus === "paid")
+          .filter((p) => p.paymentStatus === "paid" && (p.itemType === "recipe" || p.recipeId))
           .map((p) => {
             const recipe = mockRecipes.find((r) => r.id === p.recipeId);
             return {
@@ -105,9 +105,9 @@ export default function PurchasedRecipesPage() {
 
   const filteredList = purchasedList.filter(
     (item) =>
-      item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.author.toLowerCase().includes(searchTerm.toLowerCase())
+      item.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.category?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.author?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const totalPages = Math.ceil(filteredList.length / ITEMS_PER_PAGE) || 1;
