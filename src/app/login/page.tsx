@@ -100,13 +100,10 @@ function LoginFormContent() {
       {/* Left side: Branding & Image (hidden on small screens) */}
       <div className="hidden md:flex md:w-1/2 relative bg-zinc-900 overflow-hidden">
         {/* Background Image */}
-        <div 
-          className="absolute inset-0 z-0 opacity-50"
-          style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1495195134817-a1a2807fac25?q=80&w=2000&auto=format&fit=crop')",
-            backgroundSize: "cover",
-            backgroundPosition: "center"
-          }}
+        <img 
+          src="https://images.unsplash.com/photo-1495195134817-a1a2807fac25?q=80&w=2000&auto=format&fit=crop"
+          alt="Flavor Matrix Splash"
+          className="absolute inset-0 w-full h-full object-cover z-0 opacity-50"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-transparent z-10"></div>
@@ -130,12 +127,12 @@ function LoginFormContent() {
       </div>
 
       {/* Right side: Form */}
-      <div className="w-full md:w-1/2 p-8 sm:p-12 flex flex-col justify-center relative bg-background/50 backdrop-blur-sm">
+      <div className="w-full md:w-1/2 p-8 sm:p-12 flex flex-col justify-center gap-6 relative bg-background/50 backdrop-blur-sm">
         {/* Decorative Glow */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[80px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/3"></div>
 
         {/* Header */}
-        <div className="flex flex-col gap-1 mb-8 relative z-10">
+        <div className="flex flex-col gap-1 relative z-10">
           <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
             Sign In
           </h1>
