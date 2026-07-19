@@ -204,11 +204,11 @@ function LoginFormContent() {
               <button
                 type="button"
                 onClick={() => handleDemoLogin("admin")}
-                className="flex-1 group relative overflow-hidden flex items-center justify-center gap-2 text-sm py-2.5 px-4 rounded-xl border border-primary/30 bg-primary/5 hover:bg-primary/10 text-primary font-semibold transition-all duration-300"
+                className="flex-1 group relative overflow-hidden flex items-center justify-center gap-2 text-sm py-2.5 px-4 rounded-xl border border-orange-500/30 bg-orange-500/5 hover:bg-orange-500/10 text-orange-600 dark:text-orange-400 font-semibold transition-all duration-300"
               >
                 <ShieldCheck className="w-4 h-4" />
                 Admin
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-orange-500/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500"></div>
               </button>
               <button
                 type="button"
@@ -225,9 +225,7 @@ function LoginFormContent() {
           {/* Submit */}
           <Button
             type="submit"
-            variant="primary"
-            size="lg"
-            className="w-full font-bold shadow-md shadow-primary/40 mt-4 text-white"
+            className="w-full bg-orange-500 text-white font-semibold py-2.5 rounded-lg flex items-center justify-center gap-2 hover:bg-orange-600 shadow-md shadow-orange-500/40 hover:shadow-lg hover:shadow-orange-500/50 hover:-translate-y-0.5 transition-all duration-300 mt-2"
             isDisabled={isLoading || isGoogleLoading}
           >
             {isLoading ? (

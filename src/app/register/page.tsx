@@ -250,9 +250,7 @@ function RegisterFormContent() {
           {/* Submit */}
           <Button
             type="submit"
-            variant="primary"
-            size="lg"
-            className="w-full font-bold shadow-md shadow-primary/40 mt-4 text-white"
+            className="w-full bg-orange-500 text-white font-semibold py-2.5 rounded-lg flex items-center justify-center gap-2 hover:bg-orange-600 shadow-md shadow-orange-500/40 hover:shadow-lg hover:shadow-orange-500/50 hover:-translate-y-0.5 transition-all duration-300 mt-2"
             isDisabled={isLoading || !isPasswordValid}
           >
             {isLoading ? (
