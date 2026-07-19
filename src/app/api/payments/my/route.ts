@@ -16,12 +16,33 @@ export async function GET() {
     }
 
     const paymentsCollection = db.collection("payments");
-    const payments = await paymentsCollection
+    const subscriptionsCollection = db.collection("subscriptions");
+
+    const recipePayments = await paymentsCollection
       .find({ userId: user.id })
-      .sort({ paidAt: -1 })
       .toArray();
 
-    return NextResponse.json({ success: true, payments });
+    const subscriptions = await subscriptionsCollection
+      .find({ userId: user.id })
+      .toArray();
+
+    const unified = [
+      ...recipePayments.map((p: any) => ({
+        ...p,
+        itemType: "recipe",
+      })),
+      ...subscriptions.map((s: any) => ({
+        ...s,
+        itemType: "subscription",
+        transactionId: s.sessionId,
+        paymentStatus: s.status === "active" || s.status === "superseded" ? "paid" : "pending",
+        paidAt: s.createdAt,
+      }))
+    ];
+
+    unified.sort((a: any, b: any) => new Date(b.paidAt || b.createdAt).getTime() - new Date(a.paidAt || a.createdAt).getTime());
+
+    return NextResponse.json({ success: true, payments: unified });
   } catch (error: any) {
     console.error("[payments/my] error:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });

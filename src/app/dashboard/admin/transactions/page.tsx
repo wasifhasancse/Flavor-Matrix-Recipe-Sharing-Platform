@@ -107,18 +107,22 @@ export default function AdminTransactionsPage() {
   };
 
   // Helper to map recipe title from recipeId
-  const getRecipeTitle = (recipeId: string) => {
-    if (recipeId === "MEMBERSHIP_UPGRADE") return "Lifetime Premium Upgrade";
-    const found = mockRecipes.find((r) => r.id === recipeId);
-    return found ? found.title : `Premium Recipe (${recipeId})`;
+  const getRecipeTitle = (txn: any) => {
+    if (txn.itemType === "subscription") {
+      return `${txn.plan?.charAt(0).toUpperCase() + txn.plan?.slice(1)} Subscription`;
+    }
+    const found = mockRecipes.find((r) => r.id === txn.recipeId);
+    return found ? found.title : `Premium Recipe (${txn.recipeId})`;
   };
 
   // Filtered Transactions Computation
-  const filteredTransactions = transactions.filter((txn) => {
+  const filteredTransactions = transactions.filter((txn: any) => {
+    const titleMatch = getRecipeTitle(txn).toLowerCase().includes(searchTerm.toLowerCase());
+    
     const matchesSearch =
-      txn.userEmail.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      txn.transactionId.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      txn.recipeId.toLowerCase().includes(searchTerm.toLowerCase());
+      txn.userEmail?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      txn.transactionId?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      titleMatch;
 
     const matchesStatus =
       statusFilter === "all" || txn.paymentStatus.toLowerCase() === statusFilter.toLowerCase();
@@ -382,13 +386,13 @@ export default function AdminTransactionsPage() {
                       {/* Column 2: Product Reference */}
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-1.5">
-                          {txn.recipeId === "MEMBERSHIP_UPGRADE" ? (
+                          {(txn as any).itemType === "subscription" ? (
                             <Sparkles className="h-4 w-4 text-amber-500 shrink-0" />
                           ) : (
                             <ShoppingBag className="h-4 w-4 text-emerald-500 shrink-0" />
                           )}
                           <span className="font-semibold text-xs text-foreground truncate max-w-[180px]">
-                            {getRecipeTitle(txn.recipeId)}
+                            {getRecipeTitle(txn)}
                           </span>
                         </div>
                       </td>

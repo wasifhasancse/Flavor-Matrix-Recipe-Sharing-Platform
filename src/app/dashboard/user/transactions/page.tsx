@@ -85,8 +85,8 @@ export default function UserTransactionsPage() {
           return {
             id: p._id?.toString() || `txn-${idx}`,
             transactionId: p.transactionId || "",
-            type: "purchase" as const,
-            title: recipe?.title || p.recipeId || "Premium Recipe",
+            type: p.itemType === "subscription" ? "upgrade" : "purchase",
+            title: p.itemType === "subscription" ? `${p.plan?.charAt(0).toUpperCase() + p.plan?.slice(1)} Subscription` : (recipe?.title || p.recipeId || "Premium Recipe"),
             amount: Number(p.amount) || 0,
             paymentStatus:
               p.paymentStatus === "paid" ? "succeeded" : p.paymentStatus || "pending",
