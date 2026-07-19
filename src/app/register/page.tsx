@@ -4,12 +4,13 @@ import React, { useState, useEffect, Suspense } from "react";
 import { TextField, Label, Input, Button, Link } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter, useSearchParams } from "next/navigation";
-import { User, Mail, Lock, Image as ImageIcon, UserPlus, Loader2, ArrowLeft, Check, X } from "lucide-react";
+import { User, Mail, Lock, Image as ImageIcon, UserPlus, Loader2, ArrowLeft, Check, X, Eye, EyeOff } from "lucide-react";
 
 function RegisterFormContent() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -85,10 +86,13 @@ function RegisterFormContent() {
   }
 
   return (
-    <div className="w-full max-w-md p-8 rounded-2xl bg-white/70 dark:bg-zinc-900/70 backdrop-blur-md border border-default-100 dark:border-zinc-800 shadow-xl flex flex-col gap-6">
+    <div className="w-full max-w-md p-8 rounded-3xl bg-content1 border border-divider shadow-2xl flex flex-col gap-6 relative overflow-hidden">
+      {/* Decorative Glow */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[80px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/3"></div>
+
       {/* Header */}
-      <div className="flex flex-col gap-1 text-center">
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">
+      <div className="flex flex-col gap-1 text-center relative z-10">
+        <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
           Create an Account
         </h1>
         <p className="text-sm text-default-500">
@@ -158,13 +162,20 @@ function RegisterFormContent() {
           <div className="relative flex items-center">
             <Lock className="absolute left-3 h-4 w-4 text-default-400" />
             <Input
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 text-sm rounded-lg bg-default-50 dark:bg-zinc-800/50 border border-default-200 dark:border-zinc-700 focus:border-primary focus:bg-background outline-none transition-all text-foreground"
+              className="w-full pl-10 pr-10 py-2 text-sm rounded-lg bg-default-50 dark:bg-zinc-800/50 border border-default-200 dark:border-zinc-700 focus:border-primary focus:bg-background outline-none transition-all text-foreground"
               required
             />
+            <button 
+              type="button" 
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 p-1 rounded-md text-default-400 hover:text-foreground transition-colors focus:outline-none"
+            >
+              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
           </div>
 
           {/* Password Validation Requirements Checkbox List */}
@@ -236,7 +247,13 @@ function RegisterFormContent() {
 
 export default function RegisterPage() {
   return (
-    <div className="flex-grow flex items-center justify-center py-12 px-4 bg-default-50 dark:bg-black transition-colors">
+    <div className="flex-grow flex items-center justify-center pt-28 pb-12 px-4 bg-background relative transition-colors min-h-screen">
+      {/* Background Decor */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
+        <div className="absolute top-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-primary/5 blur-[120px]"></div>
+        <div className="absolute bottom-[20%] right-[10%] w-[30%] h-[30%] rounded-full bg-amber-500/5 blur-[100px]"></div>
+      </div>
+      
       <Suspense
         fallback={
           <div className="flex flex-col items-center justify-center min-h-[60vh]">
