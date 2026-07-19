@@ -25,7 +25,7 @@ async function fetchRecipes(params: Record<string, string | undefined>) {
     if (value && value !== "All") urlParams.set(key, value);
   });
   
-  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://127.0.0.1:5000";
   const res = await fetch(`${baseUrl}/api/recipes?${urlParams.toString()}`, {
     cache: "no-store",
   });
@@ -66,7 +66,7 @@ export default async function RecipesPage(props: RecipesPageProps) {
             Showing {totalRecipes} delicious recipes matching your criteria
           </p>
         </div>
-        <Link href="/dashboard/add-recipe" className="no-underline">
+        <Link href="/dashboard/user/add-recipe" className="no-underline">
           <Button
             variant="primary"
             size="sm"
