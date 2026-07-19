@@ -69,34 +69,7 @@ export default function CheckoutSummaryPage(props: CheckoutPageProps) {
     };
   }, [recipeId]);
 
-  // Handle Stripe Checkout Session Trigger
-  const handleConfirmPayment = async () => {
-    if (!recipe || isSubmitting) return;
-    setIsSubmitting(true);
-
-    try {
-      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
-      const res = await fetch(`${baseUrl}/api/checkout-session`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ recipeId: recipe.id }),
-      });
-
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        alert(data.error || "Failed to initialize checkout.");
-        setIsSubmitting(false);
-      }
-    } catch (err) {
-      console.error("Checkout submission error:", err);
-      alert("Network error connecting to payment gateway.");
-      setIsSubmitting(false);
-    }
-  };
-
-  // Handle Promo Code Apply Mockup
+  // Promo Code Apply
   const handleApplyPromo = (e: React.FormEvent) => {
     e.preventDefault();
     if (!promoCode.trim() || !recipe) return;
@@ -328,26 +301,25 @@ export default function CheckoutSummaryPage(props: CheckoutPageProps) {
               )}
             </form>
 
-            {/* Primary Confirm Payment HeroUI Button */}
-            <Button
-              variant="primary"
-              size="lg"
-              onClick={handleConfirmPayment}
-              isDisabled={isSubmitting}
-              className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-extrabold py-4 rounded-2xl shadow-xl shadow-orange-500/25 flex items-center justify-center gap-2.5 text-base border-none cursor-pointer hover:scale-[1.02] transition-all"
-            >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="h-5 w-5 animate-spin" />
-                  <span>Connecting to Stripe...</span>
-                </>
-              ) : (
-                <>
-                  <Lock className="h-5 w-5" />
-                  <span>Confirm Payment (${finalPrice.toFixed(2)})</span>
-                </>
-              )}
-            </Button>
+            {/* Primary Confirm Payment - HTML Form for direct Stripe redirect */}
+            <form action="/api/checkout-session" method="POST">
+              {/* Hidden metadata bindings */}
+              <input type="hidden" name="recipeId" value={recipe.id} />
+              <input type="hidden" name="price" value={finalPrice.toFixed(2)} />
+              <input type="hidden" name="recipeName" value={recipe.title} />
+              <input type="hidden" name="recipeAuthor" value={recipe.author} />
+              <input type="hidden" name="recipeImage" value={recipe.image} />
+
+              <button
+                type="submit"
+                className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-extrabold py-4 rounded-2xl shadow-xl shadow-orange-500/25 flex items-center justify-center gap-2.5 text-base border-none cursor-pointer hover:scale-[1.02] transition-all"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+                <span>Confirm &amp; Pay ${finalPrice.toFixed(2)} via Stripe</span>
+              </button>
+            </form>
 
             {/* Security Guarantee Snippet */}
             <div className="flex flex-col items-center text-center gap-1 pt-2">
