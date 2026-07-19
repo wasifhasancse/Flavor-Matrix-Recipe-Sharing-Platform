@@ -46,6 +46,10 @@ export function Navbar() {
     });
   };
 
+  const userRole = (session?.user as { role?: string })?.role;
+  const dashboardLink = userRole === "admin" ? "/dashboard/admin" : "/dashboard/user";
+  const isDashboard = pathname?.startsWith("/dashboard");
+
   const navLinks = [
     { label: "Home", href: "/" },
     { label: "Recipes", href: "/recipes" },
@@ -53,9 +57,9 @@ export function Navbar() {
     { label: "About", href: "/about" },
   ];
 
-  const userRole = (session?.user as { role?: string })?.role;
-  const dashboardLink = userRole === "admin" ? "/dashboard/admin" : "/dashboard/user";
-  const isDashboard = pathname?.startsWith("/dashboard");
+  if (session) {
+    navLinks.push({ label: "Dashboard", href: dashboardLink });
+  }
 
   return (
     <header
@@ -224,14 +228,7 @@ export function Navbar() {
           {!isPending && (
             <div>
               {session ? (
-                <div className="flex flex-col gap-2">
-                  <Link
-                    href={dashboardLink}
-                    className="w-full text-lg py-2 text-foreground/70 font-medium hover:text-foreground"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Dashboard
-                  </Link>
+                <div className="flex flex-col gap-2 mt-2">
                   <Link
                     href="/settings"
                     className="w-full text-lg py-2 text-foreground/70 font-medium hover:text-foreground"
