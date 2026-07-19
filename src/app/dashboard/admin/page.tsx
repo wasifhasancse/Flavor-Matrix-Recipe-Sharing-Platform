@@ -3,7 +3,7 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Button } from "@heroui/react";
+import { Button, Chip } from "@heroui/react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import {
@@ -82,6 +82,7 @@ function AdminDashboardContent() {
   const [reportsList, setReportsList] = useState<MockReport[]>([]);
   const [totalRevenue, setTotalRevenue] = useState<number>(0);
   const [totalTransactions, setTotalTransactions] = useState<number>(0);
+  const [dbStats, setDbStats] = useState<any>(null);
 
   useEffect(() => {
     if (!session?.user) return;
@@ -93,21 +94,14 @@ function AdminDashboardContent() {
     const merged = [...userRecipes, ...mockRecipes];
     setAllRecipes(merged);
 
+    // Users and Reports are now dynamically fetched from the backend.
+    // Keeping minimal mock list for local UI testing if needed, but the counts will be real.
     const usersKey = `admin_mock_users`;
     const storedUsers = localStorage.getItem(usersKey);
     if (storedUsers) {
       setUsersList(JSON.parse(storedUsers));
     } else {
-      const defaultUsers: MockUser[] = [
-        { id: "usr-1", name: "Chef Luigi", email: "luigi@carbonara.it", isPremium: true, isBlocked: false, role: "user" },
-        { id: "usr-2", name: "Sarah Baker", email: "sarah@sweetlava.com", isPremium: true, isBlocked: false, role: "user" },
-        { id: "usr-3", name: "Elena Gomez", email: "elena@crispyavocados.mx", isPremium: false, isBlocked: false, role: "user" },
-        { id: "usr-4", name: "Nalee Siriporn", email: "nalee@green-curry.th", isPremium: true, isBlocked: false, role: "user" },
-        { id: "usr-5", name: "John Doe", email: "john@doe.com", isPremium: false, isBlocked: true, role: "user" },
-        { id: "usr-6", name: "Admin Chief", email: "admin@flavormatrix.com", isPremium: true, isBlocked: false, role: "admin" },
-      ];
-      localStorage.setItem(usersKey, JSON.stringify(defaultUsers));
-      setUsersList(defaultUsers);
+      setUsersList([]);
     }
 
     const reportsKey = `admin_mock_reports`;
@@ -125,6 +119,20 @@ function AdminDashboardContent() {
       localStorage.setItem(reportsKey, JSON.stringify(defaultReports));
       setReportsList(defaultReports);
     }
+
+    // Fetch dynamic admin stats
+    fetch("/api/admin/dashboard")
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.success) {
+          // We can attach stats to a state if we create one, or just update variables
+          // Since we already have state for recipes, let's use the actual DB counts for the overview cards
+          // For now, we will map them into the existing variables or create new ones
+          setDbStats(d.stats);
+        }
+      })
+      .catch(() => {});
+
     // Fetch real payments revenue
     fetch("/api/payments/admin")
       .then((r) => r.json())
@@ -146,11 +154,9 @@ function AdminDashboardContent() {
     );
   }
 
-  const isAdmin =
-    session?.user?.email === "admin@flavormatrix.com" ||
-    usersList.find((u) => u.email === session?.user?.email)?.role === "admin";
+  const isAdmin = (session?.user as any)?.role === "admin";
 
-  if (!session || !isAdmin) {
+  if (!isAdmin) {
     return (
       <div className="flex-grow max-w-md mx-auto py-20 px-4 text-center flex flex-col items-center gap-5">
         <Lock className="h-16 w-16 text-danger animate-pulse" />
@@ -167,13 +173,13 @@ function AdminDashboardContent() {
     );
   }
 
-  const totalUsers = usersList.length;
-  const premiumUsers = usersList.filter((u) => u.isPremium).length;
-  const totalReports = reportsList.length;
+  const totalUsers = dbStats?.totalUsers || usersList.length;
+  const premiumUsers = dbStats?.premiumUsers || usersList.filter((u) => u.isPremium).length;
+  const totalRecipes = dbStats?.totalRecipes || allRecipes.length;
+  const totalReports = dbStats?.totalReports || reportsList.length;
 
   return (
     <div className="flex-grow max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8 bg-background">
-      {/* Page Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-default-100 dark:border-zinc-800 pb-6">
         <div className="flex flex-col gap-1">
           <DynamicBreadcrumb />
@@ -211,7 +217,7 @@ function AdminDashboardContent() {
               </div>
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-2xl font-extrabold text-foreground">{allRecipes.length}</span>
+              <span className="text-2xl font-extrabold text-foreground">{totalRecipes}</span>
               <div className="flex items-center gap-1 text-[10px] font-bold text-emerald-500">
                 <TrendingUp className="h-3 w-3" />
                 <span>+8.5% MoM</span>
@@ -236,18 +242,15 @@ function AdminDashboardContent() {
           </motion.div>
 
           <motion.div whileHover={{ y: -4 }} className="p-5 rounded-3xl glass-panel ambient-glow-orange flex flex-col justify-between gap-3">
-            <div className="flex justify-between items-start">
-              <span className="text-[10px] font-extrabold uppercase tracking-wider text-default-400">Moderation</span>
-              <div className="p-2 rounded-xl bg-rose-500/10 text-rose-500 border border-rose-500/20">
-                <Flag className="h-4 w-4" />
+            <div className="flex justify-between items-start mb-4">
+              <div className="p-3 bg-danger/10 text-danger rounded-2xl">
+                <ShieldAlert className="h-6 w-6" />
               </div>
+              <Chip size="sm" color="danger" variant="soft" className="font-bold border-none">Action Needed</Chip>
             </div>
-            <div className="flex flex-col gap-1">
-              <span className="text-2xl font-extrabold text-foreground">{totalReports}</span>
-              <div className="flex items-center gap-1 text-[10px] font-bold text-emerald-500">
-                <TrendingDown className="h-3 w-3" />
-                <span>-5.3% down</span>
-              </div>
+            <div>
+              <p className="text-default-500 font-semibold text-xs uppercase tracking-widest mb-1">Active Reports</p>
+              <h3 className="text-3xl font-extrabold text-foreground">{dbStats?.totalReports || reportsList.filter(r => r.status === "pending").length}</h3>
             </div>
           </motion.div>
 

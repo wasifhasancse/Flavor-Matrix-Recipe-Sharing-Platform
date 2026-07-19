@@ -343,9 +343,9 @@ export default function AdminRecipesPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-default-100 dark:divide-zinc-800 text-foreground">
-                  {paginatedRecipes.map((rcp) => (
+                  {paginatedRecipes.map((rcp, idx) => (
                     <tr
-                      key={rcp.id}
+                      key={`${rcp.id || (rcp as any)._id}-${idx}`}
                       className="hover:bg-default-100 dark:hover:bg-zinc-800 cursor-pointer transition-smooth"
                     >
                       {/* Column 1: Recipe Preview (Image & Name) */}
