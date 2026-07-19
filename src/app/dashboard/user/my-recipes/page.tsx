@@ -85,23 +85,28 @@ export default function MyRecipesPage() {
     setTimeout(() => setToastMessage(null), 3500);
   };
 
-  // Load User Recipes from localStorage or seed
+  // Load User Recipes from backend
   useEffect(() => {
     if (!session?.user) return;
 
     setIsLoading(true);
-    const createdKey = `created_recipes_${session.user.id}`;
-    const stored = localStorage.getItem(createdKey);
-
-    if (stored) {
-      setRecipes(JSON.parse(stored));
-    } else {
-      // Initial seed with mock data for rich demonstration
-      const initialSeed = mockRecipes.slice(0, 3);
-      setRecipes(initialSeed);
-      localStorage.setItem(createdKey, JSON.stringify(initialSeed));
-    }
-    setIsLoading(false);
+    fetch(`http://localhost:5000/api/recipes?authorId=${session.user.id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        // Map MongoDB _id to frontend id
+        const fetchedRecipes = (data.recipes || []).map((r: any) => ({
+          ...r,
+          id: r._id,
+        }));
+        setRecipes(fetchedRecipes);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch recipes", err);
+        setRecipes([]);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, [session]);
 
   // Handle Image File Upload to ImgBB

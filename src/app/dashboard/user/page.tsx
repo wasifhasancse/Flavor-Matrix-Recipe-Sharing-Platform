@@ -153,16 +153,16 @@ function DashboardContent() {
 
   useEffect(() => {
     if (session?.user) {
-      const createdKey = `created_recipes_${session.user.id}`;
-      const stored = localStorage.getItem(createdKey);
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        setMyRecipes(parsed);
-      } else {
-        const seed = mockRecipes.slice(0, 2);
-        setMyRecipes(seed);
-        localStorage.setItem(createdKey, JSON.stringify(seed));
-      }
+      fetch(`http://localhost:5000/api/recipes?authorId=${session.user.id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          const fetchedRecipes = (data.recipes || []).map((r: any) => ({
+            ...r,
+            id: r._id,
+          }));
+          setMyRecipes(fetchedRecipes);
+        })
+        .catch(console.error);
 
       fetch("/api/subscription/recipe-limit")
         .then((res) => res.json())
