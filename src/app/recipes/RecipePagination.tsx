@@ -1,7 +1,8 @@
 "use client";
 
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { Pagination } from "@heroui/react";
+import { Button } from "@heroui/react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface RecipePaginationProps {
   total: number;
@@ -23,12 +24,52 @@ export function RecipePagination({ total, initialPage }: RecipePaginationProps) 
   if (total <= 1) return null;
 
   return (
-    <div className="flex justify-center items-center mt-8 w-full">
-      <Pagination
-        total={total}
-        page={initialPage}
-        onChange={handlePageChange}
-      />
+    <div className="flex justify-center items-center mt-12 w-full">
+      <div className="flex items-center gap-2 p-2 bg-default-50/50 dark:bg-zinc-900/30 backdrop-blur-xl border border-default-200 dark:border-zinc-800/80 rounded-2xl shadow-sm">
+        <Button
+          isIconOnly
+          variant="flat"
+          radius="lg"
+          className="bg-transparent hover:bg-default-100 data-[hover=true]:bg-default-100"
+          onPress={() => handlePageChange(initialPage - 1)}
+          isDisabled={initialPage <= 1}
+          aria-label="Previous page"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </Button>
+
+        <div className="flex items-center gap-1.5 px-2">
+          {Array.from({ length: total }, (_, i) => i + 1).map((p) => (
+            <Button
+              key={p}
+              isIconOnly
+              radius="lg"
+              variant={p === initialPage ? "solid" : "light"}
+              color={p === initialPage ? "primary" : "default"}
+              className={`font-bold transition-all ${
+                p === initialPage 
+                  ? "shadow-md shadow-primary/30" 
+                  : "text-default-600 hover:text-foreground"
+              }`}
+              onPress={() => handlePageChange(p)}
+            >
+              {p}
+            </Button>
+          ))}
+        </div>
+
+        <Button
+          isIconOnly
+          variant="flat"
+          radius="lg"
+          className="bg-transparent hover:bg-default-100 data-[hover=true]:bg-default-100"
+          onPress={() => handlePageChange(initialPage + 1)}
+          isDisabled={initialPage >= total}
+          aria-label="Next page"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </Button>
+      </div>
     </div>
   );
 }
