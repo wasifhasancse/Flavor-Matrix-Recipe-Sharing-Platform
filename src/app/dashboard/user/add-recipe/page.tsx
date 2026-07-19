@@ -172,7 +172,7 @@ export default function AddRecipePage() {
       const token = tokenData.token;
       localStorage.setItem("token", token);
 
-      const res = await fetch("http://localhost:5000/api/recipes", {
+      const res = await fetch("http://127.0.0.1:5000/api/recipes", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

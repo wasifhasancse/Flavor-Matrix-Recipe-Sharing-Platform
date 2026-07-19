@@ -153,7 +153,7 @@ function DashboardContent() {
 
   useEffect(() => {
     if (session?.user) {
-      fetch(`http://localhost:5000/api/recipes?authorId=${session.user.id}`)
+      fetch(`http://127.0.0.1:5000/api/recipes?authorId=${session.user.id}`)
         .then((res) => res.json())
         .then((data) => {
           const fetchedRecipes = (data.recipes || []).map((r: any) => ({

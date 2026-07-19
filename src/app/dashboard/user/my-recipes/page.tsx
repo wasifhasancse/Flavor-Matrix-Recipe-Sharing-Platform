@@ -90,7 +90,7 @@ export default function MyRecipesPage() {
     if (!session?.user) return;
 
     setIsLoading(true);
-    fetch(`http://localhost:5000/api/recipes?authorId=${session.user.id}`)
+    fetch(`http://127.0.0.1:5000/api/recipes?authorId=${session.user.id}`)
       .then((res) => res.json())
       .then((data) => {
         // Map MongoDB _id to frontend id
