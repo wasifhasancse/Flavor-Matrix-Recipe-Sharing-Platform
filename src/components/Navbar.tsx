@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Button, Link } from "@heroui/react";
+import { Button } from "@heroui/react";
+import Link from "next/link";
 import { ThemeSwitcher } from "@/components/shared/ThemeSwitcher";
 import { authClient } from "@/lib/auth-client";
 import { ChefHat, LayoutDashboard, LogOut, Settings, Menu, X } from "lucide-react";
@@ -52,12 +53,15 @@ export function Navbar() {
     { label: "About", href: "/about" },
   ];
 
+  const userRole = (session?.user as { role?: string })?.role;
+  const dashboardLink = userRole === "admin" ? "/dashboard/admin" : "/dashboard/user";
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-smooth ${
         scrolled
-          ? "glass-panel shadow-[0_4px_20px_rgba(249,115,22,0.05)]"
-          : "bg-background/40 backdrop-blur-sm border-b border-transparent"
+          ? "bg-white/80 dark:bg-zinc-950/80 backdrop-blur-lg border-b border-default-100 dark:border-zinc-800 shadow-sm"
+          : "bg-transparent border-b border-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -131,7 +135,7 @@ export function Navbar() {
                   </button>
                   {isProfileOpen && (
                     <div
-                      className="absolute right-0 mt-2 w-56 rounded-xl glass-panel ambient-glow-orange py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150"
+                      className="absolute right-0 mt-2 w-56 rounded-xl bg-white dark:bg-zinc-900 border border-default-200 dark:border-zinc-800 shadow-lg py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <div className="px-4 py-2 border-b border-default-100 dark:border-zinc-800">
@@ -140,7 +144,7 @@ export function Navbar() {
                       </div>
                       <div className="py-1">
                         <Link
-                          href="/dashboard"
+                          href={dashboardLink}
                           className="flex items-center gap-2 px-4 py-2 text-sm text-default-600 hover:text-foreground hover:bg-default-100 dark:hover:bg-zinc-800 transition-colors w-full justify-start font-medium"
                           onClick={() => setIsProfileOpen(false)}
                         >
@@ -197,7 +201,7 @@ export function Navbar() {
 
       {/* Mobile Drawer/Menu Panel */}
       {isMobileMenuOpen && (
-        <div className="sm:hidden fixed inset-x-0 top-16 glass-panel ambient-glow-orange z-45 flex flex-col p-4 gap-4 animate-in slide-in-from-top duration-200">
+        <div className="sm:hidden fixed inset-x-0 top-16 bg-white dark:bg-zinc-900 border-b border-default-200 dark:border-zinc-800 shadow-lg z-45 flex flex-col p-4 gap-4 animate-in slide-in-from-top duration-200">
           <nav className="flex flex-col gap-2">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
@@ -208,7 +212,7 @@ export function Navbar() {
                   className={`w-full text-lg py-2 font-medium ${
                     isActive ? "text-primary font-semibold" : "text-default-600"
                   }`}
-                  onPress={() => setIsMobileMenuOpen(false)}
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}
                 </Link>
@@ -221,16 +225,16 @@ export function Navbar() {
               {session ? (
                 <div className="flex flex-col gap-2">
                   <Link
-                    href="/dashboard"
+                    href={dashboardLink}
                     className="w-full text-lg py-2 text-default-600 font-medium"
-                    onPress={() => setIsMobileMenuOpen(false)}
+                    onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Dashboard
                   </Link>
                   <Link
                     href="/settings"
                     className="w-full text-lg py-2 text-default-600 font-medium"
-                    onPress={() => setIsMobileMenuOpen(false)}
+                    onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Settings
                   </Link>
@@ -250,14 +254,14 @@ export function Navbar() {
                   <Link
                     href="/login"
                     className="w-full font-medium border border-default-200 dark:border-zinc-800 rounded-lg py-2 flex items-center justify-center text-foreground hover:bg-default-50 transition-colors"
-                    onPress={() => setIsMobileMenuOpen(false)}
+                    onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Sign In
                   </Link>
                   <Link
                     href="/register"
                     className="w-full font-medium bg-primary text-primary-foreground rounded-lg py-2 flex items-center justify-center shadow-md hover:shadow-lg transition-all"
-                    onPress={() => setIsMobileMenuOpen(false)}
+                    onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Sign Up
                   </Link>
