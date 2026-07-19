@@ -22,10 +22,10 @@ import {
   Menu,
   X,
   Sparkles,
-  ArrowDownToLine,
   Loader2,
-  LogOut,
 } from "lucide-react";
+import { LogOut, ArrowDownToLine } from "lucide-react";
+import { DynamicBreadcrumb } from "@/components/shared/DynamicBreadcrumb";
 
 export default function UserDashboardLayout({ children }: { children: React.ReactNode }) {
   const { data: session, isPending } = authClient.useSession();
@@ -160,6 +160,9 @@ export default function UserDashboardLayout({ children }: { children: React.Reac
 
       {/* Main Content Area */}
       <main className="flex-grow flex flex-col min-w-0 w-full lg:ml-64 relative z-10 pt-4 lg:pt-0">
+        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 -mb-4">
+          <DynamicBreadcrumb variant="dashboard" />
+        </div>
         {children}
       </main>
     </div>
