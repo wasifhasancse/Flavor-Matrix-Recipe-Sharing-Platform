@@ -50,7 +50,7 @@ export default function UserDashboardLayout({ children }: { children: React.Reac
   }
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-background pt-16">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-background">
       {/* Mobile Toggle Header */}
       <div className="lg:hidden flex items-center justify-between p-4 bg-default-50 dark:bg-zinc-900/60 border-b border-default-100 dark:border-zinc-800 fixed top-16 left-0 right-0 z-30">
         <span className="font-bold text-sm text-foreground">User Dashboard</span>
@@ -115,7 +115,7 @@ export default function UserDashboardLayout({ children }: { children: React.Reac
                 onClick={() => setIsSidebarOpen(false)}
                 className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-smooth w-full text-left cursor-pointer no-underline ${
                   isSelected
-                    ? "bg-primary text-white font-bold shadow-md shadow-primary/20"
+                    ? "bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold shadow-md shadow-orange-500/20"
                     : "text-default-600 hover:bg-default-100 dark:hover:bg-zinc-800/60 hover:text-foreground"
                 }`}
               >

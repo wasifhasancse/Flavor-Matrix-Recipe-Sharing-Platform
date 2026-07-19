@@ -3,6 +3,7 @@
 import React from "react";
 import { Link, Button } from "@heroui/react";
 import { ChefHat, Mail } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 // Inline Custom SVGs to prevent dependency/lucide-react export issues
 const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -34,6 +35,8 @@ const YoutubeIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const pathname = usePathname();
+  const isDashboard = pathname?.startsWith("/dashboard");
 
   const footerLinks = {
     explore: [
@@ -56,7 +59,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="w-full bg-gradient-subtle transition-smooth py-16 px-4 md:px-8">
+    <footer className={`w-full bg-gradient-subtle transition-smooth py-16 px-4 md:px-8 ${isDashboard ? 'lg:pl-64' : ''}`}>
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12">
         {/* Brand Information Column */}
         <div className="col-span-1 md:col-span-2 flex flex-col gap-4">

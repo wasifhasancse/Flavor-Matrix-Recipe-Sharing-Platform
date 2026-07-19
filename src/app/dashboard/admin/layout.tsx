@@ -39,7 +39,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
   }
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-background pt-16">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-background">
       {/* Mobile Toggle Header */}
       <div className="lg:hidden flex items-center justify-between p-4 bg-default-50 dark:bg-zinc-900/60 border-b border-default-100 dark:border-zinc-800 fixed top-16 left-0 right-0 z-30">
         <span className="font-bold text-sm text-foreground">Admin Console</span>
