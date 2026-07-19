@@ -342,7 +342,7 @@ function AdminDashboardContent() {
             {/* CORE METRICS GRID (5 High-Impact Stat Cards) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
               {/* Stat 1: Total Users */}
-              <motion.div whileHover={{ y: -4 }} className="p-5 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-lg flex flex-col justify-between gap-3">
+              <motion.div whileHover={{ y: -4 }} className="p-5 rounded-3xl glass-panel ambient-glow-orange flex flex-col justify-between gap-3">
                 <div className="flex justify-between items-start">
                   <span className="text-[10px] font-extrabold uppercase tracking-wider text-default-400">Total Users</span>
                   <div className="p-2 rounded-xl bg-blue-500/10 text-blue-500 border border-blue-500/20">
@@ -359,7 +359,7 @@ function AdminDashboardContent() {
               </motion.div>
 
               {/* Stat 2: Total Recipes */}
-              <motion.div whileHover={{ y: -4 }} className="p-5 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-lg flex flex-col justify-between gap-3">
+              <motion.div whileHover={{ y: -4 }} className="p-5 rounded-3xl glass-panel ambient-glow-orange flex flex-col justify-between gap-3">
                 <div className="flex justify-between items-start">
                   <span className="text-[10px] font-extrabold uppercase tracking-wider text-default-400">Total Recipes</span>
                   <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
@@ -376,7 +376,7 @@ function AdminDashboardContent() {
               </motion.div>
 
               {/* Stat 3: Premium Members */}
-              <motion.div whileHover={{ y: -4 }} className="p-5 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-lg flex flex-col justify-between gap-3">
+              <motion.div whileHover={{ y: -4 }} className="p-5 rounded-3xl glass-panel ambient-glow-orange flex flex-col justify-between gap-3">
                 <div className="flex justify-between items-start">
                   <span className="text-[10px] font-extrabold uppercase tracking-wider text-default-400">Premium Tier</span>
                   <div className="p-2 rounded-xl bg-amber-500/10 text-amber-500 border border-amber-500/20">
@@ -393,7 +393,7 @@ function AdminDashboardContent() {
               </motion.div>
 
               {/* Stat 4: Reports */}
-              <motion.div whileHover={{ y: -4 }} className="p-5 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-lg flex flex-col justify-between gap-3">
+              <motion.div whileHover={{ y: -4 }} className="p-5 rounded-3xl glass-panel ambient-glow-orange flex flex-col justify-between gap-3">
                 <div className="flex justify-between items-start">
                   <span className="text-[10px] font-extrabold uppercase tracking-wider text-default-400">Moderation</span>
                   <div className="p-2 rounded-xl bg-rose-500/10 text-rose-500 border border-rose-500/20">
@@ -410,7 +410,7 @@ function AdminDashboardContent() {
               </motion.div>
 
               {/* Stat 5: Gross Revenue */}
-              <motion.div whileHover={{ y: -4 }} className="p-5 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-lg flex flex-col justify-between gap-3">
+              <motion.div whileHover={{ y: -4 }} className="p-5 rounded-3xl glass-panel ambient-glow-orange flex flex-col justify-between gap-3">
                 <div className="flex justify-between items-start">
                   <span className="text-[10px] font-extrabold uppercase tracking-wider text-default-400">Gross Revenue</span>
                   <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
@@ -430,7 +430,7 @@ function AdminDashboardContent() {
             {/* ADVANCED RECHARTS ANALYTICS GRID */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
               {/* Dual-Axis Line/Composed Chart: User Growth & Recipes Trajectory */}
-              <div className="lg:col-span-8 p-6 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl flex flex-col gap-4">
+              <div className="lg:col-span-8 p-6 rounded-3xl glass-panel ambient-glow-orange flex flex-col gap-4">
                 <div className="flex justify-between items-center">
                   <div className="flex flex-col">
                     <h3 className="font-extrabold text-base text-foreground">Monthly Platform Growth</h3>
@@ -460,7 +460,7 @@ function AdminDashboardContent() {
               </div>
 
               {/* Donut Chart: Report Health Breakdown */}
-              <div className="lg:col-span-4 p-6 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl flex flex-col justify-between gap-4">
+              <div className="lg:col-span-4 p-6 rounded-3xl glass-panel ambient-glow-orange flex flex-col justify-between gap-4">
                 <div className="flex flex-col">
                   <h3 className="font-extrabold text-base text-foreground">Moderation Health</h3>
                   <span className="text-xs text-default-400">Reports distribution by reason</span>
@@ -497,7 +497,7 @@ function AdminDashboardContent() {
             {/* ADMIN QUICK LINKS & RECENT REPORTS SNAPSHOT */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
               {/* Recent Reports Snapshot */}
-              <div className="lg:col-span-8 p-6 sm:p-8 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl flex flex-col gap-5">
+              <div className="lg:col-span-8 p-6 sm:p-8 rounded-3xl glass-panel ambient-glow-orange flex flex-col gap-5">
                 <div className="flex justify-between items-center border-b border-default-100 dark:border-zinc-800 pb-4">
                   <div className="flex flex-col">
                     <h3 className="font-extrabold text-base text-foreground flex items-center gap-2">
@@ -529,7 +529,7 @@ function AdminDashboardContent() {
                     </thead>
                     <tbody className="divide-y divide-default-100 dark:divide-zinc-800 text-foreground">
                       {reportsList.slice(0, 5).map((rep) => (
-                        <tr key={rep.id} className="hover:bg-default-50/50 dark:hover:bg-zinc-800/30 transition-colors">
+                        <tr key={rep.id} className="hover:bg-default-100 dark:hover:bg-zinc-800 cursor-pointer transition-smooth">
                           <td className="py-3.5 font-extrabold">{rep.recipeTitle}</td>
                           <td className="py-3.5 text-default-400 truncate max-w-[140px]">{rep.reportedBy}</td>
                           <td className="py-3.5">
@@ -566,7 +566,7 @@ function AdminDashboardContent() {
               </div>
 
               {/* Admin Quick Links Panel */}
-              <div className="lg:col-span-4 p-6 sm:p-8 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl flex flex-col gap-5">
+              <div className="lg:col-span-4 p-6 sm:p-8 rounded-3xl glass-panel ambient-glow-orange flex flex-col gap-5">
                 <div className="flex flex-col border-b border-default-100 dark:border-zinc-800 pb-3">
                   <h3 className="font-extrabold text-base text-foreground">Quick Action Shortcuts</h3>
                   <span className="text-xs text-default-400">Fast access to admin tools</span>
@@ -645,7 +645,7 @@ function AdminDashboardContent() {
         {activeTab === "users" && (
           <div className="flex flex-col gap-6">
             <h2 className="text-2xl font-bold tracking-tight text-foreground">User Management</h2>
-            <div className="overflow-x-auto rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl w-full">
+            <div className="overflow-x-auto rounded-3xl glass-panel ambient-glow-orange w-full">
               <table className="min-w-full divide-y divide-default-100 dark:divide-zinc-800 text-sm">
                 <thead className="bg-default-50/70 dark:bg-zinc-950/80 font-bold text-default-400 uppercase tracking-wider text-left text-[10px]">
                   <tr>
@@ -658,7 +658,7 @@ function AdminDashboardContent() {
                 </thead>
                 <tbody className="divide-y divide-default-100 dark:divide-zinc-800 text-foreground">
                   {usersList.map((usr) => (
-                    <tr key={usr.id} className="hover:bg-default-50/50 dark:hover:bg-zinc-800/30 transition-colors">
+                    <tr key={usr.id} className="hover:bg-default-100 dark:hover:bg-zinc-800 cursor-pointer transition-smooth">
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
                           <div className="h-9 w-9 rounded-full bg-primary/10 text-primary border border-primary/20 flex items-center justify-center font-bold text-xs">
@@ -721,7 +721,7 @@ function AdminDashboardContent() {
         {activeTab === "recipes" && (
           <div className="flex flex-col gap-6">
             <h2 className="text-2xl font-bold tracking-tight text-foreground">Recipe Approval & Inventory</h2>
-            <div className="overflow-x-auto rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl w-full">
+            <div className="overflow-x-auto rounded-3xl glass-panel ambient-glow-orange w-full">
               <table className="min-w-full divide-y divide-default-100 dark:divide-zinc-800 text-sm">
                 <thead className="bg-default-50/70 dark:bg-zinc-950/80 font-bold text-default-400 uppercase tracking-wider text-left text-[10px]">
                   <tr>
@@ -733,7 +733,7 @@ function AdminDashboardContent() {
                 </thead>
                 <tbody className="divide-y divide-default-100 dark:divide-zinc-800 text-foreground">
                   {allRecipes.map((rcp) => (
-                    <tr key={rcp.id} className="hover:bg-default-50/50 dark:hover:bg-zinc-800/30 transition-colors">
+                    <tr key={rcp.id} className="hover:bg-default-100 dark:hover:bg-zinc-800 cursor-pointer transition-smooth">
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
                           <img src={rcp.image} alt={rcp.title} className="h-10 w-12 rounded-xl object-cover border border-default-100 shrink-0" />
@@ -780,7 +780,7 @@ function AdminDashboardContent() {
         {activeTab === "reports" && (
           <div className="flex flex-col gap-6">
             <h2 className="text-2xl font-bold tracking-tight text-foreground">Moderation Reports Queue</h2>
-            <div className="overflow-x-auto rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl w-full">
+            <div className="overflow-x-auto rounded-3xl glass-panel ambient-glow-orange w-full">
               <table className="min-w-full divide-y divide-default-100 dark:divide-zinc-800 text-sm">
                 <thead className="bg-default-50/70 dark:bg-zinc-950/80 font-bold text-default-400 uppercase tracking-wider text-left text-[10px]">
                   <tr>
@@ -793,7 +793,7 @@ function AdminDashboardContent() {
                 </thead>
                 <tbody className="divide-y divide-default-100 dark:divide-zinc-800 text-foreground">
                   {reportsList.map((rep) => (
-                    <tr key={rep.id} className="hover:bg-default-50/50 dark:hover:bg-zinc-800/30 transition-colors">
+                    <tr key={rep.id} className="hover:bg-default-100 dark:hover:bg-zinc-800 cursor-pointer transition-smooth">
                       <td className="px-6 py-4 font-bold">{rep.recipeTitle}</td>
                       <td className="px-6 py-4 text-xs text-default-400">{rep.reportedBy}</td>
                       <td className="px-6 py-4">
@@ -867,7 +867,7 @@ function AdminDashboardContent() {
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              className="relative w-full max-w-md p-6 sm:p-8 rounded-3xl bg-white dark:bg-zinc-950 border border-default-100 dark:border-zinc-800 shadow-2xl flex flex-col gap-6 z-10"
+              className="relative w-full max-w-md p-6 sm:p-8 rounded-3xl glass-panel ambient-glow-orange flex flex-col gap-6 z-10"
             >
               <div className="flex items-center gap-3 text-rose-500">
                 <div className="p-3 rounded-2xl bg-rose-500/10 border border-rose-500/20">

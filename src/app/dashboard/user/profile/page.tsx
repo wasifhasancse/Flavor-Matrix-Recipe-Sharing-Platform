@@ -118,7 +118,7 @@ export default function UserProfilePage() {
   const handleOpenEditModal = () => {
     if (!profile) return;
     setEditName(profile.name);
-    setEditImage(profile.image);
+    setEditImage(profile.image || "");
     setEditBio(bio);
     setEditLocation(location);
     setIsEditModalOpen(true);
@@ -252,7 +252,7 @@ export default function UserProfilePage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className={`fixed top-5 right-5 z-50 p-4 rounded-2xl border shadow-xl flex items-center gap-3 text-xs font-bold text-white ${
+            className={`fixed top-5 right-5 z-50 p-4 rounded-2xl border ambient-glow-orange flex items-center gap-3 text-xs font-bold text-white ${
               toastMessage.type === "success" ? "bg-emerald-600 border-emerald-500" : "bg-rose-600 border-rose-500"
             }`}
           >
@@ -270,7 +270,7 @@ export default function UserProfilePage() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2 text-xs text-default-400">
-            <Link href="/dashboard/user" className="hover:text-primary transition-colors flex items-center gap-1">
+            <Link href="/dashboard/user" className="hover:text-primary transition-smooth flex items-center gap-1">
               <ArrowLeft className="h-3.5 w-3.5" />
               <span>Dashboard</span>
             </Link>
@@ -286,7 +286,7 @@ export default function UserProfilePage() {
         <Button
           variant="primary"
           onClick={handleOpenEditModal}
-          className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold py-2.5 px-5 rounded-2xl text-xs flex items-center gap-2 shadow-lg shadow-orange-500/20 border-none cursor-pointer"
+          className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold py-2.5 px-5 rounded-2xl text-xs flex items-center gap-2 ambient-glow-orange shadow-orange-500/20 border-none cursor-pointer"
         >
           <Edit3 className="h-4 w-4" />
           <span>Edit Profile</span>
@@ -298,7 +298,7 @@ export default function UserProfilePage() {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="rounded-3xl border border-divider dark:border-zinc-800/80 bg-content1/60 dark:bg-zinc-900/60 backdrop-blur-md shadow-2xl overflow-hidden"
+        className="rounded-3xl border border-divider dark:border-zinc-800/80 bg-content1/60 dark:bg-zinc-900/60 backdrop-blur-md ambient-glow-orange overflow-hidden"
       >
         {/* Culinary Decorative Banner Header */}
         <div className="h-44 sm:h-52 w-full bg-gradient-to-r from-orange-600 via-amber-600 to-orange-700 relative overflow-hidden flex items-end p-6">
@@ -324,14 +324,14 @@ export default function UserProfilePage() {
           <div className="flex flex-col sm:flex-row items-start sm:items-end gap-5">
             {/* Overlapping Avatar */}
             <div className="relative group">
-              <Avatar.Root className="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl border-4 border-background shrink-0 overflow-hidden bg-primary/10 flex items-center justify-center font-bold text-3xl text-primary shadow-2xl">
+              <Avatar.Root className="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl border-4 border-background shrink-0 overflow-hidden bg-primary/10 flex items-center justify-center font-bold text-3xl text-primary ambient-glow-orange">
                 <Avatar.Image src={profile.image || ""} alt={profile.name} className="h-full w-full object-cover" />
                 <Avatar.Fallback>{profile.name.charAt(0).toUpperCase()}</Avatar.Fallback>
               </Avatar.Root>
               
               <button
                 onClick={handleOpenEditModal}
-                className="absolute bottom-2 right-2 p-2 rounded-xl bg-primary text-white shadow-lg border-2 border-background hover:scale-110 transition-transform cursor-pointer"
+                className="absolute bottom-2 right-2 p-2 rounded-xl bg-primary text-white ambient-glow-orange border-2 border-background hover:scale-110 transition-transform cursor-pointer"
                 title="Change Avatar"
               >
                 <Camera className="h-4 w-4" />
@@ -440,7 +440,7 @@ export default function UserProfilePage() {
         {/* Left Column: Bio & Personal Information */}
         <div className="lg:col-span-7 flex flex-col gap-6">
           {/* Biography & Specialty Card */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-content1/60 dark:bg-zinc-900/60 backdrop-blur-md border border-divider dark:border-zinc-800/80 shadow-xl flex flex-col gap-4">
+          <div className="p-6 sm:p-8 rounded-3xl bg-content1/60 dark:bg-zinc-900/60 backdrop-blur-md border border-divider dark:border-zinc-800/80 ambient-glow-orange flex flex-col gap-4">
             <div className="flex justify-between items-center border-b border-default-100 dark:border-zinc-800 pb-3">
               <h3 className="font-bold text-base text-foreground flex items-center gap-2">
                 <BookOpen className="h-4.5 w-4.5 text-primary" />
@@ -503,7 +503,7 @@ export default function UserProfilePage() {
         {/* Right Column: Membership Tier Perks & Security Controls */}
         <div className="lg:col-span-5 flex flex-col gap-6">
           {/* Membership Status & Unlocked Perks Card */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-amber-500/10 via-orange-500/10 to-amber-500/5 backdrop-blur-md border border-amber-500/30 shadow-xl flex flex-col gap-5">
+          <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-amber-500/10 via-orange-500/10 to-amber-500/5 backdrop-blur-md border border-amber-500/30 ambient-glow-orange flex flex-col gap-5">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Sparkles className="h-5 w-5 text-amber-500 fill-amber-400" />
@@ -545,7 +545,7 @@ export default function UserProfilePage() {
               <Button
                 variant="primary"
                 onClick={togglePremium}
-                className="mt-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-extrabold py-3 rounded-2xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 border-none cursor-pointer"
+                className="mt-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-extrabold py-3 rounded-2xl text-xs flex items-center justify-center gap-2 ambient-glow-orange shadow-amber-500/20 border-none cursor-pointer"
               >
                 <Sparkles className="h-4 w-4" />
                 <span>Unlock Premium Lifetime Access</span>
@@ -586,7 +586,7 @@ export default function UserProfilePage() {
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              className="relative w-full max-w-lg p-6 sm:p-8 rounded-3xl bg-white dark:bg-zinc-950 border border-default-100 dark:border-zinc-800 shadow-2xl flex flex-col gap-6 z-10 max-h-[90vh] overflow-y-auto"
+              className="relative w-full max-w-lg p-6 sm:p-8 rounded-3xl glass-panel ambient-glow-orange flex flex-col gap-6 z-10 max-h-[90vh] overflow-y-auto"
             >
               {/* Header */}
               <div className="flex justify-between items-center border-b border-default-100 dark:border-zinc-800 pb-4">

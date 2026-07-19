@@ -604,7 +604,7 @@ function DashboardContent() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors w-full text-left cursor-pointer no-underline text-default-600 hover:bg-default-100 dark:hover:bg-zinc-800/60 hover:text-foreground"
+                  className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-smooth w-full text-left cursor-pointer no-underline text-default-600 hover:bg-default-100 dark:hover:bg-zinc-800/60 hover:text-foreground"
                 >
                   <item.icon className="h-4.5 w-4.5" />
                   <span>{item.label}</span>
@@ -616,7 +616,7 @@ function DashboardContent() {
               <button
                 key={item.tab}
                 onClick={() => handleTabChange(item.tab as TabType)}
-                className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors w-full text-left cursor-pointer ${
+                className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-smooth w-full text-left cursor-pointer ${
                   isSelected
                     ? "bg-primary text-white font-bold shadow-md shadow-primary/20"
                     : "text-default-600 hover:bg-default-100 dark:hover:bg-zinc-800/60 hover:text-foreground"
@@ -660,7 +660,7 @@ function DashboardContent() {
             className="flex flex-col gap-8"
           >
             {/* Dynamic Profile Header & Withdraw CTA */}
-            <div className="p-6 sm:p-8 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div className="p-6 sm:p-8 rounded-3xl glass-panel ambient-glow-orange flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
               <div className="flex items-center gap-4">
                 <Avatar.Root className="w-16 h-16 rounded-2xl border-2 border-primary/30 shrink-0 overflow-hidden bg-primary/10 flex items-center justify-center font-bold text-xl text-primary shadow-md">
                   <Avatar.Image src={session.user.image || ""} alt={session.user.name || "User"} />
@@ -690,7 +690,7 @@ function DashboardContent() {
                 <Button
                   variant="primary"
                   onClick={onWithdrawOpen}
-                  className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-extrabold py-3 px-5 rounded-2xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 border-none cursor-pointer hover:scale-105 transition-all"
+                  className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-extrabold py-3 px-5 rounded-2xl text-xs flex items-center justify-center gap-2 ambient-glow-orange shadow-emerald-500/20 border-none cursor-pointer hover:scale-105 transition-all"
                 >
                   <ArrowDownToLine className="h-4 w-4" />
                   <span>Withdraw Money (${availableBalance.toFixed(2)})</span>
@@ -725,7 +725,7 @@ function DashboardContent() {
                 </div>
                 <div className="w-full sm:w-48 h-2 bg-amber-500/20 rounded-full overflow-hidden shrink-0">
                   <div
-                    className="h-full bg-amber-500 rounded-full transition-all duration-500"
+                    className="h-full bg-amber-500 rounded-full transition-smooth"
                     style={{ width: `${recipeProgressPercent}%` }}
                   />
                 </div>
@@ -737,7 +737,7 @@ function DashboardContent() {
               {/* Metric Card 1: Total Recipes */}
               <motion.div
                 whileHover={{ y: -4 }}
-                className="p-6 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-lg flex flex-col justify-between gap-4"
+                className="p-6 rounded-3xl glass-panel ambient-glow-orange flex flex-col justify-between gap-4"
               >
                 <div className="flex justify-between items-center">
                   <span className="text-xs font-bold uppercase tracking-wider text-default-400">
@@ -759,7 +759,7 @@ function DashboardContent() {
               {/* Metric Card 2: Recipes Sold */}
               <motion.div
                 whileHover={{ y: -4 }}
-                className="p-6 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-lg flex flex-col justify-between gap-4"
+                className="p-6 rounded-3xl glass-panel ambient-glow-orange flex flex-col justify-between gap-4"
               >
                 <div className="flex justify-between items-center">
                   <span className="text-xs font-bold uppercase tracking-wider text-default-400">
@@ -781,7 +781,7 @@ function DashboardContent() {
               {/* Metric Card 3: Total Gross Earned */}
               <motion.div
                 whileHover={{ y: -4 }}
-                className="p-6 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-lg flex flex-col justify-between gap-4"
+                className="p-6 rounded-3xl glass-panel ambient-glow-orange flex flex-col justify-between gap-4"
               >
                 <div className="flex justify-between items-center">
                   <span className="text-xs font-bold uppercase tracking-wider text-default-400">
@@ -805,7 +805,7 @@ function DashboardContent() {
               {/* Metric Card 4: Available Payout Balance */}
               <motion.div
                 whileHover={{ y: -4 }}
-                className="p-6 rounded-3xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/5 to-teal-500/5 backdrop-blur-xl shadow-lg flex flex-col justify-between gap-4 relative overflow-hidden"
+                className="p-6 rounded-3xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/5 to-teal-500/5 backdrop-blur-xl ambient-glow-orange flex flex-col justify-between gap-4 relative overflow-hidden"
               >
                 <div className="flex justify-between items-center">
                   <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
@@ -833,7 +833,7 @@ function DashboardContent() {
             {/* Recharts Analytics Charts Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
               {/* Monthly Engagement & Revenue Trend Chart */}
-              <div className="lg:col-span-7 p-6 sm:p-8 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl flex flex-col gap-6">
+              <div className="lg:col-span-7 p-6 sm:p-8 rounded-3xl glass-panel ambient-glow-orange flex flex-col gap-6">
                 <div className="flex items-center justify-between">
                   <div className="flex flex-col">
                     <h3 className="font-bold text-base text-foreground flex items-center gap-2">
@@ -902,7 +902,7 @@ function DashboardContent() {
               </div>
 
               {/* Category Distribution Chart */}
-              <div className="lg:col-span-5 p-6 sm:p-8 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl flex flex-col gap-6">
+              <div className="lg:col-span-5 p-6 sm:p-8 rounded-3xl glass-panel ambient-glow-orange flex flex-col gap-6">
                 <div className="flex items-center justify-between">
                   <div className="flex flex-col">
                     <h3 className="font-bold text-base text-foreground flex items-center gap-2">
@@ -946,7 +946,7 @@ function DashboardContent() {
             {/* Quick Actions Grid & Recent Activity Feed */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
               {/* Quick Actions Grid */}
-              <div className="lg:col-span-6 p-6 sm:p-8 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl flex flex-col gap-6">
+              <div className="lg:col-span-6 p-6 sm:p-8 rounded-3xl glass-panel ambient-glow-orange flex flex-col gap-6">
                 <div className="flex flex-col">
                   <h3 className="font-bold text-base text-foreground flex items-center gap-2">
                     <Zap className="h-4.5 w-4.5 text-orange-500" />
@@ -964,7 +964,7 @@ function DashboardContent() {
                     <div className="h-9 w-9 rounded-xl bg-emerald-500 text-white flex items-center justify-center group-hover:scale-110 transition-transform shadow-md shadow-emerald-500/20">
                       <ArrowDownToLine className="h-5 w-5" />
                     </div>
-                    <span className="font-bold text-sm text-foreground group-hover:text-emerald-500 transition-colors">
+                    <span className="font-bold text-sm text-foreground group-hover:text-emerald-500 transition-smooth">
                       Withdraw Earnings
                     </span>
                     <span className="text-xs text-default-400">Payout to Bank or PayPal</span>
@@ -978,7 +978,7 @@ function DashboardContent() {
                     <div className="h-9 w-9 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
                       <PlusCircle className="h-5 w-5" />
                     </div>
-                    <span className="font-bold text-sm text-foreground group-hover:text-primary transition-colors">
+                    <span className="font-bold text-sm text-foreground group-hover:text-primary transition-smooth">
                       Create New Recipe
                     </span>
                     <span className="text-xs text-default-400">Publish a new creation</span>
@@ -992,7 +992,7 @@ function DashboardContent() {
                     <div className="h-9 w-9 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center group-hover:scale-110 transition-transform">
                       <BookOpen className="h-5 w-5" />
                     </div>
-                    <span className="font-bold text-sm text-foreground group-hover:text-amber-500 transition-colors">
+                    <span className="font-bold text-sm text-foreground group-hover:text-amber-500 transition-smooth">
                       View My Collections
                     </span>
                     <span className="text-xs text-default-400">Manage published items</span>
@@ -1004,7 +1004,7 @@ function DashboardContent() {
                       <div className="h-9 w-9 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center group-hover:scale-110 transition-transform">
                         <Compass className="h-5 w-5" />
                       </div>
-                      <span className="font-bold text-sm text-foreground group-hover:text-purple-500 transition-colors">
+                      <span className="font-bold text-sm text-foreground group-hover:text-purple-500 transition-smooth">
                         Browse Catalog
                       </span>
                       <span className="text-xs text-default-400">Explore community dishes</span>
@@ -1014,7 +1014,7 @@ function DashboardContent() {
               </div>
 
               {/* Recent Activity Feed Timeline */}
-              <div className="lg:col-span-6 p-6 sm:p-8 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl flex flex-col gap-6">
+              <div className="lg:col-span-6 p-6 sm:p-8 rounded-3xl glass-panel ambient-glow-orange flex flex-col gap-6">
                 <div className="flex items-center justify-between">
                   <div className="flex flex-col">
                     <h3 className="font-bold text-base text-foreground flex items-center gap-2">
@@ -1103,7 +1103,7 @@ function DashboardContent() {
 
             <form
               onSubmit={handleFormSubmit}
-              className="flex flex-col gap-5 p-6 sm:p-8 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl"
+              className="flex flex-col gap-5 p-6 sm:p-8 rounded-3xl glass-panel ambient-glow-orange"
             >
               {/* Title */}
               <div className="flex flex-col gap-1.5">
@@ -1192,7 +1192,7 @@ function DashboardContent() {
               <div className="flex flex-col gap-2">
                 <label className="text-xs font-bold text-default-500">Recipe Image</label>
                 <div className="flex flex-col sm:flex-row gap-4 items-center">
-                  <label className="flex items-center gap-2 justify-center px-4 py-3 border border-default-200 dark:border-zinc-800 rounded-xl cursor-pointer bg-default-50 hover:bg-default-100 dark:bg-zinc-900 dark:hover:bg-zinc-800 transition-colors text-xs font-semibold text-foreground">
+                  <label className="flex items-center gap-2 justify-center px-4 py-3 border border-default-200 dark:border-zinc-800 rounded-xl cursor-pointer bg-default-50 hover:bg-default-100 dark:bg-zinc-900 dark:hover:bg-zinc-800 transition-smooth text-xs font-semibold text-foreground">
                     {isUploading ? (
                       <Loader2 className="h-4 w-4 animate-spin text-primary" />
                     ) : (
@@ -1298,7 +1298,7 @@ function DashboardContent() {
             </div>
 
             {myRecipes.length > 0 ? (
-              <div className="overflow-x-auto rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl w-full">
+              <div className="overflow-x-auto rounded-3xl glass-panel ambient-glow-orange w-full">
                 <table className="min-w-full divide-y divide-default-100 dark:divide-zinc-800 text-sm">
                   <thead className="bg-default-50/50 dark:bg-zinc-900/80 font-bold text-default-400 uppercase tracking-wider text-left text-[10px]">
                     <tr>
@@ -1313,7 +1313,7 @@ function DashboardContent() {
                     {myRecipes.map((recipe) => (
                       <tr
                         key={recipe.id}
-                        className="hover:bg-default-50/50 dark:hover:bg-zinc-800/30 transition-colors"
+                        className="hover:bg-default-100 dark:hover:bg-zinc-800 cursor-pointer transition-smooth"
                       >
                         <td className="px-6 py-4 flex items-center gap-3">
                           <img
@@ -1344,20 +1344,20 @@ function DashboardContent() {
                           <div className="flex gap-2 justify-end">
                             <Link
                               href={`/recipes/${recipe.id}`}
-                              className="p-2 rounded-xl border border-default-200 dark:border-zinc-800 text-default-500 hover:text-foreground hover:bg-default-50 transition-colors"
+                              className="p-2 rounded-xl border border-default-200 dark:border-zinc-800 text-default-500 hover:text-foreground hover:bg-default-50 transition-smooth"
                             >
                               <Eye className="h-4 w-4" />
                             </Link>
                             <button
                               onClick={() => handleEditClick(recipe)}
-                              className="p-2 rounded-xl border border-default-200 dark:border-zinc-800 text-default-500 hover:text-primary hover:bg-primary/5 transition-colors cursor-pointer"
+                              className="p-2 rounded-xl border border-default-200 dark:border-zinc-800 text-default-500 hover:text-primary hover:bg-primary/5 transition-smooth cursor-pointer"
                               title="Edit Recipe"
                             >
                               <Edit className="h-4 w-4" />
                             </button>
                             <button
                               onClick={() => openDeleteModal(recipe)}
-                              className="p-2 rounded-xl border border-default-200 dark:border-zinc-800 text-default-500 hover:text-rose-500 hover:bg-rose-500/5 transition-colors cursor-pointer"
+                              className="p-2 rounded-xl border border-default-200 dark:border-zinc-800 text-default-500 hover:text-rose-500 hover:bg-rose-500/5 transition-smooth cursor-pointer"
                               title="Delete Recipe"
                             >
                               <Trash2 className="h-4 w-4" />
@@ -1388,7 +1388,7 @@ function DashboardContent() {
             <h2 className="text-2xl font-bold tracking-tight text-foreground">My Favorited Bookmarks</h2>
 
             {favorites.length > 0 ? (
-              <div className="overflow-x-auto rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl w-full">
+              <div className="overflow-x-auto rounded-3xl glass-panel ambient-glow-orange w-full">
                 <table className="min-w-full divide-y divide-default-100 dark:divide-zinc-800 text-sm">
                   <thead className="bg-default-50/50 dark:bg-zinc-900/80 font-bold text-default-400 uppercase tracking-wider text-left text-[10px]">
                     <tr>
@@ -1402,7 +1402,7 @@ function DashboardContent() {
                     {favorites.map((recipe) => (
                       <tr
                         key={recipe.id}
-                        className="hover:bg-default-50/50 dark:hover:bg-zinc-800/30 transition-colors"
+                        className="hover:bg-default-100 dark:hover:bg-zinc-800 cursor-pointer transition-smooth"
                       >
                         <td className="px-6 py-4 flex items-center gap-3">
                           <img
@@ -1420,13 +1420,13 @@ function DashboardContent() {
                           <div className="flex gap-2 justify-end">
                             <Link
                               href={`/recipes/${recipe.id}`}
-                              className="p-2 rounded-xl border border-default-200 dark:border-zinc-800 text-default-500 hover:text-foreground hover:bg-default-50 transition-colors"
+                              className="p-2 rounded-xl border border-default-200 dark:border-zinc-800 text-default-500 hover:text-foreground hover:bg-default-50 transition-smooth"
                             >
                               <Eye className="h-4 w-4" />
                             </Link>
                             <button
                               onClick={() => handleUnfavorite(recipe.id)}
-                              className="p-2 rounded-xl border border-default-200 dark:border-zinc-800 text-rose-500 hover:bg-rose-500/5 transition-colors cursor-pointer"
+                              className="p-2 rounded-xl border border-default-200 dark:border-zinc-800 text-rose-500 hover:bg-rose-500/5 transition-smooth cursor-pointer"
                               title="Unfavorite item"
                             >
                               <Star className="h-4 w-4 fill-amber-500 text-amber-500" />
@@ -1457,7 +1457,7 @@ function DashboardContent() {
             <h2 className="text-2xl font-bold tracking-tight text-foreground">Unlocked Premium Content</h2>
 
             {purchased.length > 0 ? (
-              <div className="overflow-x-auto rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl w-full">
+              <div className="overflow-x-auto rounded-3xl glass-panel ambient-glow-orange w-full">
                 <table className="min-w-full divide-y divide-default-100 dark:divide-zinc-800 text-sm">
                   <thead className="bg-default-50/50 dark:bg-zinc-900/80 font-bold text-default-400 uppercase tracking-wider text-left text-[10px]">
                     <tr>
@@ -1471,7 +1471,7 @@ function DashboardContent() {
                     {purchased.map((recipe) => (
                       <tr
                         key={recipe.id}
-                        className="hover:bg-default-50/50 dark:hover:bg-zinc-800/30 transition-colors"
+                        className="hover:bg-default-100 dark:hover:bg-zinc-800 cursor-pointer transition-smooth"
                       >
                         <td className="px-6 py-4 flex items-center gap-3">
                           <img
@@ -1490,7 +1490,7 @@ function DashboardContent() {
                         <td className="px-6 py-4 text-right">
                           <Link
                             href={`/recipes/${recipe.id}`}
-                            className="no-underline inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-default-200 dark:border-zinc-800 text-xs font-semibold text-primary hover:bg-primary/5 transition-colors"
+                            className="no-underline inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-default-200 dark:border-zinc-800 text-xs font-semibold text-primary hover:bg-primary/5 transition-smooth"
                           >
                             <Eye className="h-3.5 w-3.5" />
                             <span>View Recipe</span>
@@ -1536,7 +1536,7 @@ function DashboardContent() {
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              className="relative w-full max-w-md p-6 rounded-3xl bg-white dark:bg-zinc-950 border border-default-100 dark:border-zinc-800 shadow-2xl flex flex-col gap-5 z-10"
+              className="relative w-full max-w-md p-6 rounded-3xl glass-panel ambient-glow-orange flex flex-col gap-5 z-10"
             >
               {/* Modal Header */}
               <div className="flex justify-between items-center border-b border-default-100 dark:border-zinc-800 pb-3">
@@ -1554,7 +1554,7 @@ function DashboardContent() {
                     onWithdrawClose();
                     setWithdrawSuccess(false);
                   }}
-                  className="p-1.5 rounded-full hover:bg-default-100 dark:hover:bg-zinc-900 text-default-400 hover:text-foreground transition-colors cursor-pointer"
+                  className="p-1.5 rounded-full hover:bg-default-100 dark:hover:bg-zinc-900 text-default-400 hover:text-foreground transition-smooth cursor-pointer"
                 >
                   <X className="h-4.5 w-4.5" />
                 </button>
@@ -1736,7 +1736,7 @@ function DashboardContent() {
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              className="relative w-full max-w-md p-6 rounded-3xl bg-white dark:bg-zinc-950 border border-rose-500/30 shadow-2xl flex flex-col gap-5 z-10"
+              className="relative w-full max-w-md p-6 rounded-3xl glass-panel border-rose-500/30 ambient-glow-orange flex flex-col gap-5 z-10"
             >
               {/* Modal Warning Header */}
               <div className="flex items-center gap-3 border-b border-default-100 dark:border-zinc-800 pb-3">

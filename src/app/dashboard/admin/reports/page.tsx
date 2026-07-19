@@ -274,7 +274,7 @@ export default function AdminReportsPage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed top-5 right-5 z-50 p-4 rounded-2xl bg-emerald-600 border border-emerald-500 shadow-xl flex items-center gap-3 text-xs font-bold text-white"
+            className="fixed top-5 right-5 z-50 p-4 rounded-2xl bg-emerald-600 border border-emerald-500 ambient-glow-orange flex items-center gap-3 text-xs font-bold text-white"
           >
             <CheckCircle2 className="h-5 w-5 shrink-0" />
             <span>{toastMessage}</span>
@@ -286,7 +286,7 @@ export default function AdminReportsPage() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-default-100 dark:border-zinc-800 pb-6">
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2 text-xs text-default-400">
-            <Link href="/dashboard/admin" className="hover:text-primary transition-colors flex items-center gap-1">
+            <Link href="/dashboard/admin" className="hover:text-primary transition-smooth flex items-center gap-1">
               <ArrowLeft className="h-3.5 w-3.5" />
               <span>Admin Console</span>
             </Link>
@@ -307,7 +307,7 @@ export default function AdminReportsPage() {
       </div>
 
       {/* FILTER TOOLBAR */}
-      <div className="p-4 sm:p-6 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl flex flex-col sm:flex-row gap-4 items-center justify-between">
+      <div className="p-4 sm:p-6 rounded-3xl glass-panel ambient-glow-orange flex flex-col sm:flex-row gap-4 items-center justify-between">
         <div className="flex items-center gap-2 w-full sm:w-auto">
           <Filter className="h-4 w-4 text-default-400 shrink-0" />
           <select
@@ -334,7 +334,7 @@ export default function AdminReportsPage() {
           transition={{ duration: 0.4 }}
           className="flex flex-col gap-6"
         >
-          <div className="overflow-hidden rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl">
+          <div className="overflow-hidden rounded-3xl glass-panel ambient-glow-orange">
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-default-100 dark:divide-zinc-800 text-sm">
                 <thead className="bg-default-50/70 dark:bg-zinc-950/80 font-bold text-default-400 uppercase tracking-wider text-left text-[10px]">
@@ -350,7 +350,7 @@ export default function AdminReportsPage() {
                   {paginatedReports.map((item) => (
                     <tr
                       key={item.recipeId}
-                      className="hover:bg-default-50/50 dark:hover:bg-zinc-800/30 transition-colors"
+                      className="hover:bg-default-100 dark:hover:bg-zinc-800 cursor-pointer transition-smooth"
                     >
                       {/* Column 1: Target Recipe Preview */}
                       <td className="px-6 py-4">
@@ -529,7 +529,7 @@ export default function AdminReportsPage() {
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              className="relative w-full max-w-xl p-6 sm:p-8 rounded-3xl bg-white dark:bg-zinc-950 border border-default-100 dark:border-zinc-800 shadow-2xl flex flex-col gap-6 z-10 max-h-[85vh] overflow-y-auto"
+              className="relative w-full max-w-xl p-6 sm:p-8 rounded-3xl glass-panel ambient-glow-orange flex flex-col gap-6 z-10 max-h-[85vh] overflow-y-auto"
             >
               {/* Header */}
               <div className="flex justify-between items-center border-b border-default-100 dark:border-zinc-800 pb-4">
@@ -570,7 +570,7 @@ export default function AdminReportsPage() {
                     </thead>
                     <tbody className="divide-y divide-default-100 dark:divide-zinc-800 text-foreground">
                       {detailsList.map((det) => (
-                        <tr key={det.id}>
+                        <tr key={det.id} className="hover:bg-default-100 dark:hover:bg-zinc-800 transition-smooth cursor-pointer">
                           <td className="px-4 py-3 font-semibold text-foreground truncate max-w-[180px]">
                             {det.reporterEmail}
                           </td>
@@ -624,7 +624,7 @@ export default function AdminReportsPage() {
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              className="relative w-full max-w-md p-6 sm:p-8 rounded-3xl bg-white dark:bg-zinc-950 border border-default-100 dark:border-zinc-800 shadow-2xl flex flex-col gap-6 z-10"
+              className="relative w-full max-w-md p-6 sm:p-8 rounded-3xl glass-panel ambient-glow-orange flex flex-col gap-6 z-10"
             >
               <div className="flex items-center gap-3 text-emerald-500">
                 <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
@@ -678,7 +678,7 @@ export default function AdminReportsPage() {
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              className="relative w-full max-w-md p-6 sm:p-8 rounded-3xl bg-white dark:bg-zinc-950 border border-default-100 dark:border-zinc-800 shadow-2xl flex flex-col gap-6 z-10"
+              className="relative w-full max-w-md p-6 sm:p-8 rounded-3xl glass-panel ambient-glow-orange flex flex-col gap-6 z-10"
             >
               <div className="flex items-center gap-3 text-rose-500">
                 <div className="p-3 rounded-2xl bg-rose-500/10 border border-rose-500/20">

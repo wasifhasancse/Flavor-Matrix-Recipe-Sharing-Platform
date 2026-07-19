@@ -132,7 +132,7 @@ export default function PurchasedRecipesPage() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-default-100 dark:border-zinc-800 pb-6">
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2 text-xs text-default-400">
-            <Link href="/dashboard/user" className="hover:text-primary transition-colors flex items-center gap-1">
+            <Link href="/dashboard/user" className="hover:text-primary transition-smooth flex items-center gap-1">
               <ArrowLeft className="h-3.5 w-3.5" />
               <span>Dashboard</span>
             </Link>
@@ -148,7 +148,7 @@ export default function PurchasedRecipesPage() {
         <Link href="/recipes" className="no-underline">
           <Button
             variant="primary"
-            className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold py-2.5 px-5 rounded-2xl text-xs flex items-center gap-2 shadow-lg shadow-emerald-500/20 border-none cursor-pointer"
+            className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold py-2.5 px-5 rounded-2xl text-xs flex items-center gap-2 ambient-glow-orange shadow-emerald-500/20 border-none cursor-pointer"
           >
             <Compass className="h-4 w-4" />
             <span>Explore Premium Catalog</span>
@@ -157,7 +157,7 @@ export default function PurchasedRecipesPage() {
       </div>
 
       {/* Search Bar & Summary Chip */}
-      <div className="p-4 sm:p-6 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl flex flex-col sm:flex-row gap-4 items-center justify-between">
+      <div className="p-4 sm:p-6 rounded-3xl glass-panel ambient-glow-orange flex flex-col sm:flex-row gap-4 items-center justify-between">
         <div className="relative w-full sm:w-96">
           <Search className="absolute left-3.5 top-3 h-4 w-4 text-default-400" />
           <input
@@ -187,7 +187,7 @@ export default function PurchasedRecipesPage() {
           transition={{ duration: 0.4 }}
           className="flex flex-col gap-6"
         >
-          <div className="overflow-hidden rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl">
+          <div className="overflow-hidden rounded-3xl glass-panel ambient-glow-orange">
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-default-100 dark:divide-zinc-800 text-sm">
                 <thead className="bg-default-50/70 dark:bg-zinc-950/80 font-bold text-default-400 uppercase tracking-wider text-left text-[10px]">
@@ -205,7 +205,7 @@ export default function PurchasedRecipesPage() {
                     <motion.tr
                       key={item.id}
                       whileHover={{ backgroundColor: "rgba(16, 185, 129, 0.03)" }}
-                      className="transition-colors"
+                      className="transition-smooth"
                     >
                       {/* Column 1: Image & Title */}
                       <td className="px-6 py-4">

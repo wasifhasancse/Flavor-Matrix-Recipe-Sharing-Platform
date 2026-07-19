@@ -246,7 +246,7 @@ export default function AdminRecipesPage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed top-5 right-5 z-50 p-4 rounded-2xl bg-emerald-600 border border-emerald-500 shadow-xl flex items-center gap-3 text-xs font-bold text-white"
+            className="fixed top-5 right-5 z-50 p-4 rounded-2xl bg-emerald-600 border border-emerald-500 ambient-glow-orange flex items-center gap-3 text-xs font-bold text-white"
           >
             <CheckCircle2 className="h-5 w-5 shrink-0" />
             <span>{toastMessage}</span>
@@ -258,7 +258,7 @@ export default function AdminRecipesPage() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-default-100 dark:border-zinc-800 pb-6">
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2 text-xs text-default-400">
-            <Link href="/dashboard/admin" className="hover:text-primary transition-colors flex items-center gap-1">
+            <Link href="/dashboard/admin" className="hover:text-primary transition-smooth flex items-center gap-1">
               <ArrowLeft className="h-3.5 w-3.5" />
               <span>Admin Console</span>
             </Link>
@@ -279,7 +279,7 @@ export default function AdminRecipesPage() {
       </div>
 
       {/* SEARCH BAR & FEATURED / CATEGORY FILTER TOOLBAR */}
-      <div className="p-4 sm:p-6 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl flex flex-col sm:flex-row gap-4 items-center justify-between">
+      <div className="p-4 sm:p-6 rounded-3xl glass-panel ambient-glow-orange flex flex-col sm:flex-row gap-4 items-center justify-between">
         {/* Real-Time Search Input */}
         <div className="relative w-full sm:w-96">
           <Search className="absolute left-3.5 top-3 h-4 w-4 text-default-400" />
@@ -334,7 +334,7 @@ export default function AdminRecipesPage() {
           transition={{ duration: 0.4 }}
           className="flex flex-col gap-6"
         >
-          <div className="overflow-hidden rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl">
+          <div className="overflow-hidden rounded-3xl glass-panel ambient-glow-orange">
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-default-100 dark:divide-zinc-800 text-sm">
                 <thead className="bg-default-50/70 dark:bg-zinc-950/80 font-bold text-default-400 uppercase tracking-wider text-left text-[10px]">
@@ -351,7 +351,7 @@ export default function AdminRecipesPage() {
                   {paginatedRecipes.map((rcp) => (
                     <tr
                       key={rcp.id}
-                      className="hover:bg-default-50/50 dark:hover:bg-zinc-800/30 transition-colors"
+                      className="hover:bg-default-100 dark:hover:bg-zinc-800 cursor-pointer transition-smooth"
                     >
                       {/* Column 1: Recipe Preview (Image & Name) */}
                       <td className="px-6 py-4">
@@ -428,7 +428,7 @@ export default function AdminRecipesPage() {
                         <div className="flex items-center justify-end gap-2">
                           <Link
                             href={`/recipes/${rcp.id}`}
-                            className="p-2 rounded-xl border border-default-200 dark:border-zinc-800 text-default-500 hover:text-foreground transition-colors"
+                            className="p-2 rounded-xl border border-default-200 dark:border-zinc-800 text-default-500 hover:text-foreground transition-smooth"
                             title="View Recipe"
                           >
                             <Eye className="h-4 w-4" />
@@ -436,7 +436,7 @@ export default function AdminRecipesPage() {
 
                           <button
                             onClick={() => openEditModal(rcp)}
-                            className="p-2 rounded-xl border border-default-200 dark:border-zinc-800 text-default-500 hover:text-primary hover:bg-primary/10 transition-colors cursor-pointer"
+                            className="p-2 rounded-xl border border-default-200 dark:border-zinc-800 text-default-500 hover:text-primary hover:bg-primary/10 transition-smooth cursor-pointer"
                             title="Edit Recipe"
                           >
                             <Edit3 className="h-4 w-4" />
@@ -444,7 +444,7 @@ export default function AdminRecipesPage() {
 
                           <button
                             onClick={() => openDeleteModal(rcp)}
-                            className="p-2 rounded-xl border border-rose-500/20 text-rose-500 hover:bg-rose-500/10 transition-colors cursor-pointer"
+                            className="p-2 rounded-xl border border-rose-500/20 text-rose-500 hover:bg-rose-500/10 transition-smooth cursor-pointer"
                             title="Delete Recipe"
                           >
                             <Trash2 className="h-4 w-4" />
@@ -535,7 +535,7 @@ export default function AdminRecipesPage() {
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              className="relative w-full max-w-lg p-6 sm:p-8 rounded-3xl bg-white dark:bg-zinc-950 border border-default-100 dark:border-zinc-800 shadow-2xl flex flex-col gap-6 z-10 max-h-[90vh] overflow-y-auto"
+              className="relative w-full max-w-lg p-6 sm:p-8 rounded-3xl glass-panel ambient-glow-orange flex flex-col gap-6 z-10 max-h-[90vh] overflow-y-auto"
             >
               <div className="flex justify-between items-center border-b border-default-100 dark:border-zinc-800 pb-4">
                 <div className="flex items-center gap-2.5">
@@ -648,7 +648,7 @@ export default function AdminRecipesPage() {
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              className="relative w-full max-w-md p-6 sm:p-8 rounded-3xl bg-white dark:bg-zinc-950 border border-default-100 dark:border-zinc-800 shadow-2xl flex flex-col gap-6 z-10"
+              className="relative w-full max-w-md p-6 sm:p-8 rounded-3xl glass-panel ambient-glow-orange flex flex-col gap-6 z-10"
             >
               <div className="flex items-center gap-3 text-rose-500">
                 <div className="p-3 rounded-2xl bg-rose-500/10 border border-rose-500/20">

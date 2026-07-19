@@ -37,7 +37,7 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
   };
 
   return (
-    <div className="group flex flex-col w-full rounded-3xl bg-white/70 dark:bg-zinc-900/70 backdrop-blur-md border border-default-100 dark:border-zinc-800/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.2)] hover:shadow-[0_12px_36px_rgba(249,115,22,0.12)] hover:-translate-y-1 transition-all duration-300 ease-out overflow-hidden">
+    <div className="group flex flex-col w-full rounded-3xl glass-card glass-card-hover overflow-hidden">
       {/* Recipe Image & Category Tag */}
       <div className="relative aspect-video w-full overflow-hidden bg-default-100">
         <img

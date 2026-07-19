@@ -1,21 +1,43 @@
-import dns from "node:dns";
-dns.setServers(["1.1.1.1", "8.8.8.8"]);
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { MongoClient } from "mongodb";
-import { validateEnv, requiredEnv } from "./env";
+import dns from "node:dns";
+import { requiredEnv, validateEnv } from "./env";
+dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 // Validate env vars before bootstrapping
 validateEnv();
 
 const client = new MongoClient(requiredEnv.MONGODB_URI!);
-const db = client.db();
+const db = client.db(process.env.MONGODB_DATABASE_NAME);
 
 export const auth = betterAuth({
   database: mongodbAdapter(db, {
     client,
     usePlural: true, // Use pluralized collection names (e.g. users, sessions)
   }),
+  user: {
+    additionalFields: {
+      role: {
+        type: "string",
+        required: false,
+        input: false,
+        defaultValue: "user",
+      },
+      isBlocked: {
+        type: "boolean",
+        required: false,
+        input: false,
+        defaultValue: false,
+      },
+      isPremium: {
+        type: "boolean",
+        required: false,
+        input: false,
+        defaultValue: false,
+      },
+    },
+  },
   baseURL: requiredEnv.BETTER_AUTH_URL,
   secret: requiredEnv.BETTER_AUTH_SECRET,
   emailAndPassword: {

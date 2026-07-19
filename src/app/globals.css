@@ -15,11 +15,20 @@
   .text-gradient-blue {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500;
   }
+  .text-gradient-rose {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-rose-500 via-pink-500 to-orange-500;
+  }
+  .bg-gradient-subtle {
+    @apply bg-gradient-to-tr from-zinc-100 via-zinc-50 dark:from-zinc-900 dark:via-zinc-900/80 to-background;
+  }
   .glass-card {
     @apply bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)];
   }
   .glass-card-hover {
     @apply hover:shadow-[0_12px_40px_rgba(249,115,22,0.12)] hover:-translate-y-0.5 transition-all duration-300 ease-out;
+  }
+  .glass-panel {
+    @apply bg-zinc-100/70 dark:bg-zinc-900/70 backdrop-blur-md border border-zinc-200 dark:border-zinc-800;
   }
   .ambient-glow-orange {
     @apply shadow-[0_8px_30px_rgba(249,115,22,0.08)];
@@ -29,6 +38,12 @@
   }
   .ambient-glow-emerald {
     @apply shadow-[0_8px_30px_rgba(16,185,129,0.08)];
+  }
+  .ambient-glow-rose {
+    @apply shadow-[0_8px_30px_rgba(225,29,72,0.08)];
+  }
+  .transition-smooth {
+    @apply transition-all duration-300 ease-out;
   }
 }
 

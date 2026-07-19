@@ -136,7 +136,7 @@ export default function UserBookmarksPage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed top-5 right-5 z-50 p-4 rounded-2xl bg-emerald-600 border border-emerald-500 shadow-xl flex items-center gap-3 text-xs font-bold text-white"
+            className="fixed top-5 right-5 z-50 p-4 rounded-2xl bg-emerald-600 border border-emerald-500 ambient-glow-orange flex items-center gap-3 text-xs font-bold text-white"
           >
             <CheckCircle2 className="h-5 w-5 shrink-0" />
             <span>{toastMessage}</span>
@@ -148,7 +148,7 @@ export default function UserBookmarksPage() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-default-100 dark:border-zinc-800 pb-6">
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2 text-xs text-default-400">
-            <Link href="/dashboard/user" className="hover:text-primary transition-colors flex items-center gap-1">
+            <Link href="/dashboard/user" className="hover:text-primary transition-smooth flex items-center gap-1">
               <ArrowLeft className="h-3.5 w-3.5" />
               <span>User Dashboard</span>
             </Link>
@@ -169,7 +169,7 @@ export default function UserBookmarksPage() {
       </div>
 
       {/* Search Input Bar */}
-      <div className="p-4 sm:p-6 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl flex flex-col sm:flex-row gap-4 items-center justify-between">
+      <div className="p-4 sm:p-6 rounded-3xl glass-panel ambient-glow-orange flex flex-col sm:flex-row gap-4 items-center justify-between">
         <div className="relative w-full sm:w-96">
           <Search className="absolute left-3.5 top-3 h-4 w-4 text-default-400" />
           <input
@@ -193,7 +193,7 @@ export default function UserBookmarksPage() {
           transition={{ duration: 0.4 }}
           className="flex flex-col gap-6"
         >
-          <div className="overflow-hidden rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl">
+          <div className="overflow-hidden rounded-3xl glass-panel ambient-glow-orange">
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-default-100 dark:divide-zinc-800 text-sm">
                 <thead className="bg-default-50/70 dark:bg-zinc-950/80 font-bold text-default-400 uppercase tracking-wider text-left text-[10px]">
@@ -209,7 +209,7 @@ export default function UserBookmarksPage() {
                   {paginatedBookmarks.map((bm) => (
                     <tr
                       key={bm.id}
-                      className="hover:bg-default-50/50 dark:hover:bg-zinc-800/30 transition-colors"
+                      className="hover:bg-default-100 dark:hover:bg-zinc-800 cursor-pointer transition-smooth"
                     >
                       {/* Column 1: Recipe Preview */}
                       <td className="px-6 py-4">
@@ -256,7 +256,7 @@ export default function UserBookmarksPage() {
                         <div className="flex items-center justify-end gap-2">
                           <Link
                             href={`/recipes/${bm.recipe.id}`}
-                            className="p-2 rounded-xl border border-default-200 dark:border-zinc-800 text-default-500 hover:text-foreground transition-colors"
+                            className="p-2 rounded-xl border border-default-200 dark:border-zinc-800 text-default-500 hover:text-foreground transition-smooth"
                             title="View Recipe"
                           >
                             <Eye className="h-4 w-4" />
@@ -264,7 +264,7 @@ export default function UserBookmarksPage() {
 
                           <button
                             onClick={() => handleRemoveBookmark(bm.id, bm.recipeId)}
-                            className="p-2 rounded-xl border border-rose-500/20 text-rose-500 hover:bg-rose-500/10 transition-colors cursor-pointer"
+                            className="p-2 rounded-xl border border-rose-500/20 text-rose-500 hover:bg-rose-500/10 transition-smooth cursor-pointer"
                             title="Remove Bookmark"
                           >
                             <Trash2 className="h-4 w-4" />

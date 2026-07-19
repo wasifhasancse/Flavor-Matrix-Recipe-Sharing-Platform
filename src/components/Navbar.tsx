@@ -54,9 +54,9 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-smooth ${
         scrolled
-          ? "bg-background/80 backdrop-blur-md border-b border-default-100 dark:border-zinc-800/80 shadow-sm"
+          ? "glass-panel shadow-[0_4px_20px_rgba(249,115,22,0.05)]"
           : "bg-background/40 backdrop-blur-sm border-b border-transparent"
       }`}
     >
@@ -131,7 +131,7 @@ export function Navbar() {
                   </button>
                   {isProfileOpen && (
                     <div
-                      className="absolute right-0 mt-2 w-56 rounded-xl bg-background border border-default-100 dark:border-zinc-800 shadow-lg py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150"
+                      className="absolute right-0 mt-2 w-56 rounded-xl glass-panel ambient-glow-orange py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <div className="px-4 py-2 border-b border-default-100 dark:border-zinc-800">
@@ -197,7 +197,7 @@ export function Navbar() {
 
       {/* Mobile Drawer/Menu Panel */}
       {isMobileMenuOpen && (
-        <div className="sm:hidden fixed inset-x-0 top-16 bg-background/95 backdrop-blur-md border-b border-default-100 dark:border-zinc-800 shadow-lg z-45 flex flex-col p-4 gap-4 animate-in slide-in-from-top duration-200">
+        <div className="sm:hidden fixed inset-x-0 top-16 glass-panel ambient-glow-orange z-45 flex flex-col p-4 gap-4 animate-in slide-in-from-top duration-200">
           <nav className="flex flex-col gap-2">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;

@@ -123,7 +123,7 @@ export default function UserAnalyticsPage() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-default-100 dark:border-zinc-800 pb-6">
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2 text-xs text-default-400">
-            <Link href="/dashboard/user" className="hover:text-primary transition-colors flex items-center gap-1">
+            <Link href="/dashboard/user" className="hover:text-primary transition-smooth flex items-center gap-1">
               <ArrowLeft className="h-3.5 w-3.5" />
               <span>User Dashboard</span>
             </Link>
@@ -150,7 +150,7 @@ export default function UserAnalyticsPage() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="p-6 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl flex flex-col justify-between gap-4"
+          className="p-6 rounded-3xl glass-panel ambient-glow-orange flex flex-col justify-between gap-4"
         >
           <div className="flex justify-between items-start">
             <div className="flex flex-col">
@@ -176,7 +176,7 @@ export default function UserAnalyticsPage() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.1 }}
-          className="p-6 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl flex flex-col justify-between gap-4"
+          className="p-6 rounded-3xl glass-panel ambient-glow-orange flex flex-col justify-between gap-4"
         >
           <div className="flex justify-between items-start">
             <div className="flex flex-col">
@@ -202,7 +202,7 @@ export default function UserAnalyticsPage() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.2 }}
-          className="p-6 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl flex flex-col justify-between gap-4"
+          className="p-6 rounded-3xl glass-panel ambient-glow-orange flex flex-col justify-between gap-4"
         >
           <div className="flex justify-between items-start">
             <div className="flex flex-col">
@@ -228,7 +228,7 @@ export default function UserAnalyticsPage() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.3 }}
-          className="p-6 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl flex flex-col justify-between gap-4"
+          className="p-6 rounded-3xl glass-panel ambient-glow-orange flex flex-col justify-between gap-4"
         >
           <div className="flex justify-between items-start">
             <div className="flex flex-col">
@@ -257,7 +257,7 @@ export default function UserAnalyticsPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="p-6 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl flex flex-col gap-6"
+          className="p-6 rounded-3xl glass-panel ambient-glow-orange flex flex-col gap-6"
         >
           <div className="flex flex-col">
             <h3 className="text-lg font-extrabold text-foreground">Recipe Performance Breakdown</h3>
@@ -291,7 +291,7 @@ export default function UserAnalyticsPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.15 }}
-          className="p-6 rounded-3xl border border-default-100 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-xl flex flex-col gap-6"
+          className="p-6 rounded-3xl glass-panel ambient-glow-orange flex flex-col gap-6"
         >
           <div className="flex flex-col">
             <h3 className="text-lg font-extrabold text-foreground">Monthly Engagement Trajectory</h3>

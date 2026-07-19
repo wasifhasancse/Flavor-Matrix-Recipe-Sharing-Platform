@@ -56,7 +56,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="w-full bg-default-50 border-t border-default-100 dark:bg-zinc-950 dark:border-zinc-800 text-default-600 transition-colors py-16 px-4 md:px-8">
+    <footer className="w-full bg-gradient-subtle transition-smooth py-16 px-4 md:px-8">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12">
         {/* Brand Information Column */}
         <div className="col-span-1 md:col-span-2 flex flex-col gap-4">
@@ -64,7 +64,7 @@ export function Footer() {
             <div className="flex items-center justify-center p-2 rounded-xl bg-primary text-primary-foreground shadow-md shadow-primary/10">
               <ChefHat className="h-6 w-6" />
             </div>
-            <span className="font-bold text-xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <span className="font-bold text-xl text-gradient-primary">
               Flavor Matrix
             </span>
           </Link>

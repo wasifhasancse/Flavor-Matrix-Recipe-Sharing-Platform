@@ -8,7 +8,7 @@ export interface UserSchema {
   _id?: string;
   name: string;
   email: string;
-  image: string;
+  image?: string | null;
   role: "user" | "admin";
   isBlocked: boolean;
   isPremium: boolean;

@@ -50,11 +50,11 @@ export default function Home() {
               <Sparkles className="h-4 w-4 fill-amber-400" />
               <span>Chef Handpicked</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-orange-500 via-amber-500 to-rose-500">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gradient-primary">
               Featured Creations
             </h2>
           </div>
-          <Link href="/recipes" className="text-xs font-bold text-primary hover:text-orange-500 transition-colors flex items-center gap-1">
+          <Link href="/recipes" className="text-xs font-bold text-primary hover:text-orange-500 transition-smooth flex items-center gap-1">
             <span>Explore All Featured</span>
             <span>&rarr;</span>
           </Link>
@@ -84,11 +84,11 @@ export default function Home() {
               <Flame className="h-4 w-4 fill-rose-500" />
               <span>Trending Now</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-rose-500 via-pink-500 to-orange-500">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gradient-rose">
               Popular Recipes
             </h2>
           </div>
-          <Link href="/recipes" className="text-xs font-bold text-primary hover:text-rose-500 transition-colors flex items-center gap-1">
+          <Link href="/recipes" className="text-xs font-bold text-primary hover:text-rose-500 transition-smooth flex items-center gap-1">
             <span>Explore Trending</span>
             <span>&rarr;</span>
           </Link>
