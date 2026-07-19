@@ -92,7 +92,7 @@ function RegisterFormContent() {
       <div className="hidden md:flex md:w-1/2 relative bg-zinc-900 overflow-hidden">
         {/* Background Image */}
         <div 
-          className="absolute inset-0 z-0 opacity-60 mix-blend-overlay"
+          className="absolute inset-0 z-0 opacity-50"
           style={{
             backgroundImage: "url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=2000&auto=format&fit=crop')",
             backgroundSize: "cover",
