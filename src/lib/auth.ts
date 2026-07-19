@@ -1,15 +1,15 @@
+import dns from "node:dns";
+dns.setServers(["1.1.1.1", "8.8.8.8"]);
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { MongoClient } from "mongodb";
-import dns from "node:dns";
 import { requiredEnv, validateEnv } from "./env";
-dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 // Validate env vars before bootstrapping
 validateEnv();
 
-const client = new MongoClient(requiredEnv.MONGODB_URI!);
-const db = client.db(process.env.MONGODB_DATABASE_NAME);
+export const client = new MongoClient(requiredEnv.MONGODB_URI!);
+export const db = client.db(process.env.MONGODB_DATABASE_NAME);
 
 export const auth = betterAuth({
   database: mongodbAdapter(db, {

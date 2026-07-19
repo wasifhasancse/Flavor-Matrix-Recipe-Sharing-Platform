@@ -28,6 +28,8 @@ function PaymentSuccessContent() {
 
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [timestamp, setTimestamp] = useState<string>("");
+  const [isVerifying, setIsVerifying] = useState(true);
+  const [verifiedEmail, setVerifiedEmail] = useState<string | null>(null);
 
   useEffect(() => {
     // Format timestamp on mount
@@ -42,13 +44,41 @@ function PaymentSuccessContent() {
       })
     );
 
+    const verifyPayment = async () => {
+      try {
+        const res = await fetch("/api/payment/verify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            session_id: sessionId,
+            recipe_id: recipeId,
+            amount: rawAmount || recipe?.price || 0,
+          }),
+        });
+        const data = await res.json();
+        if (data.success && data.payment) {
+          setVerifiedEmail(data.payment.userEmail);
+        }
+      } catch (err) {
+        console.error("Failed to verify payment", err);
+      } finally {
+        setIsVerifying(false);
+      }
+    };
+
+    if (sessionId && recipeId) {
+      verifyPayment();
+    } else {
+      setIsVerifying(false);
+    }
+
     // Save purchase status to local storage for persistence simulation
     if (recipeId) {
       localStorage.setItem(`purchased_${recipeId}`, "true");
       const found = mockRecipes.find((r) => r.id === recipeId);
       if (found) setRecipe(found);
     }
-  }, [recipeId]);
+  }, [recipeId, sessionId, rawAmount, recipe?.price]);
 
   const amountPaid = rawAmount
     ? `$${parseFloat(rawAmount).toFixed(2)} USD`
@@ -56,7 +86,7 @@ function PaymentSuccessContent() {
     ? `$${recipe.price.toFixed(2)} USD`
     : "$4.99 USD";
 
-  const userEmail = "chef.user@example.com";
+  const userEmail = verifiedEmail || "chef.user@example.com";
 
   return (
     <div className="flex-grow max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 flex flex-col items-center gap-10 bg-background relative overflow-hidden">

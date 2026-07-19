@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { mockRecipes } from "@/data/recipes";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 export async function POST(request: Request) {
   try {
@@ -23,6 +25,16 @@ export async function POST(request: Request) {
     }
 
     const origin = request.headers.get("origin") || "http://localhost:3000";
+
+    const sessionData = await auth.api.getSession({
+      headers: await headers(),
+    });
+
+    if (!sessionData?.user) {
+      return NextResponse.json({ error: "You must be logged in to purchase." }, { status: 401 });
+    }
+
+    const { user } = sessionData;
 
     // Check if Stripe key is configured
     if (!process.env.STRIPE_SECRET_KEY) {
@@ -58,6 +70,11 @@ export async function POST(request: Request) {
         },
       ],
       mode: "payment",
+      metadata: {
+        userId: user.id,
+        userEmail: user.email,
+        recipeId: recipeId,
+      },
       success_url: `${origin}/payment/success?session_id={CHECKOUT_SESSION_ID}&recipe_id=${recipeId}&amount=${price}`,
       cancel_url: `${origin}/payment/cancel?recipe_id=${recipeId}`,
     });

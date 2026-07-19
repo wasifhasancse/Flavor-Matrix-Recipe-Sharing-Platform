@@ -86,7 +86,7 @@ function RegisterFormContent() {
   }
 
   return (
-    <div className="w-full max-w-5xl mx-auto rounded-3xl bg-content1 border border-divider shadow-2xl flex flex-col md:flex-row-reverse overflow-hidden">
+    <div className="w-full max-w-5xl mx-auto rounded-3xl bg-content1 border border-divider shadow-lg flex flex-col md:flex-row-reverse overflow-hidden">
 
       {/* Right side: Branding & Image (hidden on small screens) */}
       <div className="hidden md:flex md:w-1/2 relative bg-zinc-900 overflow-hidden">
@@ -250,7 +250,7 @@ function RegisterFormContent() {
           {/* Submit */}
           <Button
             type="submit"
-            className="w-full bg-orange-500 text-white font-semibold py-2.5 rounded-lg flex items-center justify-center gap-2 hover:bg-orange-600 shadow-md shadow-orange-500/40 hover:shadow-lg hover:shadow-orange-500/50 hover:-translate-y-0.5 transition-all duration-300 mt-2"
+            className="w-full bg-orange-500 text-white font-semibold py-2.5 rounded-lg flex items-center justify-center gap-2 hover:bg-orange-600 shadow-md shadow-orange-500/40 hover:shadow-md hover:shadow-orange-500/50 hover:-translate-y-0.5 transition-all duration-300 mt-2"
             isDisabled={isLoading || !isPasswordValid}
           >
             {isLoading ? (
@@ -279,7 +279,7 @@ function RegisterFormContent() {
 
 export default function RegisterPage() {
   return (
-    <div className="flex-grow flex items-center justify-center pt-28 pb-12 px-4 bg-background relative transition-colors min-h-screen">
+    <div className="flex-grow flex items-center justify-center pt-16 pb-12 px-4 bg-background relative transition-colors min-h-screen">
       {/* Background Decor */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
         <div className="absolute top-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-primary/5 blur-[120px]"></div>
