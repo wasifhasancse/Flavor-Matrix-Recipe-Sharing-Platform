@@ -106,7 +106,7 @@ export default function CheckoutSummaryPage(props: CheckoutPageProps) {
           The specified recipe for checkout could not be located.
         </p>
         <Link href="/recipes" className="no-underline">
-          <Button variant="primary" className="bg-primary text-white font-bold rounded-xl px-6 py-3 border-none cursor-pointer">
+          <Button  className="btn-primary  text-white font-bold rounded-xl px-6 py-3 border-none cursor-pointer">
             Return to Browse
           </Button>
         </Link>
@@ -284,8 +284,8 @@ export default function CheckoutSummaryPage(props: CheckoutPageProps) {
                 </div>
                 <Button
                   type="submit"
-                  variant="outline"
-                  className="font-bold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
+                  
+                  className="btn-secondary font-bold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
                 >
                   Apply
                 </Button>

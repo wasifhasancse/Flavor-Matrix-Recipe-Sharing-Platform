@@ -94,7 +94,7 @@ export default function AboutPage() {
               </p>
               <div className="pt-4">
                 <Link href="/recipes">
-                  <Button variant="primary" size="lg" className="font-bold shadow-lg shadow-primary/30">
+                  <Button  size="lg" className="btn-primary font-bold shadow-lg ">
                     Explore Recipes
                   </Button>
                 </Link>

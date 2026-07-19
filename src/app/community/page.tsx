@@ -74,12 +74,12 @@ export default function CommunityPage() {
             </motion.p>
             <motion.div variants={itemVariants} className="flex gap-4 pt-4">
               <Link href="/register">
-                <Button variant="primary" size="lg" className="font-bold shadow-lg shadow-primary/30">
+                <Button  size="lg" className="btn-primary font-bold shadow-lg ">
                   Join Now
                 </Button>
               </Link>
               <Link href="/recipes">
-                <Button variant="outline" size="lg" className="font-bold border-default-200 dark:border-zinc-800 hover:bg-default-100">
+                <Button  size="lg" className="btn-secondary font-bold border-default-200 dark:border-zinc-800 hover:bg-default-100">
                   Explore Recipes
                 </Button>
               </Link>
@@ -123,7 +123,7 @@ export default function CommunityPage() {
               </h2>
               <p className="text-default-500 text-lg">Meet the culinary artists who are inspiring thousands with their unique creations and premium recipes.</p>
             </div>
-            <Button variant="outline" className="font-semibold px-6 hidden md:flex text-primary border-primary">
+            <Button  className="btn-secondary font-semibold px-6 hidden md:flex text-primary border-primary">
               View Leaderboard
             </Button>
           </div>
@@ -151,7 +151,7 @@ export default function CommunityPage() {
             ))}
           </div>
           <div className="mt-8 md:hidden flex justify-center">
-            <Button variant="outline" className="font-semibold px-6 w-full sm:w-auto text-primary border-primary">
+            <Button  className="btn-secondary font-semibold px-6 w-full sm:w-auto text-primary border-primary">
               View Leaderboard
             </Button>
           </div>

@@ -243,7 +243,7 @@ export default function AdminUsersPage() {
         <h1 className="text-2xl font-bold text-foreground">Access Denied</h1>
         <p className="text-default-500">Administrator privileges are required to manage users.</p>
         <Link href="/login" className="no-underline">
-          <Button variant="primary" className="bg-primary text-white font-bold px-6 py-2.5 rounded-xl border-none cursor-pointer">
+          <Button  className="btn-primary  text-white font-bold px-6 py-2.5 rounded-xl border-none cursor-pointer">
             Sign In as Admin
           </Button>
         </Link>
@@ -322,10 +322,10 @@ export default function AdminUsersPage() {
 
           {(searchTerm || roleFilter !== "all") && (
             <Button
-              variant="outline"
+              
               size="sm"
               onClick={handleClearFilters}
-              className="text-xs font-bold rounded-2xl border border-default-200 dark:border-zinc-800 cursor-pointer"
+              className="btn-secondary text-xs font-bold rounded-2xl border border-default-200 dark:border-zinc-800 cursor-pointer"
             >
               Clear
             </Button>
@@ -464,10 +464,10 @@ export default function AdminUsersPage() {
 
               <div className="flex items-center gap-1.5">
                 <Button
-                  variant="outline"
+                  
                   size="sm"
                   isDisabled={currentPage === 1}
-                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  className="btn-secondary" onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                   className="font-bold text-xs rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer disabled:opacity-40"
                 >
                   Previous
@@ -492,10 +492,10 @@ export default function AdminUsersPage() {
                 })}
 
                 <Button
-                  variant="outline"
+                  
                   size="sm"
                   isDisabled={currentPage === totalPages}
-                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  className="btn-secondary" onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                   className="font-bold text-xs rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer disabled:opacity-40"
                 >
                   Next

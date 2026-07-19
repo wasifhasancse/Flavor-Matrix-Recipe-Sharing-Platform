@@ -250,9 +250,9 @@ function LoginFormContent() {
         {/* Social Button */}
         <Button
           onPress={handleGoogleSignIn}
-          variant="outline"
+          
           size="lg"
-          className="w-full font-bold border-2 border-default-200 hover:bg-default-100 transition-colors"
+          className="btn-secondary w-full font-bold border-2 border-default-200 hover:bg-default-100 transition-colors"
           isDisabled={isLoading || isGoogleLoading}
         >
           {isGoogleLoading ? (

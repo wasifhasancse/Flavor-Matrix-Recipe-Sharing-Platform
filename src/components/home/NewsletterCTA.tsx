@@ -37,7 +37,7 @@ export function NewsletterCTA() {
               className="flex-1 bg-default-100 dark:bg-zinc-900 border border-transparent focus:border-primary focus:bg-background rounded-xl px-5 py-4 text-foreground placeholder:text-default-400 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
               required
             />
-            <Button size="lg" className="bg-primary h-[58px] px-8 font-bold text-white rounded-xl shadow-lg shadow-primary/30 flex items-center gap-2">
+            <Button size="lg"  className="btn-primary">
               Subscribe
               <Sparkles className="w-4 h-4" />
             </Button>

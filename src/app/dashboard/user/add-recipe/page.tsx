@@ -481,17 +481,17 @@ export default function AddRecipePage() {
         <div className="flex gap-3 justify-end border-t border-default-100 dark:border-zinc-800 pt-4 mt-2">
           <Button
             type="button"
-            variant="outline"
-            onClick={() => router.push("/dashboard/user")}
+            
+            className="btn-secondary" onClick={() => router.push("/dashboard/user")}
             className="border border-default-200 dark:border-zinc-800 px-5 py-2.5 text-xs font-semibold text-foreground rounded-xl cursor-pointer"
           >
             Cancel
           </Button>
           <Button
             type="submit"
-            variant="primary"
+            
             isDisabled={isUploading || formSuccess}
-            className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold px-6 py-2.5 text-xs rounded-xl shadow-md cursor-pointer border-none"
+            className="btn-primary bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold px-6 py-2.5 text-xs rounded-xl shadow-md cursor-pointer border-none"
           >
             {formSuccess ? <Loader2 className="h-4 w-4 animate-spin" /> : "Publish Recipe"}
           </Button>

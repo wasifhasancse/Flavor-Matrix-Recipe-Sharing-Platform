@@ -121,8 +121,8 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
         <div className="pb-4">
           <Link href="/dashboard/admin/transactions" className="no-underline block" onClick={() => setIsSidebarOpen(false)}>
             <Button
-              variant="outline"
-              className={`w-full font-bold text-xs py-2.5 rounded-xl border border-default-200 dark:border-zinc-800 flex items-center justify-center gap-2 cursor-pointer transition-smooth ${
+              
+              className={`btn-secondary w-full font-bold text-xs py-2.5 rounded-xl border border-default-200 dark:border-zinc-800 flex items-center justify-center gap-2 cursor-pointer transition-smooth ${
                 pathname === "/dashboard/admin/transactions" 
                   ? "bg-default-200 dark:bg-zinc-700 text-foreground border-default-400" 
                   : "hover:bg-default-100 dark:hover:bg-zinc-800 text-default-600"

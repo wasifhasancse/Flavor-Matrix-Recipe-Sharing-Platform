@@ -164,7 +164,7 @@ export default function AdminTransactionsPage() {
         <h1 className="text-2xl font-bold text-foreground">Access Denied</h1>
         <p className="text-default-500">Administrator privileges are required to access financial ledgers.</p>
         <Link href="/login" className="no-underline">
-          <Button variant="primary" className="bg-primary text-white font-bold px-6 py-2.5 rounded-xl border-none cursor-pointer">
+          <Button  className="btn-primary  text-white font-bold px-6 py-2.5 rounded-xl border-none cursor-pointer">
             Sign In as Admin
           </Button>
         </Link>
@@ -201,9 +201,9 @@ export default function AdminTransactionsPage() {
         </div>
 
         <Button
-          variant="outline"
+          
           onClick={handleRefresh}
-          className="border border-default-200 dark:border-zinc-800 text-foreground font-bold py-2.5 px-4 rounded-2xl text-xs flex items-center gap-2 cursor-pointer hover:bg-default-100 dark:hover:bg-zinc-800"
+          className="btn-secondary border border-default-200 dark:border-zinc-800 text-foreground font-bold py-2.5 px-4 rounded-2xl text-xs flex items-center gap-2 cursor-pointer hover:bg-default-100 dark:hover:bg-zinc-800"
         >
           <RefreshCw className="h-4 w-4 text-emerald-500" />
           <span>Refresh Data</span>
@@ -466,10 +466,10 @@ export default function AdminTransactionsPage() {
 
               <div className="flex items-center gap-1.5">
                 <Button
-                  variant="outline"
+                  
                   size="sm"
                   isDisabled={currentPage === 1}
-                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  className="btn-secondary" onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                   className="font-bold text-xs rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer disabled:opacity-40"
                 >
                   Previous
@@ -494,10 +494,10 @@ export default function AdminTransactionsPage() {
                 })}
 
                 <Button
-                  variant="outline"
+                  
                   size="sm"
                   isDisabled={currentPage === totalPages}
-                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  className="btn-secondary" onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                   className="font-bold text-xs rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer disabled:opacity-40"
                 >
                   Next

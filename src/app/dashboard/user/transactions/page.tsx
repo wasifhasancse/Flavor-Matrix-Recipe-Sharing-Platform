@@ -156,7 +156,7 @@ export default function UserTransactionsPage() {
         <h1 className="text-2xl font-bold text-foreground">Access Denied</h1>
         <p className="text-default-500">You must be logged in to view your payment history.</p>
         <Link href="/login" className="no-underline">
-          <Button variant="primary" className="bg-primary text-white font-bold px-6 py-2.5 rounded-xl border-none cursor-pointer">
+          <Button  className="btn-primary  text-white font-bold px-6 py-2.5 rounded-xl border-none cursor-pointer">
             Go to Sign In
           </Button>
         </Link>
@@ -193,8 +193,8 @@ export default function UserTransactionsPage() {
 
         <Link href="/recipes" className="no-underline">
           <Button
-            variant="primary"
-            className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold py-2.5 px-5 rounded-2xl text-xs flex items-center gap-2 ambient-glow-orange shadow-emerald-500/20 border-none cursor-pointer"
+            
+            className="btn-primary bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold py-2.5 px-5 rounded-2xl text-xs flex items-center gap-2 ambient-glow-orange shadow-emerald-500/20 border-none cursor-pointer"
           >
             <ShoppingBag className="h-4 w-4" />
             <span>Browse Recipes</span>
@@ -417,10 +417,10 @@ export default function UserTransactionsPage() {
 
               <div className="flex items-center gap-1.5">
                 <Button
-                  variant="outline"
+                  
                   size="sm"
                   isDisabled={currentPage === 1}
-                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  className="btn-secondary" onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                   className="font-bold text-xs rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer disabled:opacity-40"
                 >
                   Previous
@@ -445,10 +445,10 @@ export default function UserTransactionsPage() {
                 })}
 
                 <Button
-                  variant="outline"
+                  
                   size="sm"
                   isDisabled={currentPage === totalPages}
-                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  className="btn-secondary" onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                   className="font-bold text-xs rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer disabled:opacity-40"
                 >
                   Next

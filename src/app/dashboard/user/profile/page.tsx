@@ -235,7 +235,7 @@ export default function UserProfilePage() {
         <h1 className="text-2xl font-bold text-foreground">Access Denied</h1>
         <p className="text-default-500">You must be logged in to view your profile.</p>
         <Link href="/login" className="no-underline">
-          <Button variant="primary" className="bg-primary text-white font-bold px-6 py-2.5 rounded-xl border-none cursor-pointer">
+          <Button  className="btn-primary  text-white font-bold px-6 py-2.5 rounded-xl border-none cursor-pointer">
             Go to Sign In
           </Button>
         </Link>
@@ -277,9 +277,9 @@ export default function UserProfilePage() {
         </div>
 
         <Button
-          variant="primary"
+          
           onClick={handleOpenEditModal}
-          className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold py-2.5 px-5 rounded-2xl text-xs flex items-center gap-2 ambient-glow-orange shadow-orange-500/20 border-none cursor-pointer"
+          className="btn-primary bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold py-2.5 px-5 rounded-2xl text-xs flex items-center gap-2 ambient-glow-orange shadow-orange-500/20 border-none cursor-pointer"
         >
           <Edit3 className="h-4 w-4" />
           <span>Edit Profile</span>
@@ -387,8 +387,8 @@ export default function UserProfilePage() {
             {planData?.plan !== "premium" && (
               <Link href="/pricing" className="no-underline w-full">
                 <Button
-                  variant="outline"
-                  className="font-bold text-xs py-2.5 px-4 rounded-2xl border transition-all cursor-pointer border-amber-500/40 text-amber-500 hover:bg-amber-500/10 shadow-sm w-full"
+                  
+                  className="btn-secondary font-bold text-xs py-2.5 px-4 rounded-2xl border transition-all cursor-pointer border-amber-500/40 text-amber-500 hover:bg-amber-500/10 shadow-sm w-full"
                 >
                   Upgrade Membership
                 </Button>
@@ -551,8 +551,8 @@ export default function UserProfilePage() {
             {planData?.plan !== "premium" && (
               <Link href="/pricing" className="no-underline w-full">
                 <Button
-                  variant="primary"
-                  className="mt-2 w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-extrabold py-3 rounded-2xl text-xs flex items-center justify-center gap-2 ambient-glow-orange shadow-amber-500/20 border-none cursor-pointer"
+                  
+                  className="btn-primary mt-2 w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-extrabold py-3 rounded-2xl text-xs flex items-center justify-center gap-2 ambient-glow-orange shadow-amber-500/20 border-none cursor-pointer"
                 >
                   <Sparkles className="h-4 w-4" />
                   <span>Unlock Premium Lifetime Access</span>
@@ -687,8 +687,8 @@ export default function UserProfilePage() {
                 <div className="flex gap-2 justify-end border-t border-default-100 dark:border-zinc-800 pt-4 mt-2">
                   <Button
                     type="button"
-                    variant="outline"
-                    onClick={() => setIsEditModalOpen(false)}
+                    
+                    className="btn-secondary" onClick={() => setIsEditModalOpen(false)}
                     isDisabled={isSaving}
                     className="font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
                   >
@@ -696,9 +696,9 @@ export default function UserProfilePage() {
                   </Button>
                   <Button
                     type="submit"
-                    variant="primary"
+                    
                     isDisabled={isSaving || isUploading}
-                    className="bg-primary hover:bg-primary/90 text-white font-bold text-xs rounded-xl px-5 py-2 flex items-center gap-1.5 shadow-md border-none cursor-pointer"
+                    className="btn-primary  hover:/90 text-white font-bold text-xs rounded-xl px-5 py-2 flex items-center gap-1.5 shadow-md border-none cursor-pointer"
                   >
                     {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : "Save Changes"}
                   </Button>

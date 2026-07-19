@@ -58,12 +58,12 @@ export function Highlights() {
             
             <div className="flex gap-4 pt-4">
               <Link href="/community">
-                <Button size="lg" className="bg-primary font-bold shadow-lg shadow-primary/30 text-white rounded-xl">
+                <Button size="lg"  className="btn-primary">
                   View Profile
                 </Button>
               </Link>
               <Link href="/recipes">
-                <Button variant="outline" size="lg" className="font-bold border-default-200 dark:border-zinc-700 rounded-xl">
+                <Button  size="lg" className="btn-secondary font-bold border-default-200 dark:border-zinc-700 rounded-xl">
                   Try His Recipes
                 </Button>
               </Link>

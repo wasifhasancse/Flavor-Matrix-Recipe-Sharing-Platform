@@ -30,11 +30,11 @@ export function ThemeSwitcher() {
   return (
     <Button
       isIconOnly
-      variant="outline"
+      
       size="sm"
       onPress={toggleTheme}
       aria-label="Toggle Global Theme"
-      className="w-9 h-9 rounded-2xl border border-default-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-md hover:bg-default-100 dark:hover:bg-zinc-800 text-foreground transition-all cursor-pointer flex items-center justify-center shadow-sm"
+      className="btn-secondary w-9 h-9 rounded-2xl border border-default-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-md hover:bg-default-100 dark:hover:bg-zinc-800 text-foreground transition-all cursor-pointer flex items-center justify-center shadow-sm"
     >
       <AnimatePresence mode="wait" initial={false}>
         {isDark ? (

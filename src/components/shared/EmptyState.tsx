@@ -100,17 +100,17 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
             {actionLink ? (
               <Link href={actionLink} className="no-underline">
                 <Button
-                  variant="primary"
-                  className={`text-white font-bold py-2.5 px-6 rounded-xl text-xs flex items-center gap-2 shadow-lg border-none cursor-pointer ${buttonGradient}`}
+                  
+                  className={`btn-primary text-white font-bold py-2.5 px-6 rounded-xl text-xs flex items-center gap-2 shadow-lg border-none cursor-pointer ${buttonGradient}`}
                 >
                   {actionLabel}
                 </Button>
               </Link>
             ) : (
               <Button
-                variant="primary"
+                
                 onClick={onAction}
-                className={`text-white font-bold py-2.5 px-6 rounded-xl text-xs flex items-center gap-2 shadow-lg border-none cursor-pointer ${buttonGradient}`}
+                className={`btn-primary text-white font-bold py-2.5 px-6 rounded-xl text-xs flex items-center gap-2 shadow-lg border-none cursor-pointer ${buttonGradient}`}
               >
                 {actionLabel}
               </Button>

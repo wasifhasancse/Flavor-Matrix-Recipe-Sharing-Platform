@@ -132,7 +132,7 @@ export default function PurchasedRecipesPage() {
         <h1 className="text-2xl font-bold text-foreground">Access Denied</h1>
         <p className="text-default-500">You must be logged in to view your purchased recipes.</p>
         <Link href="/login" className="no-underline">
-          <Button variant="primary" className="bg-primary text-white font-bold px-6 py-2.5 rounded-xl border-none cursor-pointer">
+          <Button  className="btn-primary  text-white font-bold px-6 py-2.5 rounded-xl border-none cursor-pointer">
             Go to Sign In
           </Button>
         </Link>
@@ -157,8 +157,8 @@ export default function PurchasedRecipesPage() {
 
         <Link href="/recipes" className="no-underline">
           <Button
-            variant="primary"
-            className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold py-2.5 px-5 rounded-2xl text-xs flex items-center gap-2 border-none cursor-pointer shadow-lg shadow-emerald-500/20"
+            
+            className="btn-primary bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold py-2.5 px-5 rounded-2xl text-xs flex items-center gap-2 border-none cursor-pointer shadow-lg shadow-emerald-500/20"
           >
             <Compass className="h-4 w-4" />
             <span>Explore Premium Catalog</span>
@@ -279,9 +279,9 @@ export default function PurchasedRecipesPage() {
                       <td className="px-6 py-4 text-right">
                         <Link href={`/recipes/${item.recipeId}`} className="no-underline inline-flex">
                           <Button
-                            variant="primary"
+                            
                             size="sm"
-                            className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5 shadow-sm border-none cursor-pointer"
+                            className="btn-primary bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5 shadow-sm border-none cursor-pointer"
                           >
                             <Eye className="h-3.5 w-3.5" />
                             <span>View Recipe</span>
@@ -305,10 +305,10 @@ export default function PurchasedRecipesPage() {
               </span>
               <div className="flex items-center gap-1.5">
                 <Button
-                  variant="outline"
+                  
                   size="sm"
                   isDisabled={currentPage === 1}
-                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  className="btn-secondary" onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                   className="font-bold text-xs rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer disabled:opacity-40"
                 >
                   Previous
@@ -331,10 +331,10 @@ export default function PurchasedRecipesPage() {
                   );
                 })}
                 <Button
-                  variant="outline"
+                  
                   size="sm"
                   isDisabled={currentPage === totalPages}
-                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  className="btn-secondary" onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                   className="font-bold text-xs rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer disabled:opacity-40"
                 >
                   Next

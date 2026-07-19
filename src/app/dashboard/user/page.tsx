@@ -271,9 +271,9 @@ function DashboardContent() {
 
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
               <Button
-                variant="primary"
+                
                 onClick={onWithdrawOpen}
-                className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-extrabold py-3 px-5 rounded-2xl text-xs flex items-center justify-center gap-2 ambient-glow-orange shadow-emerald-500/20 border-none cursor-pointer hover:scale-105 transition-all"
+                className="btn-primary bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-extrabold py-3 px-5 rounded-2xl text-xs flex items-center justify-center gap-2 ambient-glow-orange shadow-emerald-500/20 border-none cursor-pointer hover:scale-105 transition-all"
               >
                 <ArrowDownToLine className="h-4 w-4" />
                 <span>Withdraw Money (${availableBalance.toFixed(2)})</span>
@@ -296,8 +296,8 @@ function DashboardContent() {
               ) : (
                 <Link href="/pricing" className="no-underline">
                   <Button
-                    variant="outline"
-                    className="border border-amber-500/40 text-amber-500 font-bold py-3 px-4 rounded-2xl text-xs flex items-center justify-center gap-1.5 cursor-pointer hover:bg-amber-500/10 transition-all"
+                    
+                    className="btn-secondary border border-amber-500/40 text-amber-500 font-bold py-3 px-4 rounded-2xl text-xs flex items-center justify-center gap-1.5 cursor-pointer hover:bg-amber-500/10 transition-all"
                   >
                     <Sparkles className="h-3.5 w-3.5" />
                     <span>Upgrade Account</span>
@@ -577,10 +577,10 @@ function DashboardContent() {
                       <input type="text" placeholder="e.g. chef@example.com" value={payoutAccount} onChange={(e) => setPayoutAccount(e.target.value)} className="w-full px-4 py-3 text-sm rounded-xl bg-white dark:bg-zinc-950 border border-default-200 dark:border-zinc-800 focus:border-emerald-500 outline-none text-foreground font-medium" required />
                     </div>
                     <div className="flex gap-2 justify-end pt-2">
-                      <Button type="button" variant="outline" onClick={onWithdrawClose} isDisabled={isSubmittingWithdrawal} className="font-semibold text-xs rounded-xl px-5 py-2.5 border border-default-200 dark:border-zinc-800 cursor-pointer">
+                      <Button type="button"  onClick={onWithdrawClose} isDisabled={isSubmittingWithdrawal} className="btn-secondary font-semibold text-xs rounded-xl px-5 py-2.5 border border-default-200 dark:border-zinc-800 cursor-pointer">
                         Cancel
                       </Button>
-                      <Button type="submit" variant="primary" isDisabled={isSubmittingWithdrawal || availableBalance < 5} className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs rounded-xl px-6 py-2.5 flex items-center gap-2 shadow-md shadow-emerald-500/20 border-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+                      <Button type="submit"  isDisabled={isSubmittingWithdrawal || availableBalance < 5} className="btn-primary bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs rounded-xl px-6 py-2.5 flex items-center gap-2 shadow-md shadow-emerald-500/20 border-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
                         {isSubmittingWithdrawal ? <Loader2 className="h-4 w-4 animate-spin" /> : <> <ArrowDownToLine className="h-4 w-4" /> <span>Confirm Payout</span> </>}
                       </Button>
                     </div>
@@ -597,7 +597,7 @@ function DashboardContent() {
                     <span className="text-[10px] text-default-400 font-medium uppercase tracking-wider block mb-1">Transaction Ref</span>
                     <span className="text-sm font-mono font-bold text-foreground">{withdrawRef}</span>
                   </div>
-                  <Button variant="primary" onClick={onWithdrawClose} className="mt-4 w-full bg-default-200 hover:bg-default-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-foreground font-bold px-6 py-3 rounded-xl border-none cursor-pointer">
+                  <Button  onClick={onWithdrawClose} className="btn-primary mt-4 w-full bg-default-200 hover:bg-default-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-foreground font-bold px-6 py-3 rounded-xl border-none cursor-pointer">
                     Close Window
                   </Button>
                 </div>

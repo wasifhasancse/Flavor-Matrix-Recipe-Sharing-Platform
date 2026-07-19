@@ -261,9 +261,9 @@ function PaymentSuccessContent() {
       >
         <Link href="/dashboard/user" className="no-underline w-full sm:w-auto">
           <Button
-            variant="primary"
+            
             size="lg"
-            className="w-full sm:w-auto bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-extrabold px-8 py-3.5 rounded-2xl shadow-xl shadow-orange-500/25 flex items-center justify-center gap-2 border-none cursor-pointer hover:scale-105 transition-all text-sm"
+            className="btn-primary w-full sm:w-auto bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-extrabold px-8 py-3.5 rounded-2xl shadow-xl shadow-orange-500/25 flex items-center justify-center gap-2 border-none cursor-pointer hover:scale-105 transition-all text-sm"
           >
             <LayoutDashboard className="h-4.5 w-4.5" />
             <span>Go to Purchased Recipes</span>
@@ -273,9 +273,9 @@ function PaymentSuccessContent() {
         {recipeId && (
           <Link href={`/recipes/${recipeId}`} className="no-underline w-full sm:w-auto">
             <Button
-              variant="outline"
+              
               size="lg"
-              className="w-full sm:w-auto border border-default-300 dark:border-zinc-700 text-foreground font-bold px-7 py-3.5 rounded-2xl flex items-center justify-center gap-2 cursor-pointer hover:bg-default-100 dark:hover:bg-zinc-800 transition-all text-sm"
+              className="btn-secondary w-full sm:w-auto border border-default-300 dark:border-zinc-700 text-foreground font-bold px-7 py-3.5 rounded-2xl flex items-center justify-center gap-2 cursor-pointer hover:bg-default-100 dark:hover:bg-zinc-800 transition-all text-sm"
             >
               <ChefHat className="h-4.5 w-4.5 text-primary" />
               <span>View Unlocked Recipe</span>
@@ -285,9 +285,9 @@ function PaymentSuccessContent() {
 
         <Link href="/recipes" className="no-underline w-full sm:w-auto">
           <Button
-            variant="outline"
+            
             size="lg"
-            className="w-full sm:w-auto border border-default-200 dark:border-zinc-800 text-default-600 font-semibold px-6 py-3.5 rounded-2xl flex items-center justify-center gap-2 cursor-pointer hover:bg-default-50 dark:hover:bg-zinc-900 transition-all text-sm"
+            className="btn-secondary w-full sm:w-auto border border-default-200 dark:border-zinc-800 text-default-600 font-semibold px-6 py-3.5 rounded-2xl flex items-center justify-center gap-2 cursor-pointer hover:bg-default-50 dark:hover:bg-zinc-900 transition-all text-sm"
           >
             <Compass className="h-4.5 w-4.5" />
             <span>Back to Browse</span>

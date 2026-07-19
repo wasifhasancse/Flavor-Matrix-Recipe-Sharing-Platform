@@ -154,9 +154,9 @@ export default function UserDashboardLayout({ children }: { children: React.Reac
             </Chip>
           </div>
           <Button
-            variant="primary"
+            
             size="sm"
-            className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs py-2 rounded-xl border-none cursor-pointer flex items-center justify-center gap-1.5 shadow-md shadow-emerald-500/20"
+            className="btn-primary w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs py-2 rounded-xl border-none cursor-pointer flex items-center justify-center gap-1.5 shadow-md shadow-emerald-500/20"
           >
             <ArrowDownToLine className="h-3.5 w-3.5" />
             <span>Withdraw Money</span>

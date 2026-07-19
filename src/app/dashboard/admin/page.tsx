@@ -165,7 +165,7 @@ function AdminDashboardContent() {
           You must be logged in as an administrator to access these analytical and moderation panels.
         </p>
         <Link href="/login" className="no-underline">
-          <Button variant="primary" className="bg-primary text-white font-semibold px-6 py-2.5 rounded-xl border-none cursor-pointer">
+          <Button  className="btn-primary  text-white font-semibold px-6 py-2.5 rounded-xl border-none cursor-pointer">
             Login as Admin
           </Button>
         </Link>
@@ -347,8 +347,8 @@ function AdminDashboardContent() {
 
               <Link href="/dashboard/admin/reports">
                 <Button
-                  variant="outline"
-                  className="text-xs font-bold py-1.5 px-3 rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer"
+                  
+                  className="btn-secondary text-xs font-bold py-1.5 px-3 rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer"
                 >
                   View All
                 </Button>
@@ -390,9 +390,9 @@ function AdminDashboardContent() {
                       <td className="py-3.5 text-right">
                         <Link href="/dashboard/admin/reports">
                           <Button
-                            variant="outline"
+                            
                             size="sm"
-                            className="font-bold text-[10px] py-1 px-2.5 rounded-lg border border-default-200 dark:border-zinc-800 cursor-pointer"
+                            className="btn-secondary font-bold text-[10px] py-1 px-2.5 rounded-lg border border-default-200 dark:border-zinc-800 cursor-pointer"
                           >
                             Review
                           </Button>

@@ -70,9 +70,8 @@ export default async function RecipesPage(props: RecipesPageProps) {
         </div>
         <Link href="/dashboard/user/add-recipe" className="no-underline">
           <Button
-            variant="primary"
             size="sm"
-            className="font-semibold rounded-lg px-4 py-2 flex items-center gap-1.5 shadow-md hover:shadow-lg transition-all"
+            className="btn-primary rounded-lg px-4 py-2 flex items-center gap-1.5"
           >
             <Plus className="h-4 w-4" />
             Share Recipe
@@ -106,7 +105,7 @@ export default async function RecipesPage(props: RecipesPageProps) {
                 We couldn&apos;t find any recipes matching your current filters. Try checking another category, reducing the difficulty level, or clearing all filters to explore.
               </p>
               <Link href="/recipes">
-                <Button variant="outline" size="sm" className="font-semibold mt-2">
+                <Button  size="sm" className="btn-secondary font-semibold mt-2">
                   Clear All Filters
                 </Button>
               </Link>

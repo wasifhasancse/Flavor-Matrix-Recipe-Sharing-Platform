@@ -73,7 +73,7 @@ function PricingSuccessContent() {
           {error || "We couldn't verify this subscription session. Please contact support if you were charged."}
         </p>
         <Link href="/pricing" className="w-full">
-          <Button variant="outline" className="w-full font-bold border-rose-500/30 text-rose-500 hover:bg-rose-500/10">
+          <Button  className="btn-secondary w-full font-bold border-rose-500/30 text-rose-500 hover:bg-rose-500/10">
             Return to Pricing
           </Button>
         </Link>
@@ -124,7 +124,7 @@ function PricingSuccessContent() {
             </Button>
           </Link>
           <Link href="/dashboard/user/add-recipe" className="w-full">
-            <Button variant="outline" className="w-full font-bold border-default-200">
+            <Button  className="btn-secondary w-full font-bold border-default-200">
               Publish a New Recipe <ArrowRight className="h-4 w-4 ml-1" />
             </Button>
           </Link>

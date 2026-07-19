@@ -261,7 +261,7 @@ export default function MyRecipesPage() {
         <h1 className="text-2xl font-bold text-foreground">Access Denied</h1>
         <p className="text-default-500">You must be logged in to manage your recipes.</p>
         <Link href="/login" className="no-underline">
-          <Button variant="primary" className="bg-primary text-white font-bold px-6 py-2.5 rounded-xl border-none cursor-pointer">
+          <Button  className="btn-primary  text-white font-bold px-6 py-2.5 rounded-xl border-none cursor-pointer">
             Go to Sign In
           </Button>
         </Link>
@@ -306,8 +306,8 @@ export default function MyRecipesPage() {
 
         <Link href="/dashboard/user?tab=add-recipe" className="no-underline">
           <Button
-            variant="primary"
-            className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold py-2.5 px-5 rounded-2xl text-xs flex items-center gap-2 ambient-glow-orange shadow-orange-500/20 border-none cursor-pointer"
+            
+            className="btn-primary bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold py-2.5 px-5 rounded-2xl text-xs flex items-center gap-2 ambient-glow-orange shadow-orange-500/20 border-none cursor-pointer"
           >
             <PlusCircle className="h-4 w-4" />
             <span>Create New Recipe</span>
@@ -658,18 +658,18 @@ export default function MyRecipesPage() {
                 <div className="flex gap-2 justify-end border-t border-default-100 dark:border-zinc-800 pt-4 mt-2">
                   <Button
                     type="button"
-                    variant="outline"
+                    
                     onClick={editModal.close}
                     isDisabled={isSubmittingEdit}
-                    className="font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
+                    className="btn-secondary font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
                   >
                     Cancel
                   </Button>
                   <Button
                     type="submit"
-                    variant="primary"
+                    
                     isDisabled={isSubmittingEdit}
-                    className="bg-primary hover:bg-primary/90 text-white font-bold text-xs rounded-xl px-5 py-2 shadow-md border-none cursor-pointer flex items-center gap-1.5"
+                    className="btn-primary  hover:/90 text-white font-bold text-xs rounded-xl px-5 py-2 shadow-md border-none cursor-pointer flex items-center gap-1.5"
                   >
                     {isSubmittingEdit ? <Loader2 className="h-4 w-4 animate-spin" /> : "Save Changes"}
                   </Button>
@@ -731,18 +731,18 @@ export default function MyRecipesPage() {
               {/* Action Buttons */}
               <div className="flex gap-2 justify-end pt-2">
                 <Button
-                  variant="outline"
+                  
                   onClick={deleteModal.close}
                   isDisabled={isDeleting}
-                  className="font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
+                  className="btn-secondary font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
                 >
                   Cancel
                 </Button>
                 <Button
-                  variant="primary"
+                  
                   onClick={handleConfirmDelete}
                   isDisabled={isDeleting}
-                  className="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl px-5 py-2 flex items-center gap-1.5 shadow-md shadow-rose-600/20 border-none cursor-pointer"
+                  className="btn-primary bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl px-5 py-2 flex items-center gap-1.5 shadow-md shadow-rose-600/20 border-none cursor-pointer"
                 >
                   {isDeleting ? (
                     <Loader2 className="h-4 w-4 animate-spin" />

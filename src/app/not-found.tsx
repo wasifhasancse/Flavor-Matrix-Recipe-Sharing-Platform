@@ -32,8 +32,8 @@ export default function NotFound() {
         <div className="flex flex-col sm:flex-row gap-3 mt-4 w-full justify-center">
           <Link href="/" className="no-underline">
             <Button
-              variant="primary"
-              className="w-full bg-primary text-primary-foreground font-semibold px-6 py-2.5 rounded-lg flex items-center justify-center gap-1.5 shadow-md hover:shadow-lg transition-all"
+              
+              className="btn-primary w-full  text-primary-foreground font-semibold px-6 py-2.5 rounded-lg flex items-center justify-center gap-1.5 shadow-md hover:shadow-lg transition-all"
             >
               <Compass className="h-4 w-4" />
               Return to Kitchen
@@ -41,8 +41,8 @@ export default function NotFound() {
           </Link>
           <Link href="/recipes" className="no-underline">
             <Button
-              variant="outline"
-              className="w-full border border-default-300 dark:border-zinc-700 text-foreground font-semibold px-6 py-2.5 rounded-lg flex items-center justify-center gap-1.5 hover:bg-default-50 dark:hover:bg-zinc-800 transition-colors"
+              
+              className="btn-secondary w-full border border-default-300 dark:border-zinc-700 text-foreground font-semibold px-6 py-2.5 rounded-lg flex items-center justify-center gap-1.5 hover:bg-default-50 dark:hover:bg-zinc-800 transition-colors"
             >
               <ArrowLeft className="h-4 w-4" />
               Browse Recipes

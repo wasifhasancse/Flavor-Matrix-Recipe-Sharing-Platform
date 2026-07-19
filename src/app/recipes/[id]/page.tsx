@@ -375,8 +375,8 @@ function RecipeDetailsContent({ id }: { id: string }) {
         </p>
         <Link href="/recipes" className="no-underline">
           <Button
-            variant="primary"
-            className="bg-primary text-primary-foreground font-semibold px-6 py-2.5 rounded-xl flex items-center gap-2 shadow-md cursor-pointer border-none"
+            
+            className="btn-primary  text-primary-foreground font-semibold px-6 py-2.5 rounded-xl flex items-center gap-2 shadow-md cursor-pointer border-none"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to All Recipes
@@ -703,9 +703,9 @@ function RecipeDetailsContent({ id }: { id: string }) {
 
                     {/* Copy Ingredients Button */}
                     <Button
-                      variant="outline"
+                      
                       onClick={handleCopyIngredients}
-                      className="text-xs font-semibold rounded-xl px-3 py-1.5 border border-default-200 dark:border-zinc-800 cursor-pointer"
+                      className="btn-secondary text-xs font-semibold rounded-xl px-3 py-1.5 border border-default-200 dark:border-zinc-800 cursor-pointer"
                     >
                       {isCopied ? (
                         <span className="flex items-center gap-1 text-emerald-500">
@@ -858,8 +858,8 @@ function RecipeDetailsContent({ id }: { id: string }) {
 
               <Link href={`/checkout/${recipe.id}`} className="no-underline">
                 <Button
-                  variant="primary"
-                  className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-extrabold px-10 py-4 rounded-2xl shadow-xl shadow-orange-500/25 flex items-center gap-2.5 text-base border-none hover:scale-105 transition-all cursor-pointer"
+                  
+                  className="btn-primary bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-extrabold px-10 py-4 rounded-2xl shadow-xl shadow-orange-500/25 flex items-center gap-2.5 text-base border-none hover:scale-105 transition-all cursor-pointer"
                 >
                   <ShoppingBag className="h-5 w-5" />
                   <span>Unlock Now for ${recipe.price?.toFixed(2)}</span>
@@ -900,8 +900,8 @@ function RecipeDetailsContent({ id }: { id: string }) {
                 ) : (
                   <Link href={`/checkout/${recipe.id}`} className="no-underline w-full">
                     <Button
-                      variant="primary"
-                      className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-orange-500/20 border-none cursor-pointer"
+                      
+                      className="btn-primary w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-orange-500/20 border-none cursor-pointer"
                     >
                       <ShoppingBag className="h-4.5 w-4.5" />
                       <span>Buy Recipe Access</span>
@@ -915,10 +915,10 @@ function RecipeDetailsContent({ id }: { id: string }) {
             <div className="flex gap-3">
               {/* Like Button */}
               <Button
-                variant="outline"
+                
                 onClick={handleLike}
                 isDisabled={isLikeLoading}
-                className={`flex-1 font-semibold rounded-xl flex items-center justify-center gap-2 border transition-all cursor-pointer ${
+                className={`btn-secondary flex-1 font-semibold rounded-xl flex items-center justify-center gap-2 border transition-all cursor-pointer ${
                   hasLiked
                     ? "bg-rose-500/10 border-rose-500/30 text-rose-500"
                     : "border-default-200 dark:border-zinc-800 text-foreground"
@@ -934,10 +934,10 @@ function RecipeDetailsContent({ id }: { id: string }) {
 
               {/* Favorite Button */}
               <Button
-                variant="outline"
+                
                 onClick={handleFavorite}
                 isDisabled={isFavoriteLoading}
-                className={`flex-1 font-semibold rounded-xl flex items-center justify-center gap-2 border transition-all cursor-pointer ${
+                className={`btn-secondary flex-1 font-semibold rounded-xl flex items-center justify-center gap-2 border transition-all cursor-pointer ${
                   isFavorited
                     ? "bg-amber-500/10 border-amber-500/30 text-amber-500"
                     : "border-default-200 dark:border-zinc-800 text-foreground"
@@ -958,10 +958,10 @@ function RecipeDetailsContent({ id }: { id: string }) {
 
             {/* Bookmark Action Button */}
             <Button
-              variant="outline"
+              
               onClick={handleBookmark}
               isDisabled={isBookmarkLoading}
-              className={`w-full font-semibold rounded-xl flex items-center justify-center gap-2 border transition-all cursor-pointer ${
+              className={`btn-secondary w-full font-semibold rounded-xl flex items-center justify-center gap-2 border transition-all cursor-pointer ${
                 isBookmarked
                   ? "bg-primary/10 border-primary/30 text-primary"
                   : "border-default-200 dark:border-zinc-800 text-foreground"
@@ -979,9 +979,9 @@ function RecipeDetailsContent({ id }: { id: string }) {
 
             {/* Report Recipe Button (Triggers HeroUI Modal) */}
             <Button
-              variant="outline"
+              
               onClick={onReportOpen}
-              className="w-full font-semibold rounded-xl border border-default-200 dark:border-zinc-800 hover:border-rose-500/40 hover:bg-rose-500/5 hover:text-rose-500 transition-all flex items-center justify-center gap-2 text-default-600 cursor-pointer"
+              className="btn-secondary w-full font-semibold rounded-xl border border-default-200 dark:border-zinc-800 hover:border-rose-500/40 hover:bg-rose-500/5 hover:text-rose-500 transition-all flex items-center justify-center gap-2 text-default-600 cursor-pointer"
             >
               <Flag className="h-4 w-4" />
               <span>Report Recipe</span>
@@ -1110,10 +1110,10 @@ function RecipeDetailsContent({ id }: { id: string }) {
               {!reportSuccess && (
                 <div className="flex gap-2 justify-end pt-3 border-t border-default-100 dark:border-zinc-800">
                   <Button
-                    variant="outline"
+                    
                     onClick={onReportClose}
                     isDisabled={isSubmittingReport}
-                    className="font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
+                    className="btn-secondary font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
                   >
                     Cancel
                   </Button>

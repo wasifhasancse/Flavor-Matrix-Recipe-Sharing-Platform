@@ -29,8 +29,7 @@ export function RecipePagination({ total, initialPage }: RecipePaginationProps) 
         <Button
           isIconOnly
           variant="ghost"
-          radius="lg"
-          className="bg-transparent hover:bg-default-100 data-[hover=true]:bg-default-100"
+          className="rounded-lg bg-transparent hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 text-zinc-600 dark:text-zinc-300"
           onPress={() => handlePageChange(initialPage - 1)}
           isDisabled={initialPage <= 1}
           aria-label="Previous page"
@@ -43,12 +42,10 @@ export function RecipePagination({ total, initialPage }: RecipePaginationProps) 
             <Button
               key={p}
               isIconOnly
-              radius="lg"
-              variant={p === initialPage ? "primary" : "ghost"}
-              className={`font-bold transition-all ${
+              className={`rounded-lg font-bold transition-all ${
                 p === initialPage 
-                  ? "shadow-md shadow-primary/30" 
-                  : "text-default-600 hover:text-foreground"
+                  ? "btn-primary" 
+                  : "bg-transparent hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white"
               }`}
               onPress={() => handlePageChange(p)}
             >
@@ -60,8 +57,7 @@ export function RecipePagination({ total, initialPage }: RecipePaginationProps) 
         <Button
           isIconOnly
           variant="ghost"
-          radius="lg"
-          className="bg-transparent hover:bg-default-100 data-[hover=true]:bg-default-100"
+          className="rounded-lg bg-transparent hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 text-zinc-600 dark:text-zinc-300"
           onPress={() => handlePageChange(initialPage + 1)}
           isDisabled={initialPage >= total}
           aria-label="Next page"

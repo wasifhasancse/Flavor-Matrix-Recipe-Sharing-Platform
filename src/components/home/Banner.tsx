@@ -201,9 +201,9 @@ export function Banner({ slides = DEFAULT_SLIDES, autoPlayDelay = 5000 }: Banner
                 >
                   <Link href="/recipes" className="no-underline inline-block">
                     <Button
-                      variant="primary"
+                      
                       size="lg"
-                      className="font-bold bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-[0_0_20px_rgba(249,115,22,0.4)] hover:shadow-[0_0_30px_rgba(249,115,22,0.6)] transition-all duration-300 rounded-xl px-7 py-3.5 flex items-center gap-2.5 text-base border-none cursor-pointer"
+                      className="btn-primary font-bold bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-[0_0_20px_rgba(249,115,22,0.4)] hover:shadow-[0_0_30px_rgba(249,115,22,0.6)] transition-all duration-300 rounded-xl px-7 py-3.5 flex items-center gap-2.5 text-base border-none cursor-pointer"
                     >
                       <Compass className="h-5 w-5" />
                       <span>Explore Recipes</span>

@@ -120,7 +120,7 @@ export default function UserBookmarksPage() {
         <h1 className="text-2xl font-bold text-foreground">Authentication Required</h1>
         <p className="text-default-500">Sign in to manage your bookmarked recipe collection.</p>
         <Link href="/login" className="no-underline">
-          <Button variant="primary" className="bg-primary text-white font-bold px-6 py-2.5 rounded-xl border-none cursor-pointer">
+          <Button  className="btn-primary  text-white font-bold px-6 py-2.5 rounded-xl border-none cursor-pointer">
             Sign In Now
           </Button>
         </Link>
@@ -282,10 +282,10 @@ export default function UserBookmarksPage() {
 
               <div className="flex items-center gap-1.5">
                 <Button
-                  variant="outline"
+                  
                   size="sm"
                   isDisabled={currentPage === 1}
-                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  className="btn-secondary" onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                   className="font-bold text-xs rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer disabled:opacity-40"
                 >
                   Previous
@@ -310,10 +310,10 @@ export default function UserBookmarksPage() {
                 })}
 
                 <Button
-                  variant="outline"
+                  
                   size="sm"
                   isDisabled={currentPage === totalPages}
-                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  className="btn-secondary" onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                   className="font-bold text-xs rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer disabled:opacity-40"
                 >
                   Next

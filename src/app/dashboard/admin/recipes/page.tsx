@@ -230,7 +230,7 @@ export default function AdminRecipesPage() {
         <h1 className="text-2xl font-bold text-foreground">Access Denied</h1>
         <p className="text-default-500">Administrator privileges are required to access recipe controls.</p>
         <Link href="/login" className="no-underline">
-          <Button variant="primary" className="bg-primary text-white font-bold px-6 py-2.5 rounded-xl border-none cursor-pointer">
+          <Button  className="btn-primary  text-white font-bold px-6 py-2.5 rounded-xl border-none cursor-pointer">
             Sign In as Admin
           </Button>
         </Link>
@@ -310,10 +310,10 @@ export default function AdminRecipesPage() {
 
           {(searchTerm || featuredFilter !== "all" || categoryFilter !== "all") && (
             <Button
-              variant="outline"
+              
               size="sm"
               onClick={handleResetFilters}
-              className="text-xs font-bold rounded-2xl border border-default-200 dark:border-zinc-800 cursor-pointer"
+              className="btn-secondary text-xs font-bold rounded-2xl border border-default-200 dark:border-zinc-800 cursor-pointer"
             >
               Reset Filters
             </Button>
@@ -463,10 +463,10 @@ export default function AdminRecipesPage() {
 
               <div className="flex items-center gap-1.5">
                 <Button
-                  variant="outline"
+                  
                   size="sm"
                   isDisabled={currentPage === 1}
-                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  className="btn-secondary" onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                   className="font-bold text-xs rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer disabled:opacity-40"
                 >
                   Previous
@@ -491,10 +491,10 @@ export default function AdminRecipesPage() {
                 })}
 
                 <Button
-                  variant="outline"
+                  
                   size="sm"
                   isDisabled={currentPage === totalPages}
-                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  className="btn-secondary" onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                   className="font-bold text-xs rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer disabled:opacity-40"
                 >
                   Next
@@ -606,8 +606,8 @@ export default function AdminRecipesPage() {
                 <div className="flex gap-2 justify-end border-t border-default-100 dark:border-zinc-800 pt-4 mt-2">
                   <Button
                     type="button"
-                    variant="outline"
-                    onClick={() => setIsEditModalOpen(false)}
+                    
+                    className="btn-secondary" onClick={() => setIsEditModalOpen(false)}
                     isDisabled={isSaving}
                     className="font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
                   >
@@ -615,9 +615,9 @@ export default function AdminRecipesPage() {
                   </Button>
                   <Button
                     type="submit"
-                    variant="primary"
+                    
                     isDisabled={isSaving}
-                    className="bg-primary hover:bg-primary/90 text-white font-bold text-xs rounded-xl px-5 py-2 flex items-center gap-1.5 shadow-md border-none cursor-pointer"
+                    className="btn-primary  hover:/90 text-white font-bold text-xs rounded-xl px-5 py-2 flex items-center gap-1.5 shadow-md border-none cursor-pointer"
                   >
                     {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : "Save Recipe"}
                   </Button>
@@ -671,18 +671,18 @@ export default function AdminRecipesPage() {
 
               <div className="flex gap-2 justify-end pt-2">
                 <Button
-                  variant="outline"
-                  onClick={() => setIsDeleteModalOpen(false)}
+                  
+                  className="btn-secondary" onClick={() => setIsDeleteModalOpen(false)}
                   isDisabled={isDeleting}
                   className="font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
                 >
                   Cancel
                 </Button>
                 <Button
-                  variant="primary"
+                  
                   onClick={confirmDelete}
                   isDisabled={isDeleting}
-                  className="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl px-5 py-2 flex items-center gap-1.5 shadow-md border-none cursor-pointer"
+                  className="btn-primary bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl px-5 py-2 flex items-center gap-1.5 shadow-md border-none cursor-pointer"
                 >
                   {isDeleting ? <Loader2 className="h-4 w-4 animate-spin" /> : "Delete Recipe"}
                 </Button>

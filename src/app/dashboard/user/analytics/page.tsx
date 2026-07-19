@@ -110,7 +110,7 @@ export default function UserAnalyticsPage() {
         <h1 className="text-2xl font-bold text-foreground">Authentication Required</h1>
         <p className="text-default-500">Sign in to view your culinary author performance dashboard.</p>
         <Link href="/login" className="no-underline">
-          <Button variant="primary" className="bg-primary text-white font-bold px-6 py-2.5 rounded-xl border-none cursor-pointer">
+          <Button  className="btn-primary  text-white font-bold px-6 py-2.5 rounded-xl border-none cursor-pointer">
             Sign In Now
           </Button>
         </Link>

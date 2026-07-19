@@ -258,7 +258,7 @@ export default function AdminReportsPage() {
         <h1 className="text-2xl font-bold text-foreground">Access Denied</h1>
         <p className="text-default-500">Administrator privileges are required for moderation panels.</p>
         <Link href="/login" className="no-underline">
-          <Button variant="primary" className="bg-primary text-white font-bold px-6 py-2.5 rounded-xl border-none cursor-pointer">
+          <Button  className="btn-primary  text-white font-bold px-6 py-2.5 rounded-xl border-none cursor-pointer">
             Sign In as Admin
           </Button>
         </Link>
@@ -402,9 +402,9 @@ export default function AdminReportsPage() {
                         <div className="flex items-center justify-end gap-2">
                           {/* 1. View Details Button */}
                           <Button
-                            variant="outline"
+                            
                             size="sm"
-                            onClick={() => handleOpenDetails(item)}
+                            className="btn-secondary" onClick={() => handleOpenDetails(item)}
                             className="font-bold text-xs py-1.5 px-3 rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer flex items-center gap-1"
                           >
                             <Eye className="h-3.5 w-3.5" />
@@ -413,9 +413,9 @@ export default function AdminReportsPage() {
 
                           {/* 2. Dismiss Reports Button */}
                           <Button
-                            variant="outline"
+                            
                             size="sm"
-                            onClick={() => {
+                            className="btn-secondary" onClick={() => {
                               setRecipeToDismiss(item);
                               setIsDismissModalOpen(true);
                             }}
@@ -427,9 +427,9 @@ export default function AdminReportsPage() {
 
                           {/* 3. Remove Recipe Cascading Button */}
                           <Button
-                            variant="outline"
+                            
                             size="sm"
-                            onClick={() => {
+                            className="btn-secondary" onClick={() => {
                               setRecipeToDelete(item);
                               setIsDeleteModalOpen(true);
                             }}
@@ -457,10 +457,10 @@ export default function AdminReportsPage() {
 
               <div className="flex items-center gap-1.5">
                 <Button
-                  variant="outline"
+                  
                   size="sm"
                   isDisabled={currentPage === 1}
-                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  className="btn-secondary" onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                   className="font-bold text-xs rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer disabled:opacity-40"
                 >
                   Previous
@@ -485,10 +485,10 @@ export default function AdminReportsPage() {
                 })}
 
                 <Button
-                  variant="outline"
+                  
                   size="sm"
                   isDisabled={currentPage === totalPages}
-                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  className="btn-secondary" onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                   className="font-bold text-xs rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer disabled:opacity-40"
                 >
                   Next
@@ -592,8 +592,8 @@ export default function AdminReportsPage() {
               {/* Footer */}
               <div className="flex justify-end pt-2 border-t border-default-100 dark:border-zinc-800">
                 <Button
-                  variant="outline"
-                  onClick={() => setIsDetailsModalOpen(false)}
+                  
+                  className="btn-secondary" onClick={() => setIsDetailsModalOpen(false)}
                   className="font-semibold text-xs rounded-xl px-5 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
                 >
                   Close Window
@@ -637,18 +637,18 @@ export default function AdminReportsPage() {
 
               <div className="flex gap-2 justify-end pt-2">
                 <Button
-                  variant="outline"
-                  onClick={() => setIsDismissModalOpen(false)}
+                  
+                  className="btn-secondary" onClick={() => setIsDismissModalOpen(false)}
                   isDisabled={isDismissing}
                   className="font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
                 >
                   Cancel
                 </Button>
                 <Button
-                  variant="primary"
+                  
                   onClick={handleConfirmDismiss}
                   isDisabled={isDismissing}
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl px-5 py-2 flex items-center gap-1.5 shadow-md border-none cursor-pointer"
+                  className="btn-primary bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl px-5 py-2 flex items-center gap-1.5 shadow-md border-none cursor-pointer"
                 >
                   {isDismissing ? <Loader2 className="h-4 w-4 animate-spin" /> : "Confirm Dismissal"}
                 </Button>
@@ -703,18 +703,18 @@ export default function AdminReportsPage() {
 
               <div className="flex gap-2 justify-end pt-2">
                 <Button
-                  variant="outline"
-                  onClick={() => setIsDeleteModalOpen(false)}
+                  
+                  className="btn-secondary" onClick={() => setIsDeleteModalOpen(false)}
                   isDisabled={isDeleting}
                   className="font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
                 >
                   Cancel
                 </Button>
                 <Button
-                  variant="primary"
+                  
                   onClick={handleConfirmCascadingDelete}
                   isDisabled={isDeleting}
-                  className="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl px-5 py-2 flex items-center gap-1.5 shadow-md border-none cursor-pointer"
+                  className="btn-primary bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl px-5 py-2 flex items-center gap-1.5 shadow-md border-none cursor-pointer"
                 >
                   {isDeleting ? <Loader2 className="h-4 w-4 animate-spin" /> : "Purge Recipe"}
                 </Button>
