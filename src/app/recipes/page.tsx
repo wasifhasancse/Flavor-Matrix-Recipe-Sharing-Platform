@@ -63,7 +63,9 @@ export default async function RecipesPage(props: RecipesPageProps) {
             Explore All Recipes
           </h1>
           <p className="text-sm text-default-500">
-            Showing {totalRecipes} delicious recipes matching your criteria
+            {totalRecipes > 0 
+              ? `Showing ${(activePage - 1) * 6 + 1}-${Math.min(activePage * 6, totalRecipes)} of ${totalRecipes} delicious recipes matching your criteria`
+              : "No recipes found matching your criteria"}
           </p>
         </div>
         <Link href="/dashboard/user/add-recipe" className="no-underline">

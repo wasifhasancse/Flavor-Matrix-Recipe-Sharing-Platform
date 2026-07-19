@@ -61,6 +61,15 @@ export function SearchControls() {
     });
   };
 
+  const handleClear = () => {
+    startTransition(() => {
+      setSearchValue("");
+      router.push(pathname);
+    });
+  };
+
+  const hasActiveFilters = searchValue !== "" || currentCategory !== "All" || currentDifficulty !== "All" || currentSortKey !== "newest";
+
   const handleSortChange = (key: string) => {
     let sortBy = "createdAt";
     let sortOrder = "desc";
@@ -150,6 +159,18 @@ export function SearchControls() {
             ))}
           </select>
         </div>
+        
+        {hasActiveFilters && (
+          <div className="flex-shrink-0">
+            <button
+              onClick={handleClear}
+              disabled={isPending}
+              className="h-10 px-4 rounded-xl bg-default-100 hover:bg-default-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-default-700 text-sm font-semibold transition-colors disabled:opacity-50"
+            >
+              Clear
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
