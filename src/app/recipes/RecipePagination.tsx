@@ -28,7 +28,7 @@ export function RecipePagination({ total, initialPage }: RecipePaginationProps) 
       <div className="flex items-center gap-2 p-2 bg-default-50/50 dark:bg-zinc-900/30 backdrop-blur-xl border border-default-200 dark:border-zinc-800/80 rounded-2xl shadow-sm">
         <Button
           isIconOnly
-          variant="flat"
+          variant="ghost"
           radius="lg"
           className="bg-transparent hover:bg-default-100 data-[hover=true]:bg-default-100"
           onPress={() => handlePageChange(initialPage - 1)}
@@ -44,8 +44,7 @@ export function RecipePagination({ total, initialPage }: RecipePaginationProps) 
               key={p}
               isIconOnly
               radius="lg"
-              variant={p === initialPage ? "solid" : "light"}
-              color={p === initialPage ? "primary" : "default"}
+              variant={p === initialPage ? "primary" : "ghost"}
               className={`font-bold transition-all ${
                 p === initialPage 
                   ? "shadow-md shadow-primary/30" 
@@ -60,7 +59,7 @@ export function RecipePagination({ total, initialPage }: RecipePaginationProps) 
 
         <Button
           isIconOnly
-          variant="flat"
+          variant="ghost"
           radius="lg"
           className="bg-transparent hover:bg-default-100 data-[hover=true]:bg-default-100"
           onPress={() => handlePageChange(initialPage + 1)}

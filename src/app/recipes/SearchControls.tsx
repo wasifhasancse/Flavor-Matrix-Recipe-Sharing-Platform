@@ -163,8 +163,7 @@ export function SearchControls() {
         
         {hasActiveFilters && (
           <Button
-            color="danger"
-            variant="flat"
+            variant="danger-soft"
             size="md"
             className="h-11 px-4 font-bold rounded-xl w-full sm:w-auto"
             startContent={<X className="h-4 w-4" />}
