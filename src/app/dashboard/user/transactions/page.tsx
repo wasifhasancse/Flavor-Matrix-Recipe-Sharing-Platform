@@ -68,56 +68,42 @@ export default function UserTransactionsPage() {
     setTimeout(() => setToastMessage(null), 3000);
   };
 
-  // Load User Transactions
+  // Load User Transactions from real DB
   useEffect(() => {
     if (!session?.user) return;
 
-    setIsLoading(true);
+    const loadTransactions = async () => {
+      setIsLoading(true);
+      try {
+        const res = await fetch("/api/payments/my");
+        if (!res.ok) throw new Error("Failed to load transactions");
+        const data = await res.json();
 
-    // Build user transaction history combining purchases and sales payouts
-    const userEmail = session.user.email || "";
+        const payments: any[] = data.payments || [];
+        const mapped: UserTransactionItem[] = payments.map((p, idx) => {
+          const recipe = mockRecipes.find((r) => r.id === p.recipeId);
+          return {
+            id: p._id?.toString() || `txn-${idx}`,
+            transactionId: p.transactionId || "",
+            type: "purchase" as const,
+            title: recipe?.title || p.recipeId || "Premium Recipe",
+            amount: Number(p.amount) || 0,
+            paymentStatus:
+              p.paymentStatus === "paid" ? "succeeded" : p.paymentStatus || "pending",
+            date: p.paidAt || p.createdAt || new Date().toISOString(),
+          };
+        });
 
-    const userHistory: UserTransactionItem[] = [
-      {
-        id: "ut-1",
-        transactionId: "txn_stripe_98a71b32x",
-        type: "upgrade",
-        title: "Lifetime Premium Chef Membership",
-        amount: 19.99,
-        paymentStatus: "succeeded",
-        date: "2026-07-18T14:30:00.000Z",
-      },
-      {
-        id: "ut-2",
-        transactionId: "txn_stripe_44k29m01z",
-        type: "purchase",
-        title: mockRecipes[0]?.title || "Truffle Tagliatelle",
-        amount: 4.99,
-        paymentStatus: "succeeded",
-        date: "2026-07-17T18:45:00.000Z",
-      },
-      {
-        id: "ut-3",
-        transactionId: "txn_stripe_55w99z11p",
-        type: "payout",
-        title: "Chef Recipe Sales Royalty Payout",
-        amount: 32.50,
-        paymentStatus: "succeeded",
-        date: "2026-07-15T12:00:00.000Z",
-      },
-      {
-        id: "ut-4",
-        transactionId: "txn_stripe_11x98q45p",
-        type: "purchase",
-        title: mockRecipes[1]?.title || "Matcha Souffle",
-        amount: 4.99,
-        paymentStatus: "failed",
-        date: "2026-07-14T11:20:00.000Z",
-      },
-    ];
+        setUserTransactions(mapped);
+      } catch (err) {
+        console.error("Failed to load transactions:", err);
+        setUserTransactions([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-    setUserTransactions(userHistory);
-    setIsLoading(false);
+    loadTransactions();
   }, [session]);
 
   // Click-to-Copy Handler
@@ -149,12 +135,10 @@ export default function UserTransactionsPage() {
 
   // Financial Metrics
   const totalSpent = userTransactions
-    .filter((t) => (t.type === "purchase" || t.type === "upgrade") && t.paymentStatus === "succeeded")
+    .filter((t) => t.paymentStatus === "succeeded")
     .reduce((acc, t) => acc + t.amount, 0);
 
-  const totalEarned = userTransactions
-    .filter((t) => t.type === "payout" && t.paymentStatus === "succeeded")
-    .reduce((acc, t) => acc + t.amount, 0);
+  const totalEarned = 0; // Placeholder until payout system is implemented
 
   if (isPending || isLoading) {
     return (

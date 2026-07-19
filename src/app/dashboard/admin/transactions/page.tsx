@@ -40,75 +40,6 @@ import { DynamicBreadcrumb } from "@/components/shared/DynamicBreadcrumb";
 
 const ITEMS_PER_PAGE = 10;
 
-// Seed Mock Transactions matching PaymentSchema database architecture
-const MOCK_TRANSACTIONS: PaymentSchema[] = [
-  {
-    id: "pay-1",
-    _id: "pay-1",
-    userEmail: "alex.gourmet@example.com",
-    userId: "user-1",
-    amount: 19.99,
-    recipeId: "MEMBERSHIP_UPGRADE",
-    transactionId: "txn_stripe_98a71b32x",
-    paymentStatus: "succeeded",
-    paidAt: "2026-07-18T14:30:00.000Z",
-  },
-  {
-    id: "pay-2",
-    _id: "pay-2",
-    userEmail: "maria.s@example.com",
-    userId: "user-2",
-    amount: 4.99,
-    recipeId: "rec-1",
-    transactionId: "txn_stripe_44k29m01z",
-    paymentStatus: "succeeded",
-    paidAt: "2026-07-17T18:45:00.000Z",
-  },
-  {
-    id: "pay-3",
-    _id: "pay-3",
-    userEmail: "david.chef@example.com",
-    userId: "user-3",
-    amount: 6.50,
-    recipeId: "rec-2",
-    transactionId: "txn_stripe_11x98q45p",
-    paymentStatus: "failed",
-    paidAt: "2026-07-16T11:20:00.000Z",
-  },
-  {
-    id: "pay-4",
-    _id: "pay-4",
-    userEmail: "elena.r@example.com",
-    userId: "user-4",
-    amount: 19.99,
-    recipeId: "MEMBERSHIP_UPGRADE",
-    transactionId: "txn_stripe_88v43l90k",
-    paymentStatus: "succeeded",
-    paidAt: "2026-07-15T09:15:00.000Z",
-  },
-  {
-    id: "pay-5",
-    _id: "pay-5",
-    userEmail: "sam.foodie@example.com",
-    userId: "user-5",
-    amount: 3.99,
-    recipeId: "rec-3",
-    transactionId: "txn_stripe_33m12o87u",
-    paymentStatus: "pending",
-    paidAt: "2026-07-14T20:10:00.000Z",
-  },
-  {
-    id: "pay-6",
-    _id: "pay-6",
-    userEmail: "sophia.b@example.com",
-    userId: "user-6",
-    amount: 4.99,
-    recipeId: "rec-4",
-    transactionId: "txn_stripe_77b65w21a",
-    paymentStatus: "succeeded",
-    paidAt: "2026-07-13T16:00:00.000Z",
-  },
-];
 
 export default function AdminTransactionsPage() {
   const { data: session, isPending } = authClient.useSession();
@@ -133,28 +64,38 @@ export default function AdminTransactionsPage() {
     setTimeout(() => setToastMessage(null), 3000);
   };
 
+  // Load real transactions from DB
+  const fetchTransactions = async () => {
+    setIsLoading(true);
+    try {
+      const res = await fetch("/api/payments/admin");
+      if (!res.ok) throw new Error("Failed to fetch transactions");
+      const data = await res.json();
+      // Normalize: map "paid" status to "succeeded" for UI consistency
+      const normalized = (data.payments || []).map((p: any) => ({
+        ...p,
+        id: p._id?.toString() || p.transactionId,
+        paymentStatus: p.paymentStatus === "paid" ? "succeeded" : p.paymentStatus,
+      }));
+      setTransactions(normalized);
+    } catch (err) {
+      console.error("Failed to load transactions:", err);
+      setTransactions([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // Load Transactions Data
   useEffect(() => {
-    setIsLoading(true);
-    const stored = localStorage.getItem("admin_mock_payments");
-    if (stored) {
-      setTransactions(JSON.parse(stored));
-    } else {
-      setTransactions(MOCK_TRANSACTIONS);
-      localStorage.setItem("admin_mock_payments", JSON.stringify(MOCK_TRANSACTIONS));
-    }
-    setIsLoading(false);
-  }, []);
+    if (!session?.user) return;
+    fetchTransactions();
+  }, [session]);
 
   // Refresh Transaction Data
-  const handleRefresh = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setTransactions(MOCK_TRANSACTIONS);
-      localStorage.setItem("admin_mock_payments", JSON.stringify(MOCK_TRANSACTIONS));
-      setIsLoading(false);
-      showToast("Transaction history refreshed!");
-    }, 600);
+  const handleRefresh = async () => {
+    await fetchTransactions();
+    showToast("Transaction history refreshed!");
   };
 
   // Copy Transaction ID to Clipboard

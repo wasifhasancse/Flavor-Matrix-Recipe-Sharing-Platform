@@ -3,20 +3,14 @@
 import React, { useState, useEffect } from "react";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
-import {
-  Button,
-  Chip,
-  Avatar,
-} from "@heroui/react";
+import { Button, Chip, Avatar } from "@heroui/react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   ShoppingBag,
   Eye,
   Calendar,
   DollarSign,
-  User,
   ArrowLeft,
-  ChevronRight,
   Sparkles,
   Lock,
   Loader2,
@@ -24,16 +18,15 @@ import {
   Compass,
   KeyRound,
   ShieldCheck,
-  Tag,
   Search,
+  AlertCircle,
 } from "lucide-react";
-import { mockRecipes, Recipe } from "@/data/recipes";
+import { mockRecipes } from "@/data/recipes";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { DynamicBreadcrumb } from "@/components/shared/DynamicBreadcrumb";
 
-// Interface for Purchased Recipe Data Mapping
 export interface PurchasedRecipeItem {
-  id: string;
+  _id?: string;
   recipeId: string;
   title: string;
   image: string;
@@ -49,46 +42,67 @@ const ITEMS_PER_PAGE = 10;
 export default function PurchasedRecipesPage() {
   const { data: session, isPending } = authClient.useSession();
 
-  // Data States
   const [purchasedList, setPurchasedList] = useState<PurchasedRecipeItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-  // Load Purchased Recipes from localStorage / mock database
   useEffect(() => {
     if (!session?.user) return;
 
-    setIsLoading(true);
+    const loadPurchased = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const res = await fetch("/api/payments/my");
+        if (!res.ok) throw new Error("Failed to fetch purchased recipes.");
+        const data = await res.json();
 
-    const purchased: PurchasedRecipeItem[] = [];
+        const payments: any[] = data.payments || [];
 
-    mockRecipes.forEach((r, idx) => {
-      const isBought = localStorage.getItem(`purchased_${r.id}`) === "true";
-      if (isBought || idx < 2) {
-        purchased.push({
-          id: `pur-${r.id}`,
-          recipeId: r.id,
-          title: r.title,
-          image: r.image,
-          category: r.category,
-          author: r.author || "Master Chef",
-          amountPaid: r.price || 4.99,
-          purchaseDate: new Date(Date.now() - idx * 86400000 * 3).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-          }),
-          transactionId: `txn_stripe_${r.id}_982`,
+        // Map payments to UI items, enriching with recipe metadata from mock data
+        const enriched: PurchasedRecipeItem[] = payments
+          .filter((p) => p.paymentStatus === "paid")
+          .map((p) => {
+            const recipe = mockRecipes.find((r) => r.id === p.recipeId);
+            return {
+              _id: p._id?.toString() || p.transactionId,
+              recipeId: p.recipeId,
+              title: recipe?.title || p.recipeId,
+              image:
+                recipe?.image ||
+                "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80",
+              category: recipe?.category || "Premium",
+              author: recipe?.author || "Chef",
+              amountPaid: Number(p.amount) || 0,
+              purchaseDate: p.paidAt
+                ? new Date(p.paidAt).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })
+                : "Unknown",
+              transactionId: p.transactionId || "",
+            };
+          });
+
+        // Also mark localStorage for recipe page unlock (persist access)
+        enriched.forEach((item) => {
+          localStorage.setItem(`purchased_${item.recipeId}`, "true");
         });
-      }
-    });
 
-    setPurchasedList(purchased);
-    setIsLoading(false);
+        setPurchasedList(enriched);
+      } catch (err: any) {
+        setError(err.message || "Something went wrong.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadPurchased();
   }, [session]);
 
-  // Filtered List based on Search Term
   const filteredList = purchasedList.filter(
     (item) =>
       item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -96,7 +110,6 @@ export default function PurchasedRecipesPage() {
       item.author.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Pagination Calculations (Capped strictly at 10 items per page)
   const totalPages = Math.ceil(filteredList.length / ITEMS_PER_PAGE) || 1;
   const paginatedItems = filteredList.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
@@ -129,7 +142,7 @@ export default function PurchasedRecipesPage() {
 
   return (
     <div className="flex-grow max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8 bg-background">
-      {/* Header Breadcrumbs & Title */}
+      {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-default-100 dark:border-zinc-800 pb-6">
         <div className="flex flex-col gap-1">
           <DynamicBreadcrumb />
@@ -137,12 +150,15 @@ export default function PurchasedRecipesPage() {
             <ShoppingBag className="h-7 w-7 text-emerald-500" />
             <span>Unlocked Premium Content</span>
           </h1>
+          <p className="text-sm text-default-400 mt-0.5">
+            Your permanently unlocked chef recipes — stored securely in our database.
+          </p>
         </div>
 
         <Link href="/recipes" className="no-underline">
           <Button
             variant="primary"
-            className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold py-2.5 px-5 rounded-2xl text-xs flex items-center gap-2 ambient-glow-orange shadow-emerald-500/20 border-none cursor-pointer"
+            className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold py-2.5 px-5 rounded-2xl text-xs flex items-center gap-2 border-none cursor-pointer shadow-lg shadow-emerald-500/20"
           >
             <Compass className="h-4 w-4" />
             <span>Explore Premium Catalog</span>
@@ -150,13 +166,21 @@ export default function PurchasedRecipesPage() {
         </Link>
       </div>
 
-      {/* Search Bar & Summary Chip */}
+      {/* Error */}
+      {error && (
+        <div className="flex items-center gap-3 p-4 rounded-2xl bg-danger/10 border border-danger/20 text-danger text-sm font-medium">
+          <AlertCircle className="h-5 w-5 shrink-0" />
+          <span>{error}</span>
+        </div>
+      )}
+
+      {/* Search Bar & Count */}
       <div className="p-4 sm:p-6 rounded-3xl glass-panel ambient-glow-orange flex flex-col sm:flex-row gap-4 items-center justify-between">
         <div className="relative w-full sm:w-96">
           <Search className="absolute left-3.5 top-3 h-4 w-4 text-default-400" />
           <input
             type="text"
-            placeholder="Search purchased items by title or author..."
+            placeholder="Search by title, category or author..."
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value);
@@ -168,12 +192,12 @@ export default function PurchasedRecipesPage() {
 
         <div className="flex items-center gap-2">
           <Chip color="success" variant="soft" className="font-extrabold text-xs">
-            {purchasedList.length} Recipes Unlocked
+            {purchasedList.length} {purchasedList.length === 1 ? "Recipe" : "Recipes"} Unlocked
           </Chip>
         </div>
       </div>
 
-      {/* Main Purchased Recipes HeroUI Table */}
+      {/* Table */}
       {paginatedItems.length > 0 ? (
         <motion.div
           initial={{ opacity: 0, y: 15 }}
@@ -190,18 +214,18 @@ export default function PurchasedRecipesPage() {
                     <th className="px-6 py-4">Author</th>
                     <th className="px-6 py-4">Purchase Date</th>
                     <th className="px-6 py-4">Amount Paid</th>
-                    <th className="px-6 py-4 text-center">Access Key</th>
+                    <th className="px-6 py-4 text-center">Access</th>
                     <th className="px-6 py-4 text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-default-100 dark:divide-zinc-800 text-foreground">
                   {paginatedItems.map((item) => (
                     <motion.tr
-                      key={item.id}
+                      key={item._id || item.transactionId}
                       whileHover={{ backgroundColor: "rgba(16, 185, 129, 0.03)" }}
                       className="transition-smooth"
                     >
-                      {/* Column 1: Image & Title */}
+                      {/* Recipe + Image */}
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
                           <img
@@ -218,17 +242,17 @@ export default function PurchasedRecipesPage() {
                         </div>
                       </td>
 
-                      {/* Column 2: Author Name */}
+                      {/* Author */}
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2">
-                          <Avatar.Root className="w-6 h-6 rounded-full border bg-primary/10 text-primary font-bold text-[10px] flex items-center justify-center">
-                            <Avatar.Fallback>{item.author.charAt(0)}</Avatar.Fallback>
-                          </Avatar.Root>
+                          <div className="w-6 h-6 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold text-[10px] flex items-center justify-center shrink-0">
+                            {item.author.charAt(0)}
+                          </div>
                           <span className="font-semibold text-xs text-foreground">{item.author}</span>
                         </div>
                       </td>
 
-                      {/* Column 3: Purchase Date */}
+                      {/* Purchase Date */}
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-1.5 text-xs text-default-400">
                           <Calendar className="h-3.5 w-3.5 text-emerald-500" />
@@ -236,14 +260,14 @@ export default function PurchasedRecipesPage() {
                         </div>
                       </td>
 
-                      {/* Column 4: Amount Paid */}
+                      {/* Amount */}
                       <td className="px-6 py-4">
                         <span className="font-extrabold text-sm text-emerald-600 dark:text-emerald-400">
                           ${item.amountPaid.toFixed(2)}
                         </span>
                       </td>
 
-                      {/* Column 5: Access Key Badge */}
+                      {/* Access */}
                       <td className="px-6 py-4 text-center">
                         <Chip color="success" variant="soft" size="sm" className="font-extrabold text-[10px]">
                           <ShieldCheck className="h-3 w-3 mr-1 inline text-emerald-500" />
@@ -251,7 +275,7 @@ export default function PurchasedRecipesPage() {
                         </Chip>
                       </td>
 
-                      {/* Column 6: View Details Button */}
+                      {/* Action */}
                       <td className="px-6 py-4 text-right">
                         <Link href={`/recipes/${item.recipeId}`} className="no-underline inline-flex">
                           <Button
@@ -260,7 +284,7 @@ export default function PurchasedRecipesPage() {
                             className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5 shadow-sm border-none cursor-pointer"
                           >
                             <Eye className="h-3.5 w-3.5" />
-                            <span>View Details</span>
+                            <span>View Recipe</span>
                           </Button>
                         </Link>
                       </td>
@@ -271,13 +295,14 @@ export default function PurchasedRecipesPage() {
             </div>
           </div>
 
-          {/* HeroUI-styled Pagination Control (capped strictly at max 10 items per page) */}
+          {/* Pagination */}
           {totalPages > 1 && (
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-default-100 dark:border-zinc-800 pt-4 px-2">
               <span className="text-xs text-default-400 font-medium">
-                Showing {((currentPage - 1) * ITEMS_PER_PAGE) + 1} to {Math.min(currentPage * ITEMS_PER_PAGE, filteredList.length)} of {filteredList.length} items
+                Showing {(currentPage - 1) * ITEMS_PER_PAGE + 1} to{" "}
+                {Math.min(currentPage * ITEMS_PER_PAGE, filteredList.length)} of{" "}
+                {filteredList.length} items
               </span>
-
               <div className="flex items-center gap-1.5">
                 <Button
                   variant="outline"
@@ -288,7 +313,6 @@ export default function PurchasedRecipesPage() {
                 >
                   Previous
                 </Button>
-
                 {Array.from({ length: totalPages }).map((_, i) => {
                   const pageNum = i + 1;
                   const isActive = pageNum === currentPage;
@@ -306,7 +330,6 @@ export default function PurchasedRecipesPage() {
                     </button>
                   );
                 })}
-
                 <Button
                   variant="outline"
                   size="sm"
@@ -327,8 +350,8 @@ export default function PurchasedRecipesPage() {
           title={searchTerm ? "No Matching Purchased Recipes" : "No Purchased Recipes Yet"}
           description={
             searchTerm
-              ? "No purchased recipes matched your search criteria. Try clearing your search input."
-              : "When you buy premium chef recipes through our secure Stripe integration, they will display here with permanent lifetime access keys."
+              ? "No purchased recipes matched your search. Try clearing the search."
+              : "When you buy premium chef recipes through Stripe, they will appear here with lifetime access."
           }
           actionLabel="Explore Premium Catalog"
           actionLink="/recipes"

@@ -80,6 +80,8 @@ function AdminDashboardContent() {
   const [allRecipes, setAllRecipes] = useState<Recipe[]>([]);
   const [usersList, setUsersList] = useState<MockUser[]>([]);
   const [reportsList, setReportsList] = useState<MockReport[]>([]);
+  const [totalRevenue, setTotalRevenue] = useState<number>(0);
+  const [totalTransactions, setTotalTransactions] = useState<number>(0);
 
   useEffect(() => {
     if (!session?.user) return;
@@ -123,6 +125,16 @@ function AdminDashboardContent() {
       localStorage.setItem(reportsKey, JSON.stringify(defaultReports));
       setReportsList(defaultReports);
     }
+    // Fetch real payments revenue
+    fetch("/api/payments/admin")
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.success) {
+          setTotalRevenue(d.totalRevenue || 0);
+          setTotalTransactions((d.payments || []).length);
+        }
+      })
+      .catch(() => {});
   }, [session]);
 
   if (isPending) {
@@ -155,10 +167,9 @@ function AdminDashboardContent() {
     );
   }
 
-  const totalUsers = usersList.length || 1280;
-  const premiumUsers = usersList.filter((u) => u.isPremium).length || 142;
-  const totalReports = reportsList.length || 18;
-  const totalGrossRevenue = 14890.5;
+  const totalUsers = usersList.length;
+  const premiumUsers = usersList.filter((u) => u.isPremium).length;
+  const totalReports = reportsList.length;
 
   return (
     <div className="flex-grow max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8 bg-background">
@@ -248,7 +259,7 @@ function AdminDashboardContent() {
               </div>
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-2xl font-extrabold text-foreground">${totalGrossRevenue.toFixed(0)}</span>
+              <span className="text-2xl font-extrabold text-foreground">${totalRevenue.toFixed(2)}</span>
               <div className="flex items-center gap-1 text-[10px] font-bold text-emerald-500">
                 <TrendingUp className="h-3 w-3" />
                 <span>+18.4% MoM</span>
