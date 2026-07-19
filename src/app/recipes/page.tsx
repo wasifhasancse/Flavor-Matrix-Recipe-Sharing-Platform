@@ -54,11 +54,11 @@ export default async function RecipesPage(props: RecipesPageProps) {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-default-100 dark:border-zinc-800/80 pb-6">
         <div className="flex flex-col gap-1.5">
-          <div className="flex items-center gap-2 text-primary font-semibold text-sm uppercase tracking-wider">
+          <DynamicBreadcrumb />
+          <div className="flex items-center gap-2 text-primary font-semibold text-sm uppercase tracking-wider mt-1">
             <Compass className="h-4 w-4" />
             <span>Culinary Matrix</span>
           </div>
-          <DynamicBreadcrumb />
           <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
             Explore All Recipes
           </h1>

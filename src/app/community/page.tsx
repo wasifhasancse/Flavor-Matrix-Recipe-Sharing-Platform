@@ -89,7 +89,7 @@ export default function CommunityPage() {
       </section>
 
       {/* Features Grid */}
-      <section className="py-16 bg-default-50 dark:bg-zinc-900/40 border-y border-default-200 dark:border-zinc-800">
+      <section className="py-16 bg-content1/30 border-y border-divider">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-8">
             {communityFeatures.map((feature, idx) => (
@@ -99,9 +99,9 @@ export default function CommunityPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="glass-panel p-8 rounded-3xl border border-default-200 dark:border-zinc-800 hover:shadow-lg transition-all group"
+                className="glass-panel p-8 rounded-3xl border border-divider hover:shadow-lg transition-all group"
               >
-                <div className="w-14 h-14 rounded-2xl bg-white dark:bg-zinc-950 shadow-sm flex items-center justify-center mb-6 group-hover:-translate-y-1 transition-transform">
+                <div className="w-14 h-14 rounded-2xl bg-content1 shadow-sm flex items-center justify-center mb-6 group-hover:-translate-y-1 transition-transform">
                   {feature.icon}
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-3">{feature.title}</h3>
@@ -136,14 +136,14 @@ export default function CommunityPage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.1 }}
-                className="p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-default-200 dark:border-zinc-800 shadow-sm hover:shadow-md transition-all text-center flex flex-col items-center group cursor-pointer"
+                className="p-6 rounded-3xl bg-content1 border border-divider shadow-sm hover:shadow-md transition-all text-center flex flex-col items-center group cursor-pointer"
               >
                 <div className={`w-20 h-20 rounded-full ${contributor.color} text-white flex items-center justify-center text-3xl font-bold mb-4 shadow-lg group-hover:scale-105 transition-transform`}>
                   {contributor.initial}
                 </div>
                 <h3 className="text-lg font-bold text-foreground">{contributor.name}</h3>
                 <p className="text-primary text-sm font-medium mb-3">{contributor.role}</p>
-                <div className="w-full pt-4 border-t border-default-100 dark:border-zinc-800 flex justify-between items-center px-2">
+                <div className="w-full pt-4 border-t border-divider flex justify-between items-center px-2">
                   <span className="text-xs text-default-400 font-medium">Followers</span>
                   <span className="text-sm font-bold text-foreground">{contributor.followers}</span>
                 </div>

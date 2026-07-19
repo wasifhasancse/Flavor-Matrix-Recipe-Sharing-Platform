@@ -75,7 +75,7 @@ export default function AboutPage() {
       </section>
 
       {/* Mission Section */}
-      <section className="py-16 bg-default-50 dark:bg-zinc-900/40 border-y border-default-200 dark:border-zinc-800">
+      <section className="py-16 bg-content1/30 border-y border-divider">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <motion.div 
@@ -105,11 +105,11 @@ export default function AboutPage() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="relative aspect-square md:aspect-auto md:h-[400px] rounded-3xl overflow-hidden glass-panel ambient-glow-orange border-default-200 dark:border-zinc-800 flex items-center justify-center bg-gradient-to-br from-primary/20 to-rose-500/20"
+              className="relative aspect-square md:aspect-auto md:h-[400px] rounded-3xl overflow-hidden glass-panel ambient-glow-orange border-divider flex items-center justify-center bg-gradient-to-br from-primary/20 to-rose-500/20"
             >
-              <div className="absolute inset-0 bg-white/40 dark:bg-zinc-950/40 backdrop-blur-sm" />
+              <div className="absolute inset-0 bg-background/40 backdrop-blur-sm" />
               <div className="relative z-10 text-center flex flex-col items-center gap-4 p-8">
-                <div className="w-20 h-20 rounded-2xl bg-white dark:bg-zinc-900 shadow-xl flex items-center justify-center mb-2 transform -rotate-6">
+                <div className="w-20 h-20 rounded-2xl bg-content1 shadow-xl flex items-center justify-center mb-2 transform -rotate-6">
                   <Users className="w-10 h-10 text-primary" />
                 </div>
                 <h3 className="text-2xl font-bold text-foreground">10k+ Creators</h3>
@@ -136,9 +136,9 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-default-200 dark:border-zinc-800 shadow-sm hover:shadow-md transition-all group"
+                className="p-6 rounded-3xl bg-content1 border border-divider shadow-sm hover:shadow-md transition-all group"
               >
-                <div className="w-12 h-12 rounded-xl bg-default-100 dark:bg-zinc-800 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 rounded-xl bg-default-100 dark:bg-default-50 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                   {value.icon}
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-2">{value.title}</h3>
