@@ -142,14 +142,22 @@ export default function AdminUsersPage() {
   // Load Users Data
   useEffect(() => {
     setIsLoading(true);
-    const stored = localStorage.getItem("admin_mock_users_aggregated");
-    if (stored) {
-      setUsersList(JSON.parse(stored));
-    } else {
-      setUsersList(MOCK_USERS);
-      localStorage.setItem("admin_mock_users_aggregated", JSON.stringify(MOCK_USERS));
-    }
-    setIsLoading(false);
+    fetch("/api/admin/users")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.users) {
+          setUsersList(data.users);
+        } else {
+          showToast(data.error || "Failed to load users");
+        }
+      })
+      .catch((err) => {
+        console.error("Error fetching users:", err);
+        showToast("Error loading users");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   // Optimistic UI Toggle Block Status Mutation
@@ -161,34 +169,30 @@ export default function AdminUsersPage() {
       prev.map((u) => (u.id === userId ? { ...u, isBlocked: nextBlockedState } : u))
     );
 
-    showToast(
-      nextBlockedState
-        ? "User access blocked successfully!"
-        : "User account unblocked successfully!"
-    );
-
-    // Sync with localStorage & Backend endpoint
+    // Sync with Backend endpoint
     try {
-      const updatedList = usersList.map((u) =>
-        u.id === userId ? { ...u, isBlocked: nextBlockedState } : u
-      );
-      localStorage.setItem("admin_mock_users_aggregated", JSON.stringify(updatedList));
-
-      // Fire backend PATCH /admin/users/:id/status
-      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
-      fetch(`${baseUrl}/api/admin/users/${userId}/status`, {
+      const fetchRes = await fetch(`/api/admin/users/${userId}/status`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ isBlocked: nextBlockedState }),
-      }).catch(() => {
-        // Silently handled in client demo fallback
       });
-    } catch {
+      
+      const result = await fetchRes.json();
+      if (!fetchRes.ok || !result.success) {
+        throw new Error(result.error || "Failed to update status");
+      }
+
+      showToast(
+        nextBlockedState
+          ? "User access blocked successfully!"
+          : "User account unblocked successfully!"
+      );
+    } catch (err: any) {
       // Revert if error
       setUsersList((prev) =>
         prev.map((u) => (u.id === userId ? { ...u, isBlocked: currentBlockedState } : u))
       );
-      showToast("Failed to update user status");
+      showToast(err.message || "Failed to update user status");
     }
   };
 
