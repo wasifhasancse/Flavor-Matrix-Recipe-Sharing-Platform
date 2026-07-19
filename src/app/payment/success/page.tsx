@@ -17,6 +17,8 @@ import {
   ChefHat,
   Sparkles,
   ExternalLink,
+  Copy,
+  Check,
 } from "lucide-react";
 import { mockRecipes, Recipe } from "@/data/recipes";
 
@@ -30,6 +32,14 @@ function PaymentSuccessContent() {
   const [timestamp, setTimestamp] = useState<string>("");
   const [isVerifying, setIsVerifying] = useState(true);
   const [verifiedEmail, setVerifiedEmail] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(sessionId).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
 
   useEffect(() => {
     // Format timestamp on mount
@@ -187,9 +197,22 @@ function PaymentSuccessContent() {
               <Receipt className="h-3.5 w-3.5 text-primary" />
               <span>Transaction ID</span>
             </span>
-            <span className="font-mono font-bold text-foreground truncate" title={sessionId}>
-              {sessionId}
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="font-mono font-bold text-foreground truncate flex-1" title={sessionId}>
+                {sessionId}
+              </span>
+              <button
+                onClick={handleCopy}
+                title="Copy Transaction ID"
+                className="shrink-0 p-1.5 rounded-lg border border-default-200 dark:border-zinc-700 bg-default-100 dark:bg-zinc-800 hover:bg-default-200 dark:hover:bg-zinc-700 text-default-500 hover:text-primary transition-all duration-200"
+              >
+                {copied ? (
+                  <Check className="h-3.5 w-3.5 text-emerald-500" />
+                ) : (
+                  <Copy className="h-3.5 w-3.5" />
+                )}
+              </button>
+            </div>
           </div>
 
           <div className="flex flex-col gap-1 p-3.5 rounded-2xl bg-default-50/60 dark:bg-zinc-950/40 border border-default-100 dark:border-zinc-800">
