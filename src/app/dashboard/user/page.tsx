@@ -307,7 +307,7 @@ function DashboardContent() {
             </div>
           </div>
 
-          {!isInfinite && limitData && (
+          {!isInfinite && limitData && (session?.user as any)?.role !== "admin" && (
             <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm">
               <div className="flex items-center gap-2 font-bold">
                 <AlertTriangle className="h-4 w-4 shrink-0 text-amber-500" />
