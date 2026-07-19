@@ -86,8 +86,16 @@ export default function AddRecipePage() {
     setIsAnalyzing(true);
     setFormError(null);
     try {
-      // Ensure we hit the backend with the token
-      const token = localStorage.getItem("token") || "";
+      // Fetch a valid JWT for the backend
+      const tokenRes = await fetch("/api/auth/token");
+      const tokenData = await tokenRes.json();
+      if (!tokenData.success || !tokenData.token) {
+        throw new Error("Authentication failed. Please log in again.");
+      }
+      
+      const token = tokenData.token;
+      localStorage.setItem("token", token);
+
       const res = await fetch("http://localhost:5000/api/ai/analyze-image", {
         method: "POST",
         headers: {

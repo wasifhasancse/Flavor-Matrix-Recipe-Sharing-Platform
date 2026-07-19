@@ -27,6 +27,19 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  React.useEffect(() => {
+    if (session?.user) {
+      fetch("/api/auth/token")
+        .then(res => res.json())
+        .then(data => {
+          if (data.success && data.token) {
+            localStorage.setItem("token", data.token);
+          }
+        })
+        .catch(err => console.error("Failed to sync auth token:", err));
+    }
+  }, [session]);
+
   if (isPending) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-background">
