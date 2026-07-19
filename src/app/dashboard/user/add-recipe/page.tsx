@@ -15,9 +15,11 @@ export default function AddRecipePage() {
   const [formTitle, setFormTitle] = useState("");
   const [formDesc, setFormDesc] = useState("");
   const [formCategory, setFormCategory] = useState("Italian");
+  const [formCuisine, setFormCuisine] = useState("");
   const [formDifficulty, setFormDifficulty] = useState<"Easy" | "Medium" | "Hard">("Easy");
   const [formPrep, setFormPrep] = useState("10 mins");
   const [formCook, setFormCook] = useState("15 mins");
+  const [formPrice, setFormPrice] = useState("");
   const [formIngredients, setFormIngredients] = useState("");
   const [formInstructions, setFormInstructions] = useState("");
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
@@ -114,6 +116,7 @@ export default function AddRecipePage() {
       if (recipe.recipeName) setFormTitle(recipe.recipeName);
       if (recipe.description) setFormDesc(recipe.description);
       if (recipe.category) setFormCategory(recipe.category);
+      if (recipe.cuisineType) setFormCuisine(recipe.cuisineType);
       if (recipe.difficultyLevel) setFormDifficulty(recipe.difficultyLevel);
       if (recipe.preparationTime !== undefined) {
         setFormPrep(`${recipe.preparationTime} mins`);
@@ -164,9 +167,11 @@ export default function AddRecipePage() {
       title: formTitle,
       description: formDesc,
       category: formCategory,
+      cuisineType: formCuisine,
       difficulty: formDifficulty,
       prepTime: formPrep,
       cookTime: formCook,
+      price: formPrice ? Number(formPrice) : 0,
       ingredients: ingredientsArray,
       instructions: instructionsArray,
       image: uploadedImageUrl || defaultImage,
@@ -230,6 +235,92 @@ export default function AddRecipePage() {
       )}
 
       <form onSubmit={handleFormSubmit} className="flex flex-col gap-5 p-6 sm:p-8 rounded-3xl glass-panel ambient-glow-orange">
+        
+        {/* Image Uploader & AI Analyzer - MOVED TO TOP */}
+        <div className="flex flex-col gap-2 bg-gradient-to-r from-amber-500/10 to-rose-500/10 p-5 rounded-2xl border border-amber-500/20 mb-2">
+          <div className="flex items-center gap-2 mb-2">
+            <Sparkles className="h-5 w-5 text-amber-500" />
+            <h3 className="text-sm font-bold text-amber-600 dark:text-amber-400">Pro Tip: Start here!</h3>
+          </div>
+          <p className="text-xs text-default-600 font-medium mb-3">
+            Upload a dish image and click "Scan Image with AI". Our AI Chef will magically write the entire recipe, description, ingredients, and instructions for you!
+          </p>
+          <div className="flex flex-col gap-2">
+            <label className="text-xs font-bold text-default-500">Recipe Image & AI Analysis</label>
+            <div className="flex flex-col md:flex-row gap-4 items-stretch">
+              {/* Drop Zone Simulation */}
+              <div className="flex-1 border-2 border-dashed border-default-200 dark:border-zinc-800 rounded-2xl bg-default-50/50 hover:bg-default-100/50 dark:bg-zinc-900/50 dark:hover:bg-zinc-800/50 transition-colors p-6 flex flex-col items-center justify-center gap-3 relative group">
+                <input type="file" accept="image/*" onChange={handleImageFileChange} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" disabled={isUploading || isAnalyzing} />
+                {isUploading ? (
+                  <div className="flex flex-col items-center gap-2 text-primary">
+                    <Loader2 className="h-8 w-8 animate-spin" />
+                    <span className="text-xs font-bold">Uploading to ImgBB...</span>
+                  </div>
+                ) : (
+                  <>
+                    <div className="h-12 w-12 rounded-full bg-default-100 dark:bg-zinc-800 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Upload className="h-5 w-5 text-default-400" />
+                    </div>
+                    <div className="text-center">
+                      <p className="text-sm font-bold text-foreground">Click or drag image to upload</p>
+                      <p className="text-xs text-default-400 font-medium mt-1">Supports JPG, PNG, WEBP</p>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* URL Input & AI Action */}
+              <div className="flex-1 flex flex-col gap-3">
+                <div className="flex flex-col gap-1.5 h-full">
+                  <input
+                    type="url"
+                    placeholder="Or paste an image URL..."
+                    value={uploadedImageUrl}
+                    onChange={(e) => setUploadedImageUrl(e.target.value)}
+                    className="w-full px-4 py-3 text-sm rounded-xl bg-default-50 dark:bg-zinc-900 border border-default-200 dark:border-zinc-800 focus:border-primary outline-none text-foreground font-medium"
+                    disabled={isAnalyzing}
+                  />
+                  
+                  <div className="flex gap-4 mt-2 h-full">
+                    {uploadedImageUrl && (
+                      <div className="relative w-24 h-24 rounded-xl border border-default-200 dark:border-zinc-800 overflow-hidden shrink-0">
+                        <img src={uploadedImageUrl} alt="Preview" className="h-full w-full object-cover" />
+                      </div>
+                    )}
+                    
+                    <div className="flex-1 flex items-end">
+                      <Button 
+                        isDisabled={!uploadedImageUrl || isAnalyzing} 
+                        onPress={handleAiScan}
+                        className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold h-12 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20"
+                      >
+                        {isAnalyzing ? (
+                          <>
+                            <Loader2 className="h-5 w-5 animate-spin" />
+                            <span>AI Scanning...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Sparkles className="h-5 w-5" />
+                            <span>Scan Image with AI</span>
+                          </>
+                        )}
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {isAnalyzing && (
+              <div className="mt-2 p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex flex-col items-center justify-center gap-2 text-indigo-600 dark:text-indigo-400 animate-pulse">
+                <Sparkles className="h-6 w-6" />
+                <p className="text-sm font-bold text-center">Our AI Chef is visually analyzing your dish...<br/>Extracting ingredients, guessing cuisine, and writing instructions.</p>
+              </div>
+            )}
+          </div>
+        </div>
+
         {/* Title */}
         <div className="flex flex-col gap-1.5">
           <label className="text-xs font-bold text-default-500">
@@ -307,82 +398,29 @@ export default function AddRecipePage() {
               />
             </div>
           </div>
-        </div>
-
-        {/* Image Uploader & AI Analyzer */}
-        <div className="flex flex-col gap-2">
-          <label className="text-xs font-bold text-default-500">Recipe Image & AI Analysis</label>
-          <div className="flex flex-col md:flex-row gap-4 items-stretch">
-            {/* Drop Zone Simulation */}
-            <div className="flex-1 border-2 border-dashed border-default-200 dark:border-zinc-800 rounded-2xl bg-default-50/50 hover:bg-default-100/50 dark:bg-zinc-900/50 dark:hover:bg-zinc-800/50 transition-colors p-6 flex flex-col items-center justify-center gap-3 relative group">
-              <input type="file" accept="image/*" onChange={handleImageFileChange} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" disabled={isUploading || isAnalyzing} />
-              {isUploading ? (
-                <div className="flex flex-col items-center gap-2 text-primary">
-                  <Loader2 className="h-8 w-8 animate-spin" />
-                  <span className="text-xs font-bold">Uploading to ImgBB...</span>
-                </div>
-              ) : (
-                <>
-                  <div className="h-12 w-12 rounded-full bg-default-100 dark:bg-zinc-800 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Upload className="h-5 w-5 text-default-400" />
-                  </div>
-                  <div className="text-center">
-                    <p className="text-sm font-bold text-foreground">Click or drag image to upload</p>
-                    <p className="text-xs text-default-400 font-medium mt-1">Supports JPG, PNG, WEBP</p>
-                  </div>
-                </>
-              )}
-            </div>
-
-            {/* URL Input & AI Action */}
-            <div className="flex-1 flex flex-col gap-3">
-              <div className="flex flex-col gap-1.5 h-full">
-                <input
-                  type="url"
-                  placeholder="Or paste an image URL..."
-                  value={uploadedImageUrl}
-                  onChange={(e) => setUploadedImageUrl(e.target.value)}
-                  className="w-full px-4 py-3 text-sm rounded-xl bg-default-50 dark:bg-zinc-900 border border-default-200 dark:border-zinc-800 focus:border-primary outline-none text-foreground font-medium"
-                  disabled={isAnalyzing}
-                />
-                
-                <div className="flex gap-4 mt-2 h-full">
-                  {uploadedImageUrl && (
-                    <div className="relative w-24 h-24 rounded-xl border border-default-200 dark:border-zinc-800 overflow-hidden shrink-0">
-                      <img src={uploadedImageUrl} alt="Preview" className="h-full w-full object-cover" />
-                    </div>
-                  )}
-                  
-                  <div className="flex-1 flex items-end">
-                    <Button 
-                      isDisabled={!uploadedImageUrl || isAnalyzing} 
-                      onPress={handleAiScan}
-                      className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold h-12 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20"
-                    >
-                      {isAnalyzing ? (
-                        <>
-                          <Loader2 className="h-5 w-5 animate-spin" />
-                          <span>AI Scanning...</span>
-                        </>
-                      ) : (
-                        <>
-                          <Sparkles className="h-5 w-5" />
-                          <span>Scan Image with AI</span>
-                        </>
-                      )}
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="flex flex-col gap-1.5">
+            <label className="text-xs font-bold text-default-500">Cuisine Type</label>
+            <input
+              type="text"
+              placeholder="e.g. Italian, Thai"
+              value={formCuisine}
+              onChange={(e) => setFormCuisine(e.target.value)}
+              className="w-full px-4 py-2.5 text-sm rounded-xl bg-default-50 dark:bg-zinc-900 border border-default-200 dark:border-zinc-800 focus:border-primary outline-none text-foreground font-medium h-11"
+            />
           </div>
-          
-          {isAnalyzing && (
-            <div className="mt-2 p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex flex-col items-center justify-center gap-2 text-indigo-600 dark:text-indigo-400 animate-pulse">
-              <Sparkles className="h-6 w-6" />
-              <p className="text-sm font-bold text-center">Our AI Chef is visually analyzing your dish...<br/>Extracting ingredients, guessing cuisine, and writing instructions.</p>
-            </div>
-          )}
+
+          <div className="flex flex-col gap-1.5">
+            <label className="text-xs font-bold text-default-500">Price (USD)</label>
+            <input
+              type="number"
+              step="0.01"
+              min="0"
+              placeholder="0.00 (Free)"
+              value={formPrice}
+              onChange={(e) => setFormPrice(e.target.value)}
+              className="w-full px-4 py-2.5 text-sm rounded-xl bg-default-50 dark:bg-zinc-900 border border-default-200 dark:border-zinc-800 focus:border-primary outline-none text-foreground font-medium h-11"
+            />
+          </div>
         </div>
 
         {/* Ingredients List */}
