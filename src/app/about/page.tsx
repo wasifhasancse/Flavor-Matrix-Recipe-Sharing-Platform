@@ -60,12 +60,12 @@ export default function AboutPage() {
             variants={containerVariants}
             className="text-center max-w-3xl mx-auto flex flex-col items-center gap-6"
           >
-            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-2">
+            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 text-orange-500 text-sm font-semibold mb-2">
               <Utensils className="w-4 h-4" />
               <span>Our Story</span>
             </motion.div>
             <motion.h1 variants={itemVariants} className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground">
-              Redefining How the World <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-rose-500">Shares Flavor</span>
+              Redefining How the World <span className="text-gradient-primary whitespace-nowrap">Shares Flavor</span>
             </motion.h1>
             <motion.p variants={itemVariants} className="text-lg md:text-xl text-default-500">
               Flavor Matrix was born out of a simple idea: that everyone has a signature dish worth sharing. We built a platform to empower culinary creators to showcase, share, and monetize their best recipes.
@@ -110,7 +110,7 @@ export default function AboutPage() {
               <div className="absolute inset-0 bg-background/40 backdrop-blur-sm" />
               <div className="relative z-10 text-center flex flex-col items-center gap-4 p-8">
                 <div className="w-20 h-20 rounded-2xl bg-content1 shadow-xl flex items-center justify-center mb-2 transform -rotate-6">
-                  <Users className="w-10 h-10 text-primary" />
+                  <Users className="w-10 h-10 text-orange-500" />
                 </div>
                 <h3 className="text-2xl font-bold text-foreground">10k+ Creators</h3>
                 <p className="text-default-600 dark:text-default-400 font-medium">Sharing their passion daily</p>

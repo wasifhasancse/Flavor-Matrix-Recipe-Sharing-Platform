@@ -9,7 +9,7 @@ import Link from "next/link";
 
 const communityFeatures = [
   {
-    icon: <MessageSquare className="w-6 h-6 text-primary" />,
+    icon: <MessageSquare className="w-6 h-6 text-orange-500" />,
     title: "Discuss & Connect",
     description: "Join forums, comment on recipes, and connect with chefs and food lovers globally.",
   },
@@ -62,12 +62,12 @@ export default function CommunityPage() {
             variants={containerVariants}
             className="text-center max-w-3xl mx-auto flex flex-col items-center gap-6"
           >
-            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-2">
+            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 text-orange-500 text-sm font-semibold mb-2">
               <Users className="w-4 h-4" />
               <span>Join the Movement</span>
             </motion.div>
             <motion.h1 variants={itemVariants} className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground">
-              Welcome to the <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-rose-500">Flavor Matrix</span> Community
+              Welcome to the <span className="text-gradient-primary whitespace-nowrap">Flavor Matrix</span> Community
             </motion.h1>
             <motion.p variants={itemVariants} className="text-lg md:text-xl text-default-500">
               The ultimate gathering place for food enthusiasts. Share your culinary journey, learn from experts, and celebrate the art of cooking together.
@@ -142,7 +142,7 @@ export default function CommunityPage() {
                   {contributor.initial}
                 </div>
                 <h3 className="text-lg font-bold text-foreground">{contributor.name}</h3>
-                <p className="text-primary text-sm font-medium mb-3">{contributor.role}</p>
+                <p className="text-orange-500 text-sm font-medium mb-3">{contributor.role}</p>
                 <div className="w-full pt-4 border-t border-divider flex justify-between items-center px-2">
                   <span className="text-xs text-default-400 font-medium">Followers</span>
                   <span className="text-sm font-bold text-foreground">{contributor.followers}</span>
