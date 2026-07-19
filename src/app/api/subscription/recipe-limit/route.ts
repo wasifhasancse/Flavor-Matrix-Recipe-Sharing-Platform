@@ -51,16 +51,16 @@ export async function GET() {
       // Count only this calendar month's recipes for Pro
       const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
       recipeCount = await recipesCollection.countDocuments({
-        userId: user.id,
+        authorId: user.id,
         createdAt: { $gte: startOfMonth },
       });
     } else if (currentPlan === "free") {
       // Count total lifetime recipes for Free
-      recipeCount = await recipesCollection.countDocuments({ userId: user.id });
+      recipeCount = await recipesCollection.countDocuments({ authorId: user.id });
     }
     // Premium: no limit needed, but count anyway for UI
     else {
-      recipeCount = await recipesCollection.countDocuments({ userId: user.id });
+      recipeCount = await recipesCollection.countDocuments({ authorId: user.id });
     }
 
     const remaining = limit === Infinity ? Infinity : Math.max(0, limit - recipeCount);
