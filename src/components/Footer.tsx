@@ -63,8 +63,8 @@ export function Footer() {
   };
 
   return (
-    <footer className="w-full bg-gradient-subtle transition-smooth py-16 px-4 md:px-8">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12">
+    <footer className="w-full bg-content1 border-t border-divider py-16 px-4 md:px-8">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
         {/* Brand Information Column */}
         <div className="col-span-1 md:col-span-2 flex flex-col gap-4">
           <Link href="/" className="flex items-center gap-2 hover:opacity-90 text-foreground">
@@ -165,26 +165,6 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Newsletter Column */}
-        <div className="col-span-1 md:col-span-2 lg:col-span-2 flex flex-col gap-4">
-          <span className="font-semibold text-sm tracking-wider uppercase text-foreground">Newsletter</span>
-          <p className="text-sm text-default-500">
-            Subscribe to receive new recipes, cooking tips, and platform updates.
-          </p>
-          <form className="flex flex-col gap-2" onSubmit={(e) => e.preventDefault()}>
-            <div className="relative flex items-center">
-              <Mail className="absolute left-3 h-4 w-4 text-default-400" />
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full pl-10 pr-4 py-2 text-sm rounded-lg bg-default-100 dark:bg-zinc-900 border border-transparent focus:border-primary focus:bg-background outline-none transition-all text-foreground"
-              />
-            </div>
-            <Button variant="primary" size="sm" type="submit" className="font-medium bg-primary text-primary-foreground w-full">
-              Subscribe
-            </Button>
-          </form>
-        </div>
       </div>
 
       <div className="max-w-7xl mx-auto border-t border-default-100 dark:border-zinc-800 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">

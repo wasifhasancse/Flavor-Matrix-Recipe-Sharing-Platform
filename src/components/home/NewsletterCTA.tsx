@@ -13,21 +13,20 @@ export function NewsletterCTA() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7 }}
-        className="relative overflow-hidden rounded-[3rem] bg-gradient-to-br from-zinc-900 to-black dark:from-zinc-900 dark:to-zinc-950 p-10 md:p-16 lg:p-20 text-center shadow-2xl border border-zinc-800"
+        className="relative overflow-hidden rounded-[2.5rem] bg-content1 border border-divider shadow-xl flex flex-col lg:flex-row items-center"
       >
-        {/* Background glow effects */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-1/2 bg-primary/20 blur-[100px] rounded-full pointer-events-none"></div>
-
-        <div className="relative z-10 flex flex-col items-center max-w-3xl mx-auto gap-8">
-          <div className="inline-flex items-center justify-center p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/10 mb-2">
-            <Mail className="w-8 h-8 text-white" />
+        {/* Left Content Column */}
+        <div className="relative z-10 flex flex-col p-10 md:p-16 lg:w-1/2 gap-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-semibold w-fit mb-2">
+            <Mail className="w-4 h-4" />
+            <span>Weekly Newsletter</span>
           </div>
           
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white">
-            Get Fresh Recipes <br /> Delivered <span className="text-primary">Weekly</span>
+          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-foreground leading-tight">
+            Get Fresh Recipes <br /> Delivered <span className="text-gradient-primary">Weekly</span>
           </h2>
           
-          <p className="text-lg text-zinc-400 max-w-xl mx-auto">
+          <p className="text-lg text-default-500 max-w-xl">
             Join 50,000+ foodies who receive our hand-curated recipe collections, cooking tips, and platform updates every Friday.
           </p>
 
@@ -35,18 +34,29 @@ export function NewsletterCTA() {
             <input
               type="email"
               placeholder="Enter your email address"
-              className="flex-1 bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+              className="flex-1 bg-default-100 dark:bg-zinc-900 border border-transparent focus:border-primary focus:bg-background rounded-xl px-5 py-4 text-foreground placeholder:text-default-400 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
               required
             />
-            <Button size="lg" className="bg-primary h-[58px] px-8 font-bold text-white rounded-xl shadow-lg shadow-primary/20 flex items-center gap-2">
+            <Button size="lg" className="bg-primary h-[58px] px-8 font-bold text-white rounded-xl shadow-lg shadow-primary/30 flex items-center gap-2">
               Subscribe
               <Sparkles className="w-4 h-4" />
             </Button>
           </form>
           
-          <p className="text-xs text-zinc-500 mt-2">
+          <p className="text-xs text-default-400 mt-2">
             We respect your inbox. No spam, ever. Unsubscribe at any time.
           </p>
+        </div>
+
+        {/* Right Image Column */}
+        <div className="w-full lg:w-1/2 h-64 sm:h-80 lg:h-full relative overflow-hidden min-h-[400px]">
+          <div className="absolute inset-0 bg-gradient-to-r from-content1 via-content1/50 to-transparent z-10 hidden lg:block"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-content1 via-content1/50 to-transparent z-10 block lg:hidden"></div>
+          <img
+            src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=1200&auto=format&fit=crop"
+            alt="Fresh healthy ingredients"
+            className="w-full h-full object-cover"
+          />
         </div>
       </motion.div>
     </section>
