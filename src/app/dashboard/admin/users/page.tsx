@@ -356,9 +356,9 @@ export default function AdminUsersPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-default-100 dark:divide-zinc-800 text-foreground">
-                  {paginatedUsers.map((usr) => (
+                  {paginatedUsers.map((usr, idx) => (
                     <tr
-                      key={usr.id}
+                      key={`${usr.id || (usr as any)._id}-${idx}`}
                       className="hover:bg-default-100 dark:hover:bg-zinc-800 cursor-pointer transition-smooth"
                     >
                       {/* Column 1: User Profile (Avatar, Name, Email) */}

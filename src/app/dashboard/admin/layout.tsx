@@ -16,6 +16,7 @@ import {
   Shield,
   Loader2,
   LogOut,
+  Settings,
 } from "lucide-react";
 
 export default function AdminDashboardLayout({ children }: { children: React.ReactNode }) {
@@ -76,6 +77,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
             { label: "User Management", icon: Users, href: "/dashboard/admin/users" },
             { label: "Recipe Approvals", icon: BookOpen, href: "/dashboard/admin/recipes" },
             { label: "Moderation Reports", icon: Flag, href: "/dashboard/admin/reports" },
+            { label: "Platform Settings", icon: Settings, href: "/dashboard/admin/settings" },
           ].map((item) => {
             const isSelected = pathname === item.href;
             return (
