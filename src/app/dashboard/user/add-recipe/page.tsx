@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { Button } from "@heroui/react";
-import { AlertTriangle, CheckCircle, Upload, Loader2 } from "lucide-react";
+import { AlertTriangle, CheckCircle, Upload, Loader2, PlusCircle } from "lucide-react";
 import { Recipe } from "@/data/recipes";
 
 export default function AddRecipePage() {
@@ -120,8 +120,16 @@ export default function AddRecipePage() {
   if (isPending) return null;
 
   return (
-    <div className="flex flex-col gap-6 w-full max-w-4xl mx-auto p-4 sm:p-6 md:p-8">
-      <h2 className="text-2xl font-bold tracking-tight text-foreground">Create New Recipe</h2>
+    <div className="flex-grow max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8 bg-background">
+      {/* Page Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-default-100 dark:border-zinc-800 pb-6">
+        <div className="flex flex-col gap-1">
+          <h1 className="text-3xl font-extrabold text-foreground tracking-tight flex items-center gap-2.5">
+            <PlusCircle className="h-7 w-7 text-primary" />
+            <span>Create New Recipe</span>
+          </h1>
+        </div>
+      </div>
 
       {formSuccess && (
         <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-sm flex items-center gap-2 font-semibold">

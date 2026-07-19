@@ -238,7 +238,7 @@ export default function AdminRecipesPage() {
   }
 
   return (
-    <div className="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8 bg-background">
+    <div className="flex-grow max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8 bg-background">
       {/* Toast Notification Alert */}
       <AnimatePresence>
         {toastMessage && (
@@ -257,14 +257,7 @@ export default function AdminRecipesPage() {
       {/* Header Breadcrumbs & Title */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-default-100 dark:border-zinc-800 pb-6">
         <div className="flex flex-col gap-1">
-          <div className="flex items-center gap-2 text-xs text-default-400">
-            <Link href="/dashboard/admin" className="hover:text-primary transition-smooth flex items-center gap-1">
-              <ArrowLeft className="h-3.5 w-3.5" />
-              <span>Admin Console</span>
-            </Link>
-            <ChevronRight className="h-3 w-3" />
-            <span className="text-foreground font-semibold">Recipe Approvals & Catalog</span>
-          </div>
+
           <h1 className="text-3xl font-extrabold text-foreground tracking-tight flex items-center gap-2.5">
             <BookOpen className="h-7 w-7 text-primary" />
             <span>Recipe Approvals & Inventory Portal</span>

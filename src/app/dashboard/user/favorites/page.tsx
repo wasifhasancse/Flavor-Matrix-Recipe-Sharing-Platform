@@ -45,8 +45,16 @@ export default function FavoritesPage() {
   }
 
   return (
-    <div className="flex flex-col gap-6 p-4 sm:p-6 md:p-8 max-w-6xl mx-auto w-full">
-      <h2 className="text-2xl font-bold tracking-tight text-foreground">My Favorited Bookmarks</h2>
+    <div className="flex-grow max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8 bg-background">
+      {/* Page Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-default-100 dark:border-zinc-800 pb-6">
+        <div className="flex flex-col gap-1">
+          <h1 className="text-3xl font-extrabold text-foreground tracking-tight flex items-center gap-2.5">
+            <Star className="h-7 w-7 text-primary" />
+            <span>My Favorited Bookmarks</span>
+          </h1>
+        </div>
+      </div>
 
       {favorites.length > 0 ? (
         <div className="overflow-x-auto rounded-3xl glass-panel ambient-glow-orange w-full">

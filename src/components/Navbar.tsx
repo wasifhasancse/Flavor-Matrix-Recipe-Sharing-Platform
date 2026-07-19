@@ -55,6 +55,7 @@ export function Navbar() {
 
   const userRole = (session?.user as { role?: string })?.role;
   const dashboardLink = userRole === "admin" ? "/dashboard/admin" : "/dashboard/user";
+  const isDashboard = pathname?.startsWith("/dashboard");
 
   return (
     <header
@@ -64,7 +65,7 @@ export function Navbar() {
           : "bg-background/40 backdrop-blur-md border-b border-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div className={`${isDashboard ? "w-full" : "max-w-7xl mx-auto"} px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between`}>
         {/* Brand Logo & Name */}
         <div className="flex items-center gap-4">
           <button

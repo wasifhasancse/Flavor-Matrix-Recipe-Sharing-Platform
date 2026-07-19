@@ -244,7 +244,7 @@ export default function UserProfilePage() {
   }
 
   return (
-    <div className="flex-grow max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8 bg-background">
+    <div className="flex-grow max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8 bg-background">
       {/* Toast Notification */}
       <AnimatePresence>
         {toastMessage && (
@@ -267,7 +267,7 @@ export default function UserProfilePage() {
       </AnimatePresence>
 
       {/* Header Breadcrumb Navigation */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-default-100 dark:border-zinc-800 pb-6">
         <div className="flex flex-col gap-1">
           <h1 className="text-3xl font-extrabold text-foreground tracking-tight flex items-center gap-2.5">
             <User className="h-7 w-7 text-primary" />

@@ -160,15 +160,18 @@ function AdminDashboardContent() {
   const totalGrossRevenue = 14890.5;
 
   return (
-    <div className="flex-grow p-4 sm:p-6 lg:p-8 max-w-6xl w-full mx-auto">
-      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="flex flex-col gap-8">
+    <div className="flex-grow max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8 bg-background">
+      {/* Page Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-default-100 dark:border-zinc-800 pb-6">
         <div className="flex flex-col gap-1">
-          <h1 className="text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 flex items-center gap-2.5">
-            <LayoutDashboard className="h-7 w-7 text-rose-500" />
+          <h1 className="text-3xl font-extrabold text-foreground tracking-tight flex items-center gap-2.5">
+            <LayoutDashboard className="h-7 w-7 text-primary" />
             <span>Administrative Console Overview</span>
           </h1>
-          <p className="text-xs text-default-400">Real-time system metrics, analytics & moderation highlights</p>
         </div>
+      </div>
+
+      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="flex flex-col gap-8">
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           <motion.div whileHover={{ y: -4 }} className="p-5 rounded-3xl glass-panel ambient-glow-orange flex flex-col justify-between gap-3">

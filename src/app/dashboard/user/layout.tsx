@@ -148,8 +148,7 @@ export default function UserDashboardLayout({ children }: { children: React.Reac
         {/* Sign Out Button */}
         <div className="pb-8 lg:pb-0">
           <Button
-            variant="flat"
-            color="danger"
+            variant="danger-soft"
             onClick={() => authClient.signOut()}
             className="w-full font-bold text-xs py-2.5 rounded-xl flex items-center justify-center gap-2 cursor-pointer transition-smooth bg-danger/10 text-danger hover:bg-danger hover:text-white"
           >
