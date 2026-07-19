@@ -205,6 +205,7 @@ export default function AddRecipePage() {
 
       setFormSuccess(true);
       setTimeout(() => {
+        router.refresh();
         router.push("/dashboard/user/my-recipes");
       }, 1000);
     } catch (err: any) {
