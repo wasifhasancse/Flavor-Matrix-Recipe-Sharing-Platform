@@ -28,13 +28,6 @@ export function RecipePagination({ total, initialPage }: RecipePaginationProps) 
         total={total}
         page={initialPage}
         onChange={handlePageChange}
-        variant="faded"
-        color="primary"
-        size="lg"
-        radius="md"
-        classNames={{
-          cursor: "bg-primary text-white font-bold",
-        }}
       />
     </div>
   );
