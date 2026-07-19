@@ -12,6 +12,7 @@ export function ThemeSwitcher() {
 
   // Prevent hydration mismatch artifacts on initial render
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
