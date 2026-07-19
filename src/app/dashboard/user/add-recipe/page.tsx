@@ -26,15 +26,24 @@ export default function AddRecipePage() {
   const [formSuccess, setFormSuccess] = useState(false);
 
   const [myRecipes, setMyRecipes] = useState<Recipe[]>([]);
-  const [isPremiumUser] = useState<boolean>(false);
+  const [limitData, setLimitData] = useState<any>(null);
 
   useEffect(() => {
     if (session?.user) {
+      // 1. Fetch current recipes for local UI rendering (cache)
       const createdKey = `created_recipes_${session.user.id}`;
       const stored = localStorage.getItem(createdKey);
       if (stored) {
         setMyRecipes(JSON.parse(stored));
       }
+
+      // 2. Fetch real limits from the backend
+      fetch("/api/subscription/recipe-limit")
+        .then((res) => res.json())
+        .then((data) => {
+          if (!data.error) setLimitData(data);
+        })
+        .catch(console.error);
     }
   }, [session]);
 
@@ -77,8 +86,10 @@ export default function AddRecipePage() {
 
     setFormError(null);
 
-    if (!isPremiumUser && myRecipes.length >= 2) {
-      setFormError("Free Standard Accounts are limited to 2 published recipes. Upgrade to Premium for unlimited publishing!");
+    if (limitData && !limitData.canCreate) {
+      const planName = limitData.plan === "free" ? "Free Standard" : "Pro";
+      const limitVal = limitData.limit;
+      setFormError(`${planName} Accounts are limited to ${limitVal} published recipes. Upgrade your plan for higher limits!`);
       return;
     }
 
@@ -132,6 +143,22 @@ export default function AddRecipePage() {
           </h1>
         </div>
       </div>
+
+      {limitData && !limitData.canCreate && (
+        <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-500 text-sm flex items-center justify-between font-semibold">
+          <div className="flex items-center gap-2">
+            <AlertTriangle className="h-5 w-5 shrink-0" />
+            <span>You have reached your {limitData.plan} plan limit of {limitData.limit} recipes.</span>
+          </div>
+          <Button
+            size="sm"
+            className="bg-rose-500 text-white font-bold"
+            onPress={() => router.push("/pricing")}
+          >
+            Upgrade Now
+          </Button>
+        </div>
+      )}
 
       {formSuccess && (
         <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-sm flex items-center gap-2 font-semibold">

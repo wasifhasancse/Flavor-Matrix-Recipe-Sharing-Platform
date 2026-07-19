@@ -63,6 +63,9 @@ export default function UserProfilePage() {
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [isSaving, setIsSaving] = useState<boolean>(false);
 
+  // Subscription State
+  const [planData, setPlanData] = useState<{ plan: string; isActive: boolean } | null>(null);
+
   // Toast State
   const [toastMessage, setToastMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
 
@@ -112,7 +115,17 @@ export default function UserProfilePage() {
       localStorage.setItem(profileKey, JSON.stringify(initialProfile));
     }
 
-    setIsLoading(false);
+    // Fetch Subscription Status
+    fetch("/api/subscription/verify")
+      .then((res) => res.json())
+      .then((data) => {
+        setPlanData(data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch plan:", err);
+        setIsLoading(false);
+      });
   }, [session]);
 
   // Open Edit Modal
@@ -196,20 +209,6 @@ export default function UserProfilePage() {
     }, 700);
   };
 
-  // Toggle Premium Membership tier
-  const togglePremium = () => {
-    if (!profile || !session?.user) return;
-    const nextPremiumState = !profile.isPremium;
-    const updated = { ...profile, isPremium: nextPremiumState, updatedAt: new Date().toISOString() };
-    setProfile(updated);
-
-    const profileKey = `user_profile_${session.user.id}`;
-    const premiumKey = `is_premium_account_${session.user.id}`;
-    localStorage.setItem(profileKey, JSON.stringify(updated));
-    localStorage.setItem(premiumKey, String(nextPremiumState));
-
-    showToast(nextPremiumState ? "Upgraded to Premium Member!" : "Switched to Standard Account.");
-  };
 
   // Date formatting helper
   const formattedCreationDate = profile?.createdAt
@@ -300,10 +299,16 @@ export default function UserProfilePage() {
           
           {/* Floating Badges on Banner */}
           <div className="absolute top-4 right-4 flex items-center gap-2">
-            {profile.isPremium && (
+            {planData?.plan === "premium" && (
               <div className="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md text-amber-300 border border-amber-400/30 text-[10px] font-extrabold flex items-center gap-1.5 shadow-md">
                 <Sparkles className="h-3.5 w-3.5 fill-amber-300" />
-                <span>GOLD CHEF TIER</span>
+                <span>GOLD PREMIUM TIER</span>
+              </div>
+            )}
+            {planData?.plan === "pro" && (
+              <div className="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md text-sky-300 border border-sky-400/30 text-[10px] font-extrabold flex items-center gap-1.5 shadow-md">
+                <Award className="h-3.5 w-3.5" />
+                <span>PRO CHEF TIER</span>
               </div>
             )}
             <div className="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md text-white border border-white/20 text-[10px] font-bold flex items-center gap-1">
@@ -338,7 +343,8 @@ export default function UserProfilePage() {
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight">
                   {profile.name}
                 </h2>
-                {profile.isPremium && <Award className="h-6 w-6 text-amber-500" />}
+                {planData?.plan === "premium" && <Award className="h-6 w-6 text-amber-500" />}
+                {planData?.plan === "pro" && <Award className="h-6 w-6 text-sky-500" />}
               </div>
 
               <span className="text-xs text-default-400 font-medium flex items-center gap-2">
@@ -351,12 +357,19 @@ export default function UserProfilePage() {
 
               {/* Badges Bar */}
               <div className="flex items-center gap-2 mt-2 flex-wrap">
-                {profile.isPremium ? (
+                {planData?.plan === "premium" && (
                   <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-xl text-[10px] font-extrabold bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-500 border border-amber-500/30 shadow-sm">
                     <Sparkles className="h-3.5 w-3.5 fill-amber-400 text-amber-500" />
                     <span>PREMIUM MEMBER</span>
                   </div>
-                ) : (
+                )}
+                {planData?.plan === "pro" && (
+                  <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-xl text-[10px] font-extrabold bg-gradient-to-r from-sky-500/20 to-blue-500/20 text-sky-500 border border-sky-500/30 shadow-sm">
+                    <Award className="h-3.5 w-3.5 text-sky-500" />
+                    <span>PRO MEMBER</span>
+                  </div>
+                )}
+                {(planData?.plan === "free" || !planData?.plan) && (
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-[10px] font-bold bg-default-200/60 dark:bg-zinc-800 text-default-600 dark:text-default-400 border border-default-300 dark:border-zinc-700">
                     <span>STANDARD ACCOUNT</span>
                   </div>
@@ -371,17 +384,16 @@ export default function UserProfilePage() {
 
           {/* Action Button */}
           <div className="w-full md:w-auto flex flex-col sm:flex-row gap-3">
-            <Button
-              variant="outline"
-              onClick={togglePremium}
-              className={`font-bold text-xs py-2.5 px-4 rounded-2xl border transition-all cursor-pointer ${
-                profile.isPremium
-                  ? "border-default-200 dark:border-zinc-800 text-default-600 hover:bg-default-100"
-                  : "border-amber-500/40 text-amber-500 hover:bg-amber-500/10 shadow-sm"
-              }`}
-            >
-              {profile.isPremium ? "Switch to Free Tier" : "Upgrade to Premium Member"}
-            </Button>
+            {planData?.plan !== "premium" && (
+              <Link href="/pricing" className="no-underline w-full">
+                <Button
+                  variant="outline"
+                  className="font-bold text-xs py-2.5 px-4 rounded-2xl border transition-all cursor-pointer border-amber-500/40 text-amber-500 hover:bg-amber-500/10 shadow-sm w-full"
+                >
+                  Upgrade Membership
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       </motion.div>
@@ -502,20 +514,21 @@ export default function UserProfilePage() {
               <div className="flex items-center gap-2">
                 <Sparkles className="h-5 w-5 text-amber-500 fill-amber-400" />
                 <h3 className="font-extrabold text-base text-amber-600 dark:text-amber-400">
-                  {profile.isPremium ? "Premium Chef Benefits" : "Standard Account Tier"}
+                  {planData?.plan === "premium" ? "Premium Chef Benefits" : planData?.plan === "pro" ? "Pro Chef Benefits" : "Standard Account Tier"}
                 </h3>
               </div>
               <Chip color="warning" variant="soft" size="sm" className="font-extrabold text-[10px]">
-                {profile.isPremium ? "Active Tier" : "Free Account"}
+                {planData?.plan === "premium" ? "Active Premium Tier" : planData?.plan === "pro" ? "Active Pro Tier" : "Free Account"}
               </Chip>
             </div>
 
             {/* Perks List */}
             <div className="flex flex-col gap-3">
               {[
-                { label: "Unlimited Recipe Publishing", unlocked: profile.isPremium },
-                { label: "80% Revenue Share on Recipe Sales", unlocked: profile.isPremium },
-                { label: "Featured Badge on Recipe Cards", unlocked: profile.isPremium },
+                { label: "Unlimited Recipe Publishing", unlocked: planData?.plan === "premium" },
+                { label: "10 Recipe Publishing / Month", unlocked: planData?.plan === "pro" },
+                { label: "80% Revenue Share on Recipe Sales", unlocked: planData?.plan === "premium" || planData?.plan === "pro" },
+                { label: "Featured Badge on Recipe Cards", unlocked: planData?.plan === "premium" || planData?.plan === "pro" },
                 { label: "Instant Stripe Direct Withdrawals", unlocked: true },
               ].map((perk, idx) => (
                 <div key={idx} className="flex items-center gap-2.5 text-xs font-semibold">
@@ -535,15 +548,16 @@ export default function UserProfilePage() {
               ))}
             </div>
 
-            {!profile.isPremium && (
-              <Button
-                variant="primary"
-                onClick={togglePremium}
-                className="mt-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-extrabold py-3 rounded-2xl text-xs flex items-center justify-center gap-2 ambient-glow-orange shadow-amber-500/20 border-none cursor-pointer"
-              >
-                <Sparkles className="h-4 w-4" />
-                <span>Unlock Premium Lifetime Access</span>
-              </Button>
+            {planData?.plan !== "premium" && (
+              <Link href="/pricing" className="no-underline w-full">
+                <Button
+                  variant="primary"
+                  className="mt-2 w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-extrabold py-3 rounded-2xl text-xs flex items-center justify-center gap-2 ambient-glow-orange shadow-amber-500/20 border-none cursor-pointer"
+                >
+                  <Sparkles className="h-4 w-4" />
+                  <span>Unlock Premium Lifetime Access</span>
+                </Button>
+              </Link>
             )}
           </div>
 

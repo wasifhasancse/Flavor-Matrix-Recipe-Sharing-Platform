@@ -51,6 +51,7 @@ export function Footer() {
     ],
     company: [
       { label: "About Us", href: "/about" },
+      { label: "Pricing & Plans", href: "/pricing" },
       { label: "Careers", href: "/careers" },
       { label: "Contact Us", href: "/contact" },
       { label: "Community Guide", href: "/community" },

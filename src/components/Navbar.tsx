@@ -54,6 +54,7 @@ export function Navbar() {
     { label: "Home", href: "/" },
     { label: "Recipes", href: "/recipes" },
     { label: "Community", href: "/community" },
+    { label: "Pricing", href: "/pricing" },
     { label: "About", href: "/about" },
   ];
 
