@@ -2,6 +2,13 @@
 
 import Link from "next/link";
 import { Banner } from "@/components/home/Banner";
+import { Categories } from "@/components/home/Categories";
+import { Features } from "@/components/home/Features";
+import { Statistics } from "@/components/home/Statistics";
+import { Highlights } from "@/components/home/Highlights";
+import { Testimonials } from "@/components/home/Testimonials";
+import { FAQ } from "@/components/home/FAQ";
+import { NewsletterCTA } from "@/components/home/NewsletterCTA";
 import { mockRecipes } from "@/data/recipes";
 import { RecipeCard } from "@/components/RecipeCard";
 import { motion } from "motion/react";
@@ -42,6 +49,9 @@ export default function Home() {
       {/* 1. Hero Swiper Banner */}
       <Banner />
 
+      {/* NEW: Categories */}
+      <Categories />
+
       {/* 2. Featured Recipes Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 w-full">
         <div className="flex items-center justify-between mb-8 border-b border-default-100 dark:border-zinc-800/80 pb-4">
@@ -76,6 +86,9 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* NEW: Features */}
+      <Features />
+
       {/* 3. Popular Recipes Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 w-full">
         <div className="flex items-center justify-between mb-8 border-b border-default-100 dark:border-zinc-800/80 pb-4">
@@ -101,6 +114,21 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* NEW: Statistics */}
+      <Statistics />
+
+      {/* NEW: Highlights */}
+      <Highlights />
+
+      {/* NEW: Testimonials */}
+      <Testimonials />
+
+      {/* NEW: FAQ */}
+      <FAQ />
+
+      {/* NEW: Newsletter CTA */}
+      <NewsletterCTA />
     </div>
   );
 }
