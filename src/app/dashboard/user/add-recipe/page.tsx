@@ -138,16 +138,15 @@ export default function AddRecipePage() {
     }
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!session?.user) return;
 
     setFormError(null);
 
+    // Front-end pre-check for limits
     if (limitData && !limitData.canCreate) {
-      const planName = limitData.plan === "free" ? "Free Standard" : "Pro";
-      const limitVal = limitData.limit;
-      setFormError(`${planName} Accounts are limited to ${limitVal} published recipes. Upgrade your plan for higher limits!`);
+      router.push("/pricing");
       return;
     }
 
@@ -156,37 +155,63 @@ export default function AddRecipePage() {
       return;
     }
 
-    const ingredientsArray = formIngredients.split("\n").map((i) => i.trim()).filter((i) => i.length > 0);
-    const instructionsArray = formInstructions.split("\n").map((i) => i.trim()).filter((i) => i.length > 0);
-    const defaultImage = "https://images.unsplash.com/photo-1495521821757-a1efb6729352?auto=format&fit=crop&w=600&q=80";
+    setIsUploading(true); // Re-using this state to disable button during submit
 
-    const createdKey = `created_recipes_${session.user.id}`;
+    try {
+      const ingredientsArray = formIngredients.split("\n").map((i) => i.trim()).filter((i) => i.length > 0);
+      const instructionsArray = formInstructions.split("\n").map((i) => i.trim()).filter((i) => i.length > 0);
+      const defaultImage = "https://images.unsplash.com/photo-1495521821757-a1efb6729352?auto=format&fit=crop&w=600&q=80";
 
-    const newRecipe: Recipe = {
-      id: `user-rec-${Date.now()}`,
-      title: formTitle,
-      description: formDesc,
-      category: formCategory,
-      cuisineType: formCuisine,
-      difficulty: formDifficulty,
-      prepTime: formPrep,
-      cookTime: formCook,
-      price: formPrice ? Number(formPrice) : 0,
-      ingredients: ingredientsArray,
-      instructions: instructionsArray,
-      image: uploadedImageUrl || defaultImage,
-      likes: 0,
-      isFeatured: false,
-      author: session.user.name || "Home Chef",
-    };
+      // Fetch a valid JWT for the backend
+      const tokenRes = await fetch("/api/auth/token");
+      const tokenData = await tokenRes.json();
+      if (!tokenData.success || !tokenData.token) {
+        throw new Error("Authentication failed. Please log in again.");
+      }
+      
+      const token = tokenData.token;
+      localStorage.setItem("token", token);
 
-    const finalRecipes = [newRecipe, ...myRecipes];
-    setMyRecipes(finalRecipes);
-    localStorage.setItem(createdKey, JSON.stringify(finalRecipes));
-    setFormSuccess(true);
-    setTimeout(() => {
-      router.push("/dashboard/user/my-recipes");
-    }, 1000);
+      const res = await fetch("http://localhost:5000/api/recipes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          title: formTitle,
+          description: formDesc,
+          category: formCategory,
+          cuisineType: formCuisine,
+          difficulty: formDifficulty,
+          prepTime: formPrep,
+          cookTime: formCook,
+          price: formPrice ? Number(formPrice) : 0,
+          ingredients: ingredientsArray,
+          instructions: instructionsArray,
+          image: uploadedImageUrl || defaultImage,
+        })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        if (res.status === 403 && data.error && data.error.includes("limit reached")) {
+          router.push("/pricing");
+          return;
+        }
+        throw new Error(data.error || "Failed to publish recipe");
+      }
+
+      setFormSuccess(true);
+      setTimeout(() => {
+        router.push("/dashboard/user/my-recipes");
+      }, 1000);
+    } catch (err: any) {
+      setFormError(err.message || "Something went wrong.");
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   if (isPending) return null;
