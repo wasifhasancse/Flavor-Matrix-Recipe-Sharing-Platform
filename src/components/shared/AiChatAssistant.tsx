@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bot, X, Send, Sparkles } from "lucide-react";
-import { Button, Input, ScrollShadow } from "@heroui/react";
+import { Button, ScrollShadow } from "@heroui/react";
 import { usePathname, useRouter } from "next/navigation";
 
 interface Message {
@@ -50,18 +50,19 @@ export function AiChatAssistant() {
     setMessages((prev) => [...prev, { id: assistantMsgId, role: "assistant", content: "" }]);
 
     try {
-      // Get the token from cookies manually since this is a client component, 
-      // or rely on credentials include if cookie is set.
+      // Get the token using the app's existing token endpoint
+      const tokenRes = await fetch("/api/auth/token");
+      const tokenData = await tokenRes.json();
+      const token = tokenData.success ? tokenData.token : "";
+
       const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://127.0.0.1:5000";
       
       const response = await fetch(`${baseUrl}/api/ai/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // We rely on the browser sending the HTTPOnly cookie. 
-          // If using Bearer, we'd need to inject it. Assuming cookie auth is standard here.
+          "Authorization": `Bearer ${token}`
         },
-        credentials: "include", // Important for sending the auth cookie to the backend
         body: JSON.stringify({
           conversationHistory: [...messages, userMessage],
           currentContext: {
@@ -232,21 +233,19 @@ export function AiChatAssistant() {
               )}
               
               <div className="flex gap-2 items-end">
-                <Input
-                  classNames={{
-                    base: "w-full",
-                    inputWrapper: "bg-white dark:bg-zinc-800 border border-default-200 dark:border-zinc-700 shadow-sm",
-                  }}
+                <input
+                  type="text"
+                  className="w-full bg-white dark:bg-zinc-800 border border-default-200 dark:border-zinc-700 shadow-sm px-4 py-2.5 rounded-xl outline-none focus:border-primary text-sm transition-colors text-foreground"
                   placeholder="Ask me anything..."
                   value={inputValue}
-                  onValueChange={setInputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && !e.shiftKey) {
                       e.preventDefault();
                       handleSend();
                     }
                   }}
-                  isDisabled={isStreaming}
+                  disabled={isStreaming}
                 />
                 <Button
                   isIconOnly
