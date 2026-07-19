@@ -131,7 +131,7 @@ function DashboardContent() {
   const [isMounted, setIsMounted] = useState<boolean>(false);
 
   const [myRecipes, setMyRecipes] = useState<Recipe[]>([]);
-  const [isPremiumUser, setIsPremiumUser] = useState<boolean>(false);
+  const [limitData, setLimitData] = useState<any>(null);
 
   const [totalSalesCount, setTotalSalesCount] = useState<number>(14);
   const [totalEarned, setTotalEarned] = useState<number>(59.86);
@@ -163,12 +163,15 @@ function DashboardContent() {
         setMyRecipes(seed);
         localStorage.setItem(createdKey, JSON.stringify(seed));
       }
+
+      fetch("/api/subscription/recipe-limit")
+        .then((res) => res.json())
+        .then((data) => {
+          if (!data.error) setLimitData(data);
+        })
+        .catch(console.error);
     }
   }, [session]);
-
-  const togglePremiumMembership = () => {
-    setIsPremiumUser(true);
-  };
 
   const handleWithdrawalSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -193,9 +196,10 @@ function DashboardContent() {
   if (!isMounted) return null;
   if (!session?.user) return null;
 
-  const maxFreeRecipes = 2;
-  const recipesCount = myRecipes.length;
-  const recipeProgressPercent = Math.min((recipesCount / maxFreeRecipes) * 100, 100);
+  const maxFreeRecipes = limitData?.limit || 2;
+  const recipesCount = limitData?.used !== undefined ? limitData.used : myRecipes.length;
+  const isInfinite = maxFreeRecipes === null;
+  const recipeProgressPercent = isInfinite ? 0 : Math.min((recipesCount / maxFreeRecipes) * 100, 100);
 
   const categoryCounts = myRecipes.reduce((acc, curr) => {
     acc[curr.category] = (acc[curr.category] || 0) + 1;
@@ -251,7 +255,8 @@ function DashboardContent() {
                   <h1 className="text-2xl font-extrabold text-foreground tracking-tight">
                     Welcome, {session.user.name}!
                   </h1>
-                  {isPremiumUser && <Award className="h-5 w-5 text-amber-500" />}
+                  {limitData?.plan === "premium" && <Award className="h-5 w-5 text-amber-500" />}
+                  {limitData?.plan === "pro" && <Award className="h-5 w-5 text-sky-500" />}
                 </div>
                 <p className="text-xs text-default-400 flex items-center gap-2">
                   <span>{session.user.email}</span>
@@ -274,31 +279,39 @@ function DashboardContent() {
                 <span>Withdraw Money (${availableBalance.toFixed(2)})</span>
               </Button>
 
-              {isPremiumUser ? (
-                <div className="flex items-center gap-2.5 p-3 rounded-2xl bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/10 border border-amber-500/30 shadow-sm">
-                  <Sparkles className="h-4 w-4 text-amber-500 animate-pulse" />
-                  <span className="text-xs font-extrabold text-amber-500 uppercase tracking-wider">
-                    Premium Chef
-                  </span>
+              {(limitData?.plan === "premium" || limitData?.plan === "pro") ? (
+                <div className="flex items-center gap-2.5 p-3 rounded-2xl bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/10 border border-amber-500/30 shadow-sm flex-col items-end">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="h-4 w-4 text-amber-500 animate-pulse" />
+                    <span className="text-xs font-extrabold text-amber-500 uppercase tracking-wider">
+                      {limitData.plan === "premium" ? "Premium Chef" : "Pro Chef"}
+                    </span>
+                  </div>
+                  {limitData.endDate && (
+                     <span className="text-[10px] text-amber-500/80 font-semibold">
+                       Expires: {new Date(limitData.endDate).toLocaleDateString()}
+                     </span>
+                  )}
                 </div>
               ) : (
-                <Button
-                  variant="outline"
-                  onClick={togglePremiumMembership}
-                  className="border border-amber-500/40 text-amber-500 font-bold py-3 px-4 rounded-2xl text-xs flex items-center justify-center gap-1.5 cursor-pointer hover:bg-amber-500/10 transition-all"
-                >
-                  <Sparkles className="h-3.5 w-3.5" />
-                  <span>Upgrade Account</span>
-                </Button>
+                <Link href="/pricing" className="no-underline">
+                  <Button
+                    variant="outline"
+                    className="border border-amber-500/40 text-amber-500 font-bold py-3 px-4 rounded-2xl text-xs flex items-center justify-center gap-1.5 cursor-pointer hover:bg-amber-500/10 transition-all"
+                  >
+                    <Sparkles className="h-3.5 w-3.5" />
+                    <span>Upgrade Account</span>
+                  </Button>
+                </Link>
               )}
             </div>
           </div>
 
-          {!isPremiumUser && (
+          {!isInfinite && limitData && (
             <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm">
               <div className="flex items-center gap-2 font-bold">
                 <AlertTriangle className="h-4 w-4 shrink-0 text-amber-500" />
-                <span>Standard Account Limit: {recipesCount} of {maxFreeRecipes} Free Recipes Created</span>
+                <span>{limitData.plan === "free" ? "Standard" : "Pro"} Account Limit: {recipesCount} of {maxFreeRecipes} Recipes Created {limitData.plan === "pro" && "this month"}</span>
               </div>
               <div className="w-full sm:w-48 h-2 bg-amber-500/20 rounded-full overflow-hidden shrink-0">
                 <div

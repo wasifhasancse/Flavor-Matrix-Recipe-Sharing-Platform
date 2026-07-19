@@ -23,6 +23,7 @@ import {
   X,
   Sparkles,
   Loader2,
+  Award,
 } from "lucide-react";
 import { LogOut, ArrowDownToLine } from "lucide-react";
 
@@ -30,8 +31,19 @@ export default function UserDashboardLayout({ children }: { children: React.Reac
   const { data: session, isPending } = authClient.useSession();
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isPremiumUser] = useState<boolean>(false); // mocked for display
+  const [planData, setPlanData] = useState<{ plan: string; isActive: boolean } | null>(null);
   const [availableBalance] = useState<number>(47.88); // mocked for display
+
+  React.useEffect(() => {
+    if (session?.user) {
+      fetch("/api/subscription/verify")
+        .then((res) => res.json())
+        .then((data) => {
+          setPlanData(data);
+        })
+        .catch(console.error);
+    }
+  }, [session]);
 
   if (isPending) {
     return (
@@ -82,12 +94,19 @@ export default function UserDashboardLayout({ children }: { children: React.Reac
           </div>
 
           {/* Premium vs Standard Badge */}
-          {isPremiumUser ? (
+          {planData?.plan === "premium" && (
             <div className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-[10px] font-extrabold bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-500 border border-amber-500/30 shadow-sm">
               <Sparkles className="h-3.5 w-3.5 fill-amber-400 text-amber-500" />
               <span>PREMIUM MEMBER</span>
             </div>
-          ) : (
+          )}
+          {planData?.plan === "pro" && (
+            <div className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-[10px] font-extrabold bg-gradient-to-r from-sky-500/20 to-blue-500/20 text-sky-500 border border-sky-500/30 shadow-sm">
+              <Award className="h-3.5 w-3.5 text-sky-500" />
+              <span>PRO MEMBER</span>
+            </div>
+          )}
+          {(planData?.plan === "free" || !planData?.plan) && (
             <div className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-[10px] font-bold bg-default-200/60 dark:bg-zinc-800 text-default-600 dark:text-default-400 border border-default-300 dark:border-zinc-700">
               <span>STANDARD ACCOUNT</span>
             </div>

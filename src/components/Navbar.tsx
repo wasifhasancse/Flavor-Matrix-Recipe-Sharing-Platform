@@ -58,10 +58,6 @@ export function Navbar() {
     { label: "About", href: "/about" },
   ];
 
-  if (session) {
-    navLinks.push({ label: "Dashboard", href: dashboardLink });
-  }
-
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -109,6 +105,18 @@ export function Navbar() {
               </Link>
             );
           })}
+          {!isPending && session && (
+            <Link
+              href={dashboardLink}
+              className={`text-sm transition-colors ${
+                pathname === dashboardLink
+                  ? "text-orange-500 font-semibold"
+                  : "text-foreground/70 hover:text-foreground font-medium"
+              }`}
+            >
+              Dashboard
+            </Link>
+          )}
         </nav>
 
         {/* Right Actions: Theme Switcher & Auth States */}
