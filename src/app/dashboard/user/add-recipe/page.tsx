@@ -115,9 +115,11 @@ export default function AddRecipePage() {
       if (recipe.description) setFormDesc(recipe.description);
       if (recipe.category) setFormCategory(recipe.category);
       if (recipe.difficultyLevel) setFormDifficulty(recipe.difficultyLevel);
-      if (recipe.preparationTime) {
+      if (recipe.preparationTime !== undefined) {
         setFormPrep(`${recipe.preparationTime} mins`);
-        setFormCook("0 mins");
+      }
+      if (recipe.cookTime !== undefined) {
+        setFormCook(`${recipe.cookTime} mins`);
       }
       if (recipe.ingredients && Array.isArray(recipe.ingredients)) {
         setFormIngredients(recipe.ingredients.join("\n"));
