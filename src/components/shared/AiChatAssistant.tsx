@@ -156,7 +156,7 @@ export function AiChatAssistant() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.3, type: "spring", bounce: 0.25 }}
-            className="bg-white/80 dark:bg-zinc-950/80 backdrop-blur-2xl border border-white/40 dark:border-white/10 rounded-3xl shadow-[0_12px_40px_rgba(249,115,22,0.15)] w-[380px] h-[600px] max-h-[85vh] flex flex-col overflow-hidden relative"
+            className="bg-white/80 dark:bg-zinc-950/80 backdrop-blur-2xl border border-white/40 dark:border-white/10 rounded-3xl shadow-[0_12px_40px_rgba(249,115,22,0.15)] w-[calc(100vw-3rem)] sm:w-[380px] h-[600px] max-h-[85vh] flex flex-col overflow-hidden relative"
           >
             {/* Ambient Background Glow inside the chat window */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/10 blur-[60px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/2" />
@@ -186,7 +186,7 @@ export function AiChatAssistant() {
                 isIconOnly 
                 size="sm" 
                 onPress={() => setIsOpen(false)} 
-                className="rounded-full bg-default-100 hover:bg-orange-100 hover:text-orange-600 dark:bg-zinc-800 dark:hover:bg-orange-500/20 text-default-500 transition-colors"
+                className="rounded-full bg-orange-400 text-white hover:bg-orange-500 dark:bg-orange-400 dark:hover:bg-orange-500 text-default-500 transition-colors"
               >
                 <X className="w-4 h-4" />
               </Button>
