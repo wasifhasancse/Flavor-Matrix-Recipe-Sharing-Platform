@@ -112,6 +112,7 @@ export default function AddRecipePage() {
 
       const recipe = data.data;
       if (recipe.recipeName) setFormTitle(recipe.recipeName);
+      if (recipe.description) setFormDesc(recipe.description);
       if (recipe.category) setFormCategory(recipe.category);
       if (recipe.difficultyLevel) setFormDifficulty(recipe.difficultyLevel);
       if (recipe.preparationTime) {
