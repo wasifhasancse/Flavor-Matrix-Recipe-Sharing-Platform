@@ -58,10 +58,10 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-smooth ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-white/80 dark:bg-zinc-950/80 backdrop-blur-lg border-b border-default-100 dark:border-zinc-800 shadow-sm"
-          : "bg-transparent border-b border-transparent"
+          ? "bg-background/80 backdrop-blur-lg border-b border-default-200 dark:border-zinc-800 shadow-sm"
+          : "bg-background/40 backdrop-blur-md border-b border-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -79,7 +79,7 @@ export function Navbar() {
             <div className="flex items-center justify-center p-2 rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/20">
               <ChefHat className="h-6 w-6" />
             </div>
-            <span className="font-bold text-xl tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <span className="font-bold text-xl tracking-tight text-gradient-primary">
               Flavor Matrix
             </span>
           </Link>
@@ -93,10 +93,10 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-medium transition-colors ${
+                className={`text-sm transition-colors ${
                   isActive
-                    ? "text-primary font-semibold"
-                    : "text-default-600 hover:text-foreground"
+                    ? "text-orange-500 font-semibold"
+                    : "text-foreground/70 hover:text-foreground font-medium"
                 }`}
               >
                 {link.label}
@@ -145,7 +145,7 @@ export function Navbar() {
                       <div className="py-1">
                         <Link
                           href={dashboardLink}
-                          className="flex items-center gap-2 px-4 py-2 text-sm text-default-600 hover:text-foreground hover:bg-default-100 dark:hover:bg-zinc-800 transition-colors w-full justify-start font-medium"
+                          className="flex items-center gap-2 px-4 py-2 text-sm text-foreground/70 hover:text-foreground hover:bg-default-100 dark:hover:bg-zinc-800 transition-colors w-full justify-start font-medium"
                           onClick={() => setIsProfileOpen(false)}
                         >
                           <LayoutDashboard className="h-4 w-4" />
@@ -153,7 +153,7 @@ export function Navbar() {
                         </Link>
                         <Link
                           href="/settings"
-                          className="flex items-center gap-2 px-4 py-2 text-sm text-default-600 hover:text-foreground hover:bg-default-100 dark:hover:bg-zinc-800 transition-colors w-full justify-start font-medium"
+                          className="flex items-center gap-2 px-4 py-2 text-sm text-foreground/70 hover:text-foreground hover:bg-default-100 dark:hover:bg-zinc-800 transition-colors w-full justify-start font-medium"
                           onClick={() => setIsProfileOpen(false)}
                         >
                           <Settings className="h-4 w-4" />
@@ -182,7 +182,7 @@ export function Navbar() {
                 <div className="flex items-center gap-2">
                   <Link
                     href="/login"
-                    className="font-medium text-sm text-default-600 hover:text-foreground hidden md:inline-flex px-3 py-1.5 rounded-lg transition-colors"
+                    className="font-medium text-sm text-foreground/70 hover:text-foreground hidden md:inline-flex px-3 py-1.5 rounded-lg transition-colors"
                   >
                     Sign In
                   </Link>
@@ -209,8 +209,8 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`w-full text-lg py-2 font-medium ${
-                    isActive ? "text-primary font-semibold" : "text-default-600"
+                  className={`w-full text-lg py-2 ${
+                    isActive ? "text-orange-500 font-semibold" : "text-foreground/70 font-medium hover:text-foreground"
                   }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
@@ -226,14 +226,14 @@ export function Navbar() {
                 <div className="flex flex-col gap-2">
                   <Link
                     href={dashboardLink}
-                    className="w-full text-lg py-2 text-default-600 font-medium"
+                    className="w-full text-lg py-2 text-foreground/70 font-medium hover:text-foreground"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Dashboard
                   </Link>
                   <Link
                     href="/settings"
-                    className="w-full text-lg py-2 text-default-600 font-medium"
+                    className="w-full text-lg py-2 text-foreground/70 font-medium hover:text-foreground"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Settings
