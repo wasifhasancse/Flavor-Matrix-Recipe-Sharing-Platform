@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@heroui/react";
 import { AlertTriangle, CheckCircle, Upload, Loader2, PlusCircle } from "lucide-react";
 import { Recipe } from "@/data/recipes";
+import { DynamicBreadcrumb } from "@/components/shared/DynamicBreadcrumb";
 
 export default function AddRecipePage() {
   const { data: session, isPending } = authClient.useSession();
@@ -124,6 +125,7 @@ export default function AddRecipePage() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-default-100 dark:border-zinc-800 pb-6">
         <div className="flex flex-col gap-1">
+          <DynamicBreadcrumb />
           <h1 className="text-3xl font-extrabold text-foreground tracking-tight flex items-center gap-2.5">
             <PlusCircle className="h-7 w-7 text-primary" />
             <span>Create New Recipe</span>

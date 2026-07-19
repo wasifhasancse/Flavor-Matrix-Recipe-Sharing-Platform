@@ -41,6 +41,7 @@ import {
   Key,
 } from "lucide-react";
 import { UserSchema } from "@/types/database";
+import { DynamicBreadcrumb } from "@/components/shared/DynamicBreadcrumb";
 
 export default function UserProfilePage() {
   const { data: session, isPending } = authClient.useSession();
@@ -269,6 +270,7 @@ export default function UserProfilePage() {
       {/* Header Breadcrumb Navigation */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-default-100 dark:border-zinc-800 pb-6">
         <div className="flex flex-col gap-1">
+          <DynamicBreadcrumb />
           <h1 className="text-3xl font-extrabold text-foreground tracking-tight flex items-center gap-2.5">
             <User className="h-7 w-7 text-primary" />
             <span>Chef Profile & Settings</span>

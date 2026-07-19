@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 import { Recipe, mockRecipes } from "@/data/recipes";
 import { EmptyState } from "@/components/shared/EmptyState";
+import { DynamicBreadcrumb } from "@/components/shared/DynamicBreadcrumb";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -147,6 +148,7 @@ export default function UserBookmarksPage() {
       {/* Header Breadcrumbs & Title */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-default-100 dark:border-zinc-800 pb-6">
         <div className="flex flex-col gap-1">
+          <DynamicBreadcrumb />
           <h1 className="text-3xl font-extrabold text-foreground tracking-tight flex items-center gap-2.5">
             <Bookmark className="h-7 w-7 text-primary fill-primary/20" />
             <span>My Bookmarked Recipes</span>

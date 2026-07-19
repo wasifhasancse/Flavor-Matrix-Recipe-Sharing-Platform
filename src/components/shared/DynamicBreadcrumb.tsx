@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { ChevronRight, Home, ArrowLeft } from "lucide-react";
 
-export function DynamicBreadcrumb({ variant = "public" }: { variant?: "public" | "dashboard" }) {
+export function DynamicBreadcrumb() {
   const pathname = usePathname();
 
   // Don't show breadcrumbs on homepage or auth pages
@@ -14,15 +14,6 @@ export function DynamicBreadcrumb({ variant = "public" }: { variant?: "public" |
   }
 
   const isDashboard = pathname.startsWith("/dashboard");
-  
-  // If we are in the public layout but the route is dashboard, don't render (it will be rendered by dashboard layout)
-  if (variant === "public" && isDashboard) {
-    return null;
-  }
-  // If we are in the dashboard layout but the route is public, don't render (shouldn't happen, but safe)
-  if (variant === "dashboard" && !isDashboard) {
-    return null;
-  }
 
   const paths = pathname.split("/").filter(Boolean);
 
@@ -30,7 +21,7 @@ export function DynamicBreadcrumb({ variant = "public" }: { variant?: "public" |
   const isDashboardDeepRoute = isDashboard && paths.length > 2;
 
   return (
-    <div className={`flex items-center gap-2 text-xs text-default-400 overflow-x-auto whitespace-nowrap hide-scrollbar ${variant === "public" ? "w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 border-b border-default-100 dark:border-zinc-800" : ""}`}>
+    <div className="flex items-center gap-2 text-xs text-default-400 overflow-x-auto whitespace-nowrap hide-scrollbar mb-1.5">
         {isDashboardDeepRoute ? (
           <Link href={`/dashboard/${paths[1]}`} className="hover:text-primary transition-smooth flex items-center gap-1 shrink-0">
             <ArrowLeft className="h-3.5 w-3.5" />

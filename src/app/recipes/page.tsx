@@ -4,6 +4,7 @@ import { RecipeCard } from "@/components/RecipeCard";
 import { Compass, Sparkles, Plus, SearchX } from "lucide-react";
 import { SearchControls } from "./SearchControls";
 import { RecipePagination } from "./RecipePagination";
+import { DynamicBreadcrumb } from "@/components/shared/DynamicBreadcrumb";
 
 interface RecipesPageProps {
   searchParams: Promise<{
@@ -57,6 +58,7 @@ export default async function RecipesPage(props: RecipesPageProps) {
             <Compass className="h-4 w-4" />
             <span>Culinary Matrix</span>
           </div>
+          <DynamicBreadcrumb />
           <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
             Explore All Recipes
           </h1>

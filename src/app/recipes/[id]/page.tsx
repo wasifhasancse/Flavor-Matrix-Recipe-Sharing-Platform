@@ -35,6 +35,7 @@ import {
   BookmarkCheck,
 } from "lucide-react";
 import { mockRecipes, Recipe } from "@/data/recipes";
+import { DynamicBreadcrumb } from "@/components/shared/DynamicBreadcrumb";
 
 interface RecipeDetailsPageProps {
   params: Promise<{ id: string }>;
@@ -496,7 +497,8 @@ function RecipeDetailsContent({ id }: { id: string }) {
               <span>Gourmet Recipe Collection</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground leading-tight">
+            <DynamicBreadcrumb />
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground leading-tight">
               {recipe.title}
             </h1>
 
