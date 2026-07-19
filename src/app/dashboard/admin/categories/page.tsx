@@ -42,10 +42,13 @@ export default function AdminCategoriesPage() {
   };
 
   useEffect(() => {
+    if (isPending) return;
     if (isAdmin && token) {
       fetchCategories();
+    } else {
+      setIsLoading(false);
     }
-  }, [isAdmin, token]);
+  }, [isAdmin, token, isPending]);
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();

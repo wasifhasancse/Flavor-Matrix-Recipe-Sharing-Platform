@@ -42,10 +42,13 @@ export default function AdminBroadcastsPage() {
   };
 
   useEffect(() => {
+    if (isPending) return;
     if (isAdmin && token) {
       fetchBroadcasts();
+    } else {
+      setIsLoading(false);
     }
-  }, [isAdmin, token]);
+  }, [isAdmin, token, isPending]);
 
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -53,10 +53,13 @@ export default function AdminWithdrawalsPage() {
   };
 
   useEffect(() => {
+    if (isPending) return;
     if (isAdmin && token) {
       fetchFinancials();
+    } else {
+      setIsLoading(false);
     }
-  }, [isAdmin, token]);
+  }, [isAdmin, token, isPending]);
 
   const handleWithdraw = async (e: React.FormEvent) => {
     e.preventDefault();
