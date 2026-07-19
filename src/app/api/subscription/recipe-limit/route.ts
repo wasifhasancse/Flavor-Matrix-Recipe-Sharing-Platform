@@ -31,6 +31,15 @@ export async function GET() {
       { sort: { createdAt: -1 } }
     );
 
+    if (!activeSub) {
+      // Auto-downgrade logic for lazy syncing if their previous plan expired
+      const usersCollection = db.collection("users");
+      await usersCollection.updateOne(
+        { email: user.email },
+        { $set: { isPremium: false, subscriptionPlan: "free", updatedAt: now } }
+      );
+    }
+
     const currentPlan: string = activeSub?.plan || "free";
     const limit = PLAN_LIMITS[currentPlan] ?? 2;
 

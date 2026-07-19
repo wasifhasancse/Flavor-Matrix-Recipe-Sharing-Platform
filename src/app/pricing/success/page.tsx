@@ -89,10 +89,10 @@ function PricingSuccessContent() {
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         className={`max-w-md w-full p-8 sm:p-10 rounded-[2rem] glass-panel text-center border relative overflow-hidden ${
-          isPremium ? "border-amber-500/40 shadow-2xl shadow-amber-500/20" : "border-sky-500/40 shadow-2xl shadow-sky-500/20"
+          isPremium ? "border-amber-500/40 shadow-2xl shadow-amber-500/20" : "border-orange-500/40 shadow-2xl shadow-orange-500/20"
         }`}
       >
-        <div className={`absolute top-0 left-0 w-full h-2 ${isPremium ? "bg-amber-500" : "bg-sky-500"}`} />
+        <div className={`absolute top-0 left-0 w-full h-2 ${isPremium ? "bg-amber-500" : "bg-orange-500"}`} />
 
         <div className="mb-6 flex justify-center relative">
           <div className="absolute inset-0 bg-emerald-500/20 blur-xl rounded-full scale-150" />
@@ -105,7 +105,7 @@ function PricingSuccessContent() {
         </p>
 
         <div className={`flex items-center justify-center gap-3 p-4 rounded-2xl mb-8 ${
-          isPremium ? "bg-amber-500/10 text-amber-500 border border-amber-500/20" : "bg-sky-500/10 text-sky-500 border border-sky-500/20"
+          isPremium ? "bg-amber-500/10 text-amber-500 border border-amber-500/20" : "bg-orange-500/10 text-orange-500 border border-orange-500/20"
         }`}>
           {isPremium ? <Crown className="h-6 w-6" /> : <Zap className="h-6 w-6" />}
           <span className="font-extrabold tracking-wide uppercase">
@@ -117,7 +117,7 @@ function PricingSuccessContent() {
           <Link href="/dashboard/user/profile" className="w-full">
             <Button
               className={`w-full font-bold shadow-lg ${
-                isPremium ? "bg-amber-500 text-white shadow-amber-500/30 hover:bg-amber-600" : "bg-sky-500 text-white shadow-sky-500/30 hover:bg-sky-600"
+                isPremium ? "bg-amber-500 text-white shadow-amber-500/30 hover:bg-amber-600" : "bg-orange-500 text-white shadow-orange-500/30 hover:bg-orange-600"
               }`}
             >
               View Your Chef Profile

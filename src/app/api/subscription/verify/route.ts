@@ -90,6 +90,13 @@ export async function POST(request: Request) {
 
     await subscriptionsCollection.insertOne(subscription);
 
+    // Sync to user collection
+    const usersCollection = db.collection("users");
+    await usersCollection.updateOne(
+      { email: verifiedEmail },
+      { $set: { isPremium: true, subscriptionPlan: plan, updatedAt: now } }
+    );
+
     return NextResponse.json({ success: true, subscription });
   } catch (error: any) {
     console.error("[subscription/verify] error:", error);
@@ -120,6 +127,12 @@ export async function GET() {
     );
 
     if (!activeSub) {
+      // Auto-downgrade logic for lazy syncing
+      const usersCollection = db.collection("users");
+      await usersCollection.updateOne(
+        { email: user.email },
+        { $set: { isPremium: false, subscriptionPlan: "free", updatedAt: now } }
+      );
       return NextResponse.json({ plan: "free", isActive: false });
     }
 

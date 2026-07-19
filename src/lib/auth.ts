@@ -36,6 +36,12 @@ export const auth = betterAuth({
         input: false,
         defaultValue: false,
       },
+      subscriptionPlan: {
+        type: "string",
+        required: false,
+        input: false,
+        defaultValue: "free",
+      },
     },
   },
   baseURL: requiredEnv.BETTER_AUTH_URL,
