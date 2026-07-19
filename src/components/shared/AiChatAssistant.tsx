@@ -156,7 +156,7 @@ export function AiChatAssistant() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.3, type: "spring", bounce: 0.25 }}
-            className="pointer-events-auto bg-white/80 dark:bg-zinc-950/80 backdrop-blur-2xl border border-white/40 dark:border-white/10 rounded-2xl sm:rounded-3xl shadow-[0_12px_40px_rgba(249,115,22,0.15)] w-[calc(100vw-2rem)] sm:w-[380px] h-[500px] sm:h-[600px] max-h-[calc(100dvh-100px)] sm:max-h-[85vh] flex flex-col overflow-hidden relative"
+            className="pointer-events-auto bg-white/80 dark:bg-zinc-950/80 backdrop-blur-2xl border border-white/40 dark:border-white/10 rounded-2xl sm:rounded-3xl shadow-[0_12px_40px_rgba(249,115,22,0.15)] w-[calc(100vw-2rem)] sm:w-[380px] h-[600px] max-h-[calc(100dvh-120px)] flex flex-col overflow-hidden relative"
           >
             {/* Ambient Background Glow inside the chat window */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/10 blur-[60px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/2" />
