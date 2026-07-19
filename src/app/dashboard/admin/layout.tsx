@@ -97,7 +97,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
                     : "text-default-600 hover:bg-default-100 dark:hover:bg-zinc-800/60 hover:text-foreground"
                 }`}
               >
-                <item.icon className="h-4.5 w-4.5" />
+                <item.icon className="h-5 w-5 shrink-0" />
                 <span>{item.label}</span>
               </Link>
             );
