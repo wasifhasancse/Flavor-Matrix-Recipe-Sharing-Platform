@@ -4,7 +4,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import { TextField, Label, Input, Button, Link } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Mail, Lock, LogIn, Loader2, ArrowRight, Eye, EyeOff } from "lucide-react";
+import { Mail, Lock, LogIn, Loader2, ArrowRight, Eye, EyeOff, ShieldCheck, User as UserIcon } from "lucide-react";
 
 function LoginFormContent() {
   const [email, setEmail] = useState("");
@@ -95,19 +95,54 @@ function LoginFormContent() {
   }
 
   return (
-    <div className="w-full max-w-md p-8 rounded-3xl bg-content1 border border-divider shadow-2xl flex flex-col gap-6 relative overflow-hidden">
-      {/* Decorative Glow */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[80px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/3"></div>
-
-      {/* Header */}
-      <div className="flex flex-col gap-1 text-center relative z-10">
-        <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
-          Welcome Back
-        </h1>
-        <p className="text-sm text-default-500">
-          Enter your credentials to access your account
-        </p>
+    <div className="w-full max-w-5xl mx-auto rounded-3xl bg-content1 border border-divider shadow-2xl flex flex-col md:flex-row overflow-hidden">
+      
+      {/* Left side: Branding & Image (hidden on small screens) */}
+      <div className="hidden md:flex md:w-1/2 relative bg-zinc-900 overflow-hidden">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 z-0 opacity-60 mix-blend-overlay"
+          style={{
+            backgroundImage: "url('https://images.unsplash.com/photo-1495195134817-a1a2807fac25?q=80&w=2000&auto=format&fit=crop')",
+            backgroundSize: "cover",
+            backgroundPosition: "center"
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-transparent z-10"></div>
+        
+        {/* Branding Content */}
+        <div className="relative z-20 flex flex-col justify-end p-12 h-full text-white">
+          <h2 className="text-4xl font-extrabold tracking-tight mb-4">
+            Welcome back to Flavor Matrix.
+          </h2>
+          <p className="text-zinc-300 text-lg mb-8 max-w-sm">
+            Access your personalized recipe collection, connect with fellow food lovers, and continue your culinary journey.
+          </p>
+          <div className="flex items-center gap-4 text-sm font-medium text-zinc-400 bg-black/40 backdrop-blur-md p-4 rounded-2xl w-max border border-white/10">
+            <div className="flex -space-x-2">
+              <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center border-2 border-zinc-900"><ShieldCheck className="w-4 h-4 text-white"/></div>
+              <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center border-2 border-zinc-900"><Lock className="w-4 h-4 text-white"/></div>
+            </div>
+            Secure & Encrypted Access
+          </div>
+        </div>
       </div>
+
+      {/* Right side: Form */}
+      <div className="w-full md:w-1/2 p-8 sm:p-12 flex flex-col justify-center relative bg-background/50 backdrop-blur-sm">
+        {/* Decorative Glow */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[80px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/3"></div>
+
+        {/* Header */}
+        <div className="flex flex-col gap-1 mb-8 relative z-10">
+          <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
+            Sign In
+          </h1>
+          <p className="text-sm text-default-500">
+            Enter your credentials to access your account
+          </p>
+        </div>
 
       {/* Error Message */}
       {error && (
@@ -166,21 +201,28 @@ function LoginFormContent() {
         </TextField>
 
         {/* Demo Credentials */}
-        <div className="flex gap-2 mt-1">
-          <button
-            type="button"
-            onClick={() => handleDemoLogin("admin")}
-            className="flex-1 text-xs py-2 px-3 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 font-medium transition-colors"
-          >
-            Demo Admin
-          </button>
-          <button
-            type="button"
-            onClick={() => handleDemoLogin("user")}
-            className="flex-1 text-xs py-2 px-3 rounded-lg bg-default-100 text-default-600 hover:bg-default-200 dark:bg-zinc-800 dark:text-default-300 dark:hover:bg-zinc-700 font-medium transition-colors"
-          >
-            Demo User
-          </button>
+        <div className="flex flex-col gap-2 mt-2">
+          <p className="text-xs font-semibold text-default-500 uppercase tracking-wider mb-1">Quick Access (Demo)</p>
+          <div className="flex gap-3">
+            <button
+              type="button"
+              onClick={() => handleDemoLogin("admin")}
+              className="flex-1 group relative overflow-hidden flex items-center justify-center gap-2 text-sm py-2.5 px-4 rounded-xl border border-primary/30 bg-primary/5 hover:bg-primary/10 text-primary font-semibold transition-all duration-300"
+            >
+              <ShieldCheck className="w-4 h-4" />
+              Admin
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500"></div>
+            </button>
+            <button
+              type="button"
+              onClick={() => handleDemoLogin("user")}
+              className="flex-1 group relative overflow-hidden flex items-center justify-center gap-2 text-sm py-2.5 px-4 rounded-xl border border-default-200 dark:border-zinc-700 bg-default-50 dark:bg-zinc-800/50 hover:bg-default-100 dark:hover:bg-zinc-800 text-default-700 dark:text-default-300 font-semibold transition-all duration-300"
+            >
+              <UserIcon className="w-4 h-4" />
+              User
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 dark:via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500"></div>
+            </button>
+          </div>
         </div>
 
         {/* Submit */}
@@ -230,15 +272,16 @@ function LoginFormContent() {
       </Button>
 
       {/* Footer */}
-      <p className="text-center text-sm text-default-500">
+      <p className="text-center text-sm text-default-500 mt-6">
         Don&apos;t have an account?{" "}
         <Link
           href={`/register${searchParams.toString() ? "?" + searchParams.toString() : ""}`}
-          className="text-primary font-medium hover:underline inline-flex items-center gap-0.5"
+          className="text-primary font-bold hover:underline inline-flex items-center gap-1 transition-all hover:gap-2"
         >
-          Sign up <ArrowRight className="h-3 w-3" />
+          Sign up <ArrowRight className="h-4 w-4" />
         </Link>
       </p>
+      </div>
     </div>
   );
 }

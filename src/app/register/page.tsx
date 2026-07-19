@@ -4,7 +4,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import { TextField, Label, Input, Button, Link } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter, useSearchParams } from "next/navigation";
-import { User, Mail, Lock, Image as ImageIcon, UserPlus, Loader2, ArrowLeft, Check, X, Eye, EyeOff } from "lucide-react";
+import { User, Mail, Lock, Image as ImageIcon, UserPlus, Loader2, ArrowLeft, Check, X, Eye, EyeOff, Sparkles, Flame } from "lucide-react";
 
 function RegisterFormContent() {
   const [name, setName] = useState("");
@@ -86,19 +86,54 @@ function RegisterFormContent() {
   }
 
   return (
-    <div className="w-full max-w-md p-8 rounded-3xl bg-content1 border border-divider shadow-2xl flex flex-col gap-6 relative overflow-hidden">
-      {/* Decorative Glow */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[80px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/3"></div>
-
-      {/* Header */}
-      <div className="flex flex-col gap-1 text-center relative z-10">
-        <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
-          Create an Account
-        </h1>
-        <p className="text-sm text-default-500">
-          Join Flavor Matrix to discover and share recipes
-        </p>
+    <div className="w-full max-w-5xl mx-auto rounded-3xl bg-content1 border border-divider shadow-2xl flex flex-col md:flex-row-reverse overflow-hidden">
+      
+      {/* Right side: Branding & Image (hidden on small screens) */}
+      <div className="hidden md:flex md:w-1/2 relative bg-zinc-900 overflow-hidden">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 z-0 opacity-60 mix-blend-overlay"
+          style={{
+            backgroundImage: "url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=2000&auto=format&fit=crop')",
+            backgroundSize: "cover",
+            backgroundPosition: "center"
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-l from-primary/30 to-transparent z-10"></div>
+        
+        {/* Branding Content */}
+        <div className="relative z-20 flex flex-col justify-end p-12 h-full text-white">
+          <h2 className="text-4xl font-extrabold tracking-tight mb-4">
+            Join the Flavor Matrix.
+          </h2>
+          <p className="text-zinc-300 text-lg mb-8 max-w-sm">
+            Discover a world of exquisite recipes, share your own culinary masterpieces, and connect with a passionate community.
+          </p>
+          <div className="flex items-center gap-4 text-sm font-medium text-zinc-400 bg-black/40 backdrop-blur-md p-4 rounded-2xl w-max border border-white/10">
+            <div className="flex -space-x-2">
+              <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center border-2 border-zinc-900"><Flame className="w-4 h-4 text-white"/></div>
+              <div className="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center border-2 border-zinc-900"><Sparkles className="w-4 h-4 text-white"/></div>
+            </div>
+            10k+ Active Chefs
+          </div>
+        </div>
       </div>
+
+      {/* Left side: Form */}
+      <div className="w-full md:w-1/2 p-8 sm:p-12 flex flex-col justify-center relative bg-background/50 backdrop-blur-sm">
+        {/* Decorative Glow */}
+        <div className="absolute top-0 left-0 w-64 h-64 bg-primary/10 blur-[80px] rounded-full pointer-events-none -translate-y-1/2 -translate-x-1/3"></div>
+
+        {/* Header */}
+        <div className="flex flex-col gap-1 mb-8 relative z-10">
+          <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
+            Create an Account
+          </h1>
+          <p className="text-sm text-default-500">
+            Join Flavor Matrix to discover and share recipes
+          </p>
+        </div>
 
       {/* Error Message */}
       {error && (
@@ -232,15 +267,16 @@ function RegisterFormContent() {
       </form>
 
       {/* Footer */}
-      <p className="text-center text-sm text-default-500">
+      <p className="text-center text-sm text-default-500 mt-6">
         Already have an account?{" "}
         <Link
           href={`/login${searchParams.toString() ? "?" + searchParams.toString() : ""}`}
-          className="text-primary font-medium hover:underline inline-flex items-center gap-0.5"
+          className="text-primary font-bold hover:underline inline-flex items-center gap-1 transition-all hover:gap-2"
         >
-          <ArrowLeft className="h-3 w-3" /> Sign in
+          <ArrowLeft className="h-4 w-4" /> Sign in
         </Link>
       </p>
+      </div>
     </div>
   );
 }
