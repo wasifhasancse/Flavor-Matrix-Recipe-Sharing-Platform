@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   try {
     const headersList = await headers();
-    const origin = headersList.get("origin") || "http://localhost:3000";
+    const origin = headersList.get("origin");
 
     // ── 1. Authenticate user ──────────────────────────────────────────────────
     const userSession = await auth.api.getSession({ headers: headersList });

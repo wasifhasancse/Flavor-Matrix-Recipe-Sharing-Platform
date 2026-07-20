@@ -27,7 +27,7 @@ export type PlanType = keyof typeof PLANS | "free";
 export async function POST(request: Request) {
   try {
     const headersList = await headers();
-    const origin = headersList.get("origin") || "http://localhost:3000";
+    const origin = headersList.get("origin");
     const userSession = await auth.api.getSession({ headers: headersList });
     const user = userSession?.user;
 

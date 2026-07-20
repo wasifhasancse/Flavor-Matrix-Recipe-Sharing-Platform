@@ -8,10 +8,10 @@ import { DynamicBreadcrumb } from "@/components/shared/DynamicBreadcrumb";
 
 export default function AdminBroadcastsPage() {
   const { data: session, isPending } = authClient.useSession();
-  
+
   const [broadcasts, setBroadcasts] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  
+
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
@@ -27,7 +27,7 @@ export default function AdminBroadcastsPage() {
 
   const fetchBroadcasts = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/admin/broadcasts", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/broadcasts`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await res.json();
@@ -53,10 +53,10 @@ export default function AdminBroadcastsPage() {
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!subject.trim() || !message.trim()) return;
-    
+
     setIsSending(true);
     try {
-      const res = await fetch("http://localhost:5000/api/admin/broadcasts", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/broadcasts`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -65,7 +65,7 @@ export default function AdminBroadcastsPage() {
         body: JSON.stringify({ subject, message })
       });
       const data = await res.json();
-      
+
       if (res.ok && data.success) {
         showToast("Broadcast sent successfully!", "success");
         setSubject("");
@@ -119,7 +119,7 @@ export default function AdminBroadcastsPage() {
             <form onSubmit={handleSend} className="flex flex-col gap-5">
               <div>
                 <label className="text-xs font-bold text-default-600 uppercase tracking-wider mb-2 block">Subject Line</label>
-                <input 
+                <input
                   type="text"
                   className="w-full bg-default-100 hover:bg-default-200 focus:bg-white dark:focus:bg-zinc-900 border-2 border-transparent focus:border-indigo-500 rounded-xl p-4 text-base font-semibold transition-all outline-none text-foreground"
                   placeholder="e.g. Major Platform Update 2.0!"
@@ -130,7 +130,7 @@ export default function AdminBroadcastsPage() {
               </div>
               <div>
                 <label className="text-xs font-bold text-default-600 uppercase tracking-wider mb-2 block">Message Content</label>
-                <textarea 
+                <textarea
                   className="w-full bg-default-100 hover:bg-default-200 focus:bg-white dark:focus:bg-zinc-900 border-2 border-transparent focus:border-indigo-500 rounded-xl p-4 text-base transition-all resize-y min-h-[200px] outline-none text-foreground"
                   placeholder="Type your announcement here... This will be visible to all users."
                   value={message}
@@ -139,7 +139,7 @@ export default function AdminBroadcastsPage() {
                   required
                 />
               </div>
-              <button 
+              <button
                 type="submit"
                 disabled={isSending || !subject.trim() || !message.trim()}
                 className="w-full mt-2 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 disabled:opacity-50 transition-all shadow-lg shadow-indigo-500/20"
@@ -159,7 +159,7 @@ export default function AdminBroadcastsPage() {
                 <History className="h-5 w-5 text-default-500" /> Broadcast History
               </h3>
             </div>
-            
+
             <div className="p-6 overflow-y-auto max-h-[600px] flex flex-col gap-4">
               {broadcasts.length === 0 ? (
                 <div className="py-16 text-center flex flex-col items-center">

@@ -8,10 +8,10 @@ import { DynamicBreadcrumb } from "@/components/shared/DynamicBreadcrumb";
 
 export default function AdminCategoriesPage() {
   const { data: session, isPending } = authClient.useSession();
-  
+
   const [categories, setCategories] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [isCreating, setIsCreating] = useState(false);
@@ -27,7 +27,7 @@ export default function AdminCategoriesPage() {
 
   const fetchCategories = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/admin/categories", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/categories`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await res.json();
@@ -53,10 +53,10 @@ export default function AdminCategoriesPage() {
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
-    
+
     setIsCreating(true);
     try {
-      const res = await fetch("http://localhost:5000/api/admin/categories", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/categories`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -65,7 +65,7 @@ export default function AdminCategoriesPage() {
         body: JSON.stringify({ name, description })
       });
       const data = await res.json();
-      
+
       if (res.ok && data.success) {
         showToast("Category created!", "success");
         setName("");
@@ -83,9 +83,9 @@ export default function AdminCategoriesPage() {
 
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this category?")) return;
-    
+
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/categories/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/categories/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -139,7 +139,7 @@ export default function AdminCategoriesPage() {
             <form onSubmit={handleCreate} className="flex flex-col gap-4">
               <div>
                 <label className="text-xs font-bold text-default-600 uppercase tracking-wider mb-2 block">Name</label>
-                <input 
+                <input
                   type="text"
                   className="w-full bg-default-100 hover:bg-default-200 focus:bg-white dark:focus:bg-zinc-900 border-2 border-transparent focus:border-primary rounded-xl p-3 text-sm transition-all outline-none text-foreground"
                   placeholder="e.g. Dessert"
@@ -150,7 +150,7 @@ export default function AdminCategoriesPage() {
               </div>
               <div>
                 <label className="text-xs font-bold text-default-600 uppercase tracking-wider mb-2 block">Description (Optional)</label>
-                <textarea 
+                <textarea
                   className="w-full bg-default-100 hover:bg-default-200 focus:bg-white dark:focus:bg-zinc-900 border-2 border-transparent focus:border-primary rounded-xl p-3 text-sm transition-all resize-y min-h-[100px] outline-none text-foreground"
                   placeholder="Short description of this category..."
                   value={description}
@@ -158,7 +158,7 @@ export default function AdminCategoriesPage() {
                   rows={3}
                 />
               </div>
-              <button 
+              <button
                 type="submit"
                 disabled={isCreating || !name.trim()}
                 className="w-full mt-4 bg-primary hover:bg-primary/90 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 disabled:opacity-50 transition-all"

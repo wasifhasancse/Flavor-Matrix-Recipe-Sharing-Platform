@@ -7,7 +7,7 @@ import { DynamicBreadcrumb } from "@/components/shared/DynamicBreadcrumb";
 
 export default function AdminWithdrawalsPage() {
   const { data: session, isPending } = authClient.useSession();
-  
+
   const [stats, setStats] = useState({
     totalRevenue: 0,
     totalWithdrawn: 0,
@@ -15,7 +15,7 @@ export default function AdminWithdrawalsPage() {
   });
   const [withdrawals, setWithdrawals] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  
+
   const [withdrawAmount, setWithdrawAmount] = useState("");
   const [withdrawNote, setWithdrawNote] = useState("");
   const [isWithdrawing, setIsWithdrawing] = useState(false);
@@ -32,10 +32,10 @@ export default function AdminWithdrawalsPage() {
   const fetchFinancials = async () => {
     try {
       const [statsRes, listRes] = await Promise.all([
-        fetch("http://localhost:5000/api/admin/revenue", {
+        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/revenue`, {
           headers: { Authorization: `Bearer ${token}` }
         }),
-        fetch("http://localhost:5000/api/admin/withdrawals", {
+        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/withdrawals`, {
           headers: { Authorization: `Bearer ${token}` }
         })
       ]);
@@ -67,10 +67,10 @@ export default function AdminWithdrawalsPage() {
       showToast("Please enter a valid amount.", "error");
       return;
     }
-    
+
     setIsWithdrawing(true);
     try {
-      const res = await fetch("http://localhost:5000/api/admin/withdraw", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/withdraw`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +82,7 @@ export default function AdminWithdrawalsPage() {
         })
       });
       const data = await res.json();
-      
+
       if (res.ok && data.success) {
         showToast("Withdrawal successful!", "success");
         setWithdrawAmount("");
@@ -162,7 +162,7 @@ export default function AdminWithdrawalsPage() {
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <DollarSign className="h-4 w-4 text-default-400" />
                   </div>
-                  <input 
+                  <input
                     type="number"
                     className="w-full bg-default-100 hover:bg-default-200 focus:bg-white dark:focus:bg-zinc-900 border-2 border-transparent focus:border-emerald-500 rounded-xl p-3 pl-9 text-sm transition-all outline-none text-foreground"
                     placeholder="0.00"
@@ -177,7 +177,7 @@ export default function AdminWithdrawalsPage() {
               </div>
               <div>
                 <label className="text-xs font-bold text-default-600 uppercase tracking-wider mb-2 block">Note (Optional)</label>
-                <input 
+                <input
                   type="text"
                   className="w-full bg-default-100 hover:bg-default-200 focus:bg-white dark:focus:bg-zinc-900 border-2 border-transparent focus:border-emerald-500 rounded-xl p-3 text-sm transition-all outline-none text-foreground"
                   placeholder="e.g. Monthly Payout"
@@ -185,7 +185,7 @@ export default function AdminWithdrawalsPage() {
                   onChange={(e) => setWithdrawNote(e.target.value)}
                 />
               </div>
-              <button 
+              <button
                 type="submit"
                 disabled={isWithdrawing || stats.availableBalance <= 0}
                 className="w-full mt-4 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 disabled:opacity-50 transition-all"
@@ -203,7 +203,7 @@ export default function AdminWithdrawalsPage() {
             <div className="p-6 border-b border-default-200 dark:border-zinc-800">
               <h3 className="text-xl font-bold text-foreground">Payout History</h3>
             </div>
-            
+
             {withdrawals.length === 0 ? (
               <div className="p-12 text-center flex flex-col items-center">
                 <Wallet className="h-12 w-12 text-default-300 mb-4" />

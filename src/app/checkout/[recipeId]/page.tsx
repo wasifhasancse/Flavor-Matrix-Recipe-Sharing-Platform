@@ -42,7 +42,7 @@ export default function CheckoutSummaryPage(props: CheckoutPageProps) {
     async function fetchRecipe() {
       setIsLoadingRecipe(true);
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+        const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
         const res = await fetch(`${baseUrl}/api/recipes/${recipeId}`);
         if (res.ok) {
           const data = await res.json();
@@ -284,7 +284,7 @@ export default function CheckoutSummaryPage(props: CheckoutPageProps) {
                 </div>
                 <Button
                   type="submit"
-                  
+
                   className="btn-secondary font-bold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
                 >
                   Apply

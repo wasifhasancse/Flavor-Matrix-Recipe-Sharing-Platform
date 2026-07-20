@@ -82,7 +82,7 @@ export default function UserBookmarksPage() {
     localStorage.setItem("user_bookmarks_list", JSON.stringify(updated));
 
     // Call Backend API
-    const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+    const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
     fetch(`${baseUrl}/api/bookmarks/${recipeId}`, {
       method: "DELETE",
     }).catch(() => {});
@@ -282,7 +282,7 @@ export default function UserBookmarksPage() {
 
               <div className="flex items-center gap-1.5">
                 <Button
-                  
+
                   size="sm"
                   isDisabled={currentPage === 1}
                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
@@ -310,7 +310,7 @@ export default function UserBookmarksPage() {
                 })}
 
                 <Button
-                  
+
                   size="sm"
                   isDisabled={currentPage === totalPages}
                    onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}

@@ -166,7 +166,7 @@ export default function AdminReportsPage() {
     setIsFetchingDetails(true);
 
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
       const res = await fetch(`${baseUrl}/api/admin/reports/${reportItem.recipeId}/details`);
       const data = await res.json();
       if (data.details && data.details.length > 0) {
@@ -192,7 +192,7 @@ export default function AdminReportsPage() {
       localStorage.setItem("admin_aggregated_reports", JSON.stringify(updated));
 
       // Call Backend API
-      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
       fetch(`${baseUrl}/api/admin/reports/${recipeToDismiss.recipeId}/dismiss`, {
         method: "PATCH",
       }).catch(() => {});
@@ -215,7 +215,7 @@ export default function AdminReportsPage() {
       localStorage.setItem("admin_aggregated_reports", JSON.stringify(updated));
 
       // Call Backend Cascading DELETE API
-      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
       fetch(`${baseUrl}/api/admin/recipes/${recipeToDelete.recipeId}`, {
         method: "DELETE",
       }).catch(() => {});
@@ -402,7 +402,7 @@ export default function AdminReportsPage() {
                         <div className="flex items-center justify-end gap-2">
                           {/* 1. View Details Button */}
                           <Button
-                            
+
                             size="sm"
                              onClick={() => handleOpenDetails(item)}
                             className="btn-secondary font-bold text-xs py-1.5 px-3 rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer flex items-center gap-1"
@@ -413,7 +413,7 @@ export default function AdminReportsPage() {
 
                           {/* 2. Dismiss Reports Button */}
                           <Button
-                            
+
                             size="sm"
                              onClick={() => {
                               setRecipeToDismiss(item);
@@ -427,7 +427,7 @@ export default function AdminReportsPage() {
 
                           {/* 3. Remove Recipe Cascading Button */}
                           <Button
-                            
+
                             size="sm"
                              onClick={() => {
                               setRecipeToDelete(item);
@@ -457,7 +457,7 @@ export default function AdminReportsPage() {
 
               <div className="flex items-center gap-1.5">
                 <Button
-                  
+
                   size="sm"
                   isDisabled={currentPage === 1}
                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
@@ -485,7 +485,7 @@ export default function AdminReportsPage() {
                 })}
 
                 <Button
-                  
+
                   size="sm"
                   isDisabled={currentPage === totalPages}
                    onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
@@ -592,7 +592,7 @@ export default function AdminReportsPage() {
               {/* Footer */}
               <div className="flex justify-end pt-2 border-t border-default-100 dark:border-zinc-800">
                 <Button
-                  
+
                    onClick={() => setIsDetailsModalOpen(false)}
                   className="btn-secondary font-semibold text-xs rounded-xl px-5 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
                 >
@@ -637,7 +637,7 @@ export default function AdminReportsPage() {
 
               <div className="flex gap-2 justify-end pt-2">
                 <Button
-                  
+
                    onClick={() => setIsDismissModalOpen(false)}
                   isDisabled={isDismissing}
                   className="btn-secondary font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
@@ -645,7 +645,7 @@ export default function AdminReportsPage() {
                   Cancel
                 </Button>
                 <Button
-                  
+
                   onClick={handleConfirmDismiss}
                   isDisabled={isDismissing}
                   className="btn-primary bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl px-5 py-2 flex items-center gap-1.5 shadow-md border-none cursor-pointer"
@@ -703,7 +703,7 @@ export default function AdminReportsPage() {
 
               <div className="flex gap-2 justify-end pt-2">
                 <Button
-                  
+
                    onClick={() => setIsDeleteModalOpen(false)}
                   isDisabled={isDeleting}
                   className="btn-secondary font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
@@ -711,7 +711,7 @@ export default function AdminReportsPage() {
                   Cancel
                 </Button>
                 <Button
-                  
+
                   onClick={handleConfirmCascadingDelete}
                   isDisabled={isDeleting}
                   className="btn-primary bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl px-5 py-2 flex items-center gap-1.5 shadow-md border-none cursor-pointer"

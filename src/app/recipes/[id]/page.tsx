@@ -112,7 +112,7 @@ function RecipeDetailsContent({ id }: { id: string }) {
       setFetchError(null);
 
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+        const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
         const res = await fetch(`${baseUrl}/api/recipes/${id}`);
         if (res.ok) {
           const data = await res.json();
@@ -175,7 +175,7 @@ function RecipeDetailsContent({ id }: { id: string }) {
     setIsLikeLoading(true);
 
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
       const res = await fetch(`${baseUrl}/api/recipes/${recipe.id}/like`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -206,7 +206,7 @@ function RecipeDetailsContent({ id }: { id: string }) {
     setIsFavoriteLoading(true);
 
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
       await fetch(`${baseUrl}/api/recipes/${recipe.id}/favorite`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -228,7 +228,7 @@ function RecipeDetailsContent({ id }: { id: string }) {
     setIsBookmarkLoading(true);
 
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
       if (nextBookmarked) {
         await fetch(`${baseUrl}/api/bookmarks`, {
           method: "POST",
@@ -255,7 +255,7 @@ function RecipeDetailsContent({ id }: { id: string }) {
     setIsRatingSubmitting(true);
 
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
       const res = await fetch(`${baseUrl}/api/recipes/${recipe.id}/rate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -292,7 +292,7 @@ function RecipeDetailsContent({ id }: { id: string }) {
     setIsSubmittingReport(true);
 
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
       const res = await fetch(`${baseUrl}/api/reports`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -375,7 +375,7 @@ function RecipeDetailsContent({ id }: { id: string }) {
         </p>
         <Link href="/recipes" className="no-underline">
           <Button
-            
+
             className="btn-primary  text-primary-foreground font-semibold px-6 py-2.5 rounded-xl flex items-center gap-2 shadow-md cursor-pointer border-none"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -703,7 +703,7 @@ function RecipeDetailsContent({ id }: { id: string }) {
 
                     {/* Copy Ingredients Button */}
                     <Button
-                      
+
                       onClick={handleCopyIngredients}
                       className="btn-secondary text-xs font-semibold rounded-xl px-3 py-1.5 border border-default-200 dark:border-zinc-800 cursor-pointer"
                     >
@@ -858,7 +858,7 @@ function RecipeDetailsContent({ id }: { id: string }) {
 
               <Link href={`/checkout/${recipe.id}`} className="no-underline">
                 <Button
-                  
+
                   className="btn-primary bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-extrabold px-10 py-4 rounded-2xl shadow-xl shadow-orange-500/25 flex items-center gap-2.5 text-base border-none hover:scale-105 transition-all cursor-pointer"
                 >
                   <ShoppingBag className="h-5 w-5" />
@@ -900,7 +900,7 @@ function RecipeDetailsContent({ id }: { id: string }) {
                 ) : (
                   <Link href={`/checkout/${recipe.id}`} className="no-underline w-full">
                     <Button
-                      
+
                       className="btn-primary w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-orange-500/20 border-none cursor-pointer"
                     >
                       <ShoppingBag className="h-4.5 w-4.5" />
@@ -915,7 +915,7 @@ function RecipeDetailsContent({ id }: { id: string }) {
             <div className="flex gap-3">
               {/* Like Button */}
               <Button
-                
+
                 onClick={handleLike}
                 isDisabled={isLikeLoading}
                 className={`btn-secondary flex-1 font-semibold rounded-xl flex items-center justify-center gap-2 border transition-all cursor-pointer ${
@@ -934,7 +934,7 @@ function RecipeDetailsContent({ id }: { id: string }) {
 
               {/* Favorite Button */}
               <Button
-                
+
                 onClick={handleFavorite}
                 isDisabled={isFavoriteLoading}
                 className={`btn-secondary flex-1 font-semibold rounded-xl flex items-center justify-center gap-2 border transition-all cursor-pointer ${
@@ -958,7 +958,7 @@ function RecipeDetailsContent({ id }: { id: string }) {
 
             {/* Bookmark Action Button */}
             <Button
-              
+
               onClick={handleBookmark}
               isDisabled={isBookmarkLoading}
               className={`btn-secondary w-full font-semibold rounded-xl flex items-center justify-center gap-2 border transition-all cursor-pointer ${
@@ -979,7 +979,7 @@ function RecipeDetailsContent({ id }: { id: string }) {
 
             {/* Report Recipe Button (Triggers HeroUI Modal) */}
             <Button
-              
+
               onClick={onReportOpen}
               className="btn-secondary w-full font-semibold rounded-xl border border-default-200 dark:border-zinc-800 hover:border-rose-500/40 hover:bg-rose-500/5 hover:text-rose-500 transition-all flex items-center justify-center gap-2 text-default-600 cursor-pointer"
             >
@@ -1110,7 +1110,7 @@ function RecipeDetailsContent({ id }: { id: string }) {
               {!reportSuccess && (
                 <div className="flex gap-2 justify-end pt-3 border-t border-default-100 dark:border-zinc-800">
                   <Button
-                    
+
                     onClick={onReportClose}
                     isDisabled={isSubmittingReport}
                     className="btn-secondary font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"

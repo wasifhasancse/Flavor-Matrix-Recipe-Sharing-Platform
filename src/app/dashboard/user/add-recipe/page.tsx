@@ -94,11 +94,11 @@ export default function AddRecipePage() {
       if (!tokenData.success || !tokenData.token) {
         throw new Error("Authentication failed. Please log in again.");
       }
-      
+
       const token = tokenData.token;
       localStorage.setItem("token", token);
 
-      const res = await fetch("http://localhost:5000/api/ai/analyze-image", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/ai/analyze-image`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -107,7 +107,7 @@ export default function AddRecipePage() {
         body: JSON.stringify({ imageUrl: uploadedImageUrl })
       });
       const data = await res.json();
-      
+
       if (!res.ok || !data.success) {
         throw new Error(data.error || "Failed to analyze image");
       }
@@ -130,7 +130,7 @@ export default function AddRecipePage() {
       if (recipe.instructions && Array.isArray(recipe.instructions)) {
         setFormInstructions(recipe.instructions.join("\n"));
       }
-      
+
     } catch (err: any) {
       setFormError(err.message || "AI Analysis failed.");
     } finally {
@@ -168,11 +168,11 @@ export default function AddRecipePage() {
       if (!tokenData.success || !tokenData.token) {
         throw new Error("Authentication failed. Please log in again.");
       }
-      
+
       const token = tokenData.token;
       localStorage.setItem("token", token);
 
-      const res = await fetch("http://127.0.0.1:5000/api/recipes", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/recipes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -261,7 +261,7 @@ export default function AddRecipePage() {
       )}
 
       <form onSubmit={handleFormSubmit} className="flex flex-col gap-5 p-6 sm:p-8 rounded-3xl glass-panel ambient-glow-orange">
-        
+
         {/* Image Uploader & AI Analyzer - MOVED TO TOP */}
         <div className="flex flex-col gap-2 bg-gradient-to-r from-amber-500/10 to-rose-500/10 p-5 rounded-2xl border border-amber-500/20 mb-2">
           <div className="flex items-center gap-2 mb-2">
@@ -306,17 +306,17 @@ export default function AddRecipePage() {
                     className="w-full px-4 py-3 text-sm rounded-xl bg-default-50 dark:bg-zinc-900 border border-default-200 dark:border-zinc-800 focus:border-primary outline-none text-foreground font-medium"
                     disabled={isAnalyzing}
                   />
-                  
+
                   <div className="flex gap-4 mt-2 h-full">
                     {uploadedImageUrl && (
                       <div className="relative w-24 h-24 rounded-xl border border-default-200 dark:border-zinc-800 overflow-hidden shrink-0">
                         <img src={uploadedImageUrl} alt="Preview" className="h-full w-full object-cover" />
                       </div>
                     )}
-                    
+
                     <div className="flex-1 flex items-end">
-                      <Button 
-                        isDisabled={!uploadedImageUrl || isAnalyzing} 
+                      <Button
+                        isDisabled={!uploadedImageUrl || isAnalyzing}
                         onPress={handleAiScan}
                         className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold h-12 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20"
                       >
@@ -337,7 +337,7 @@ export default function AddRecipePage() {
                 </div>
               </div>
             </div>
-            
+
             {isAnalyzing && (
               <div className="mt-2 p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex flex-col items-center justify-center gap-2 text-indigo-600 dark:text-indigo-400 animate-pulse">
                 <Sparkles className="h-6 w-6" />
@@ -481,7 +481,7 @@ export default function AddRecipePage() {
         <div className="flex gap-3 justify-end border-t border-default-100 dark:border-zinc-800 pt-4 mt-2">
           <Button
             type="button"
-            
+
              onClick={() => router.push("/dashboard/user")}
             className="btn-secondary border border-default-200 dark:border-zinc-800 px-5 py-2.5 text-xs font-semibold text-foreground rounded-xl cursor-pointer"
           >
@@ -489,7 +489,7 @@ export default function AddRecipePage() {
           </Button>
           <Button
             type="submit"
-            
+
             isDisabled={isUploading || formSuccess}
             className="btn-primary bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold px-6 py-2.5 text-xs rounded-xl shadow-md cursor-pointer border-none"
           >

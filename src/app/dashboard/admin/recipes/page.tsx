@@ -99,7 +99,7 @@ export default function AdminRecipesPage() {
 
     // Call Backend API
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
       fetch(`${baseUrl}/api/admin/recipes/${recipeId}/feature`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -166,7 +166,7 @@ export default function AdminRecipesPage() {
       setRecipesList((prev) => prev.filter((r) => r.id !== recipeToDelete.id));
 
       // Fire API call
-      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
       fetch(`${baseUrl}/api/admin/recipes/${recipeToDelete.id}`, {
         method: "DELETE",
       }).catch(() => {});
@@ -293,7 +293,7 @@ export default function AdminRecipesPage() {
         {/* Quick Filter Selectors */}
         <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
           <Filter className="h-4 w-4 text-default-400 shrink-0" />
-          
+
           {/* Featured Status Filter Dropdown */}
           <select
             value={featuredFilter}
@@ -310,7 +310,7 @@ export default function AdminRecipesPage() {
 
           {(searchTerm || featuredFilter !== "all" || categoryFilter !== "all") && (
             <Button
-              
+
               size="sm"
               onClick={handleResetFilters}
               className="btn-secondary text-xs font-bold rounded-2xl border border-default-200 dark:border-zinc-800 cursor-pointer"
@@ -463,7 +463,7 @@ export default function AdminRecipesPage() {
 
               <div className="flex items-center gap-1.5">
                 <Button
-                  
+
                   size="sm"
                   isDisabled={currentPage === 1}
                   onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
@@ -491,7 +491,7 @@ export default function AdminRecipesPage() {
                 })}
 
                 <Button
-                  
+
                   size="sm"
                   isDisabled={currentPage === totalPages}
                   onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
@@ -606,7 +606,7 @@ export default function AdminRecipesPage() {
                 <div className="flex gap-2 justify-end border-t border-default-100 dark:border-zinc-800 pt-4 mt-2">
                   <Button
                     type="button"
-                    
+
                     onClick={() => setIsEditModalOpen(false)}
                     isDisabled={isSaving}
                     className="btn-secondary font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
@@ -615,7 +615,7 @@ export default function AdminRecipesPage() {
                   </Button>
                   <Button
                     type="submit"
-                    
+
                     isDisabled={isSaving}
                     className="btn-primary  hover:/90 text-white font-bold text-xs rounded-xl px-5 py-2 flex items-center gap-1.5 shadow-md border-none cursor-pointer"
                   >
@@ -671,7 +671,7 @@ export default function AdminRecipesPage() {
 
               <div className="flex gap-2 justify-end pt-2">
                 <Button
-                  
+
                    onClick={() => setIsDeleteModalOpen(false)}
                   isDisabled={isDeleting}
                   className="btn-secondary font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
@@ -679,7 +679,7 @@ export default function AdminRecipesPage() {
                   Cancel
                 </Button>
                 <Button
-                  
+
                   onClick={confirmDelete}
                   isDisabled={isDeleting}
                   className="btn-primary bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl px-5 py-2 flex items-center gap-1.5 shadow-md border-none cursor-pointer"
