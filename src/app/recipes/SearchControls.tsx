@@ -165,12 +165,12 @@ export function SearchControls() {
           <Button
             variant="danger-soft"
             size="md"
-            className="h-11 px-4 font-bold rounded-xl w-full sm:w-auto"
-            startContent={<X className="h-4 w-4" />}
+            className="h-11 px-4 font-bold rounded-xl w-full sm:w-auto flex items-center justify-center gap-2"
             onPress={handleClear}
             isDisabled={isPending}
           >
-            Clear Filters
+            <X className="h-4 w-4" />
+            <span>Clear Filters</span>
           </Button>
         )}
       </div>
