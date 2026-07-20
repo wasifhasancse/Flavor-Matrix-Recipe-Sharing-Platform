@@ -9,6 +9,7 @@ import { Highlights } from "@/components/home/Highlights";
 import { Testimonials } from "@/components/home/Testimonials";
 import { FAQ } from "@/components/home/FAQ";
 import { NewsletterCTA } from "@/components/home/NewsletterCTA";
+import { AIFeatures } from "@/components/home/AIFeatures";
 import { mockRecipes } from "@/data/recipes";
 import { RecipeCard } from "@/components/RecipeCard";
 import { motion } from "motion/react";
@@ -88,6 +89,9 @@ export default function Home() {
 
       {/* NEW: Features */}
       <Features />
+      
+      {/* NEW: AI Features Section */}
+      <AIFeatures />
 
       {/* 3. Popular Recipes Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 w-full">
