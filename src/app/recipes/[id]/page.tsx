@@ -878,7 +878,7 @@ function RecipeDetailsContent({ id }: { id: string }) {
             </h3>
 
             {/* Premium Purchase Box */}
-            {isPremium && (
+            {isPremium ? (
               <div className="flex flex-col gap-3 pb-4 border-b border-default-100 dark:border-zinc-800">
                 <div className="flex justify-between items-center text-sm">
                   <span className="text-default-400 font-medium">Access Tier</span>
@@ -909,6 +909,15 @@ function RecipeDetailsContent({ id }: { id: string }) {
                     </Button>
                   </Link>
                 )}
+              </div>
+            ) : (
+              <div className="flex flex-col gap-3 pb-4 border-b border-default-100 dark:border-zinc-800">
+                <div className="flex justify-between items-center text-sm">
+                  <span className="text-default-400 font-medium">Access Tier</span>
+                  <Chip color="success" variant="soft" className="font-bold uppercase text-[10px]">
+                    Free Public Recipe
+                  </Chip>
+                </div>
               </div>
             )}
 

@@ -56,7 +56,8 @@ export default function CheckoutSummaryPage(props: CheckoutPageProps) {
                 if (res.ok) {
                     const data = await res.json();
                     if (isMounted && data.recipe) {
-                        setRecipe(data.recipe);
+                        const fetchedRecipe = { ...data.recipe, id: data.recipe.id || data.recipe._id };
+                        setRecipe(fetchedRecipe);
                         setIsLoadingRecipe(false);
                         return;
                     }
