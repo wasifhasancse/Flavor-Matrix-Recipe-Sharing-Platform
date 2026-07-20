@@ -672,9 +672,9 @@ export default function AdminRecipesPage() {
               <div className="flex gap-2 justify-end pt-2">
                 <Button
                   
-                  className="btn-secondary" onClick={() => setIsDeleteModalOpen(false)}
+                   onClick={() => setIsDeleteModalOpen(false)}
                   isDisabled={isDeleting}
-                  className="font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
+                  className="btn-secondary font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
                 >
                   Cancel
                 </Button>

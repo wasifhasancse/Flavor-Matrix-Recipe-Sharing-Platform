@@ -404,8 +404,8 @@ export default function AdminReportsPage() {
                           <Button
                             
                             size="sm"
-                            className="btn-secondary" onClick={() => handleOpenDetails(item)}
-                            className="font-bold text-xs py-1.5 px-3 rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer flex items-center gap-1"
+                             onClick={() => handleOpenDetails(item)}
+                            className="btn-secondary font-bold text-xs py-1.5 px-3 rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer flex items-center gap-1"
                           >
                             <Eye className="h-3.5 w-3.5" />
                             <span>Details</span>
@@ -415,11 +415,11 @@ export default function AdminReportsPage() {
                           <Button
                             
                             size="sm"
-                            className="btn-secondary" onClick={() => {
+                             onClick={() => {
                               setRecipeToDismiss(item);
                               setIsDismissModalOpen(true);
                             }}
-                            className="font-bold text-xs py-1.5 px-3 rounded-xl border border-emerald-500/30 text-emerald-500 hover:bg-emerald-500/10 cursor-pointer flex items-center gap-1"
+                            className="btn-secondary font-bold text-xs py-1.5 px-3 rounded-xl border border-emerald-500/30 text-emerald-500 hover:bg-emerald-500/10 cursor-pointer flex items-center gap-1"
                           >
                             <CheckCircle2 className="h-3.5 w-3.5" />
                             <span>Dismiss</span>
@@ -429,11 +429,11 @@ export default function AdminReportsPage() {
                           <Button
                             
                             size="sm"
-                            className="btn-secondary" onClick={() => {
+                             onClick={() => {
                               setRecipeToDelete(item);
                               setIsDeleteModalOpen(true);
                             }}
-                            className="font-bold text-xs py-1.5 px-3 rounded-xl border border-rose-500/30 text-rose-500 hover:bg-rose-500/10 cursor-pointer flex items-center gap-1"
+                            className="btn-secondary font-bold text-xs py-1.5 px-3 rounded-xl border border-rose-500/30 text-rose-500 hover:bg-rose-500/10 cursor-pointer flex items-center gap-1"
                           >
                             <Trash2 className="h-3.5 w-3.5" />
                             <span>Remove</span>
@@ -460,8 +460,8 @@ export default function AdminReportsPage() {
                   
                   size="sm"
                   isDisabled={currentPage === 1}
-                  className="btn-secondary" onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                  className="font-bold text-xs rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer disabled:opacity-40"
+                   onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  className="btn-secondary font-bold text-xs rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer disabled:opacity-40"
                 >
                   Previous
                 </Button>
@@ -488,8 +488,8 @@ export default function AdminReportsPage() {
                   
                   size="sm"
                   isDisabled={currentPage === totalPages}
-                  className="btn-secondary" onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                  className="font-bold text-xs rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer disabled:opacity-40"
+                   onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  className="btn-secondary font-bold text-xs rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer disabled:opacity-40"
                 >
                   Next
                 </Button>
@@ -593,8 +593,8 @@ export default function AdminReportsPage() {
               <div className="flex justify-end pt-2 border-t border-default-100 dark:border-zinc-800">
                 <Button
                   
-                  className="btn-secondary" onClick={() => setIsDetailsModalOpen(false)}
-                  className="font-semibold text-xs rounded-xl px-5 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
+                   onClick={() => setIsDetailsModalOpen(false)}
+                  className="btn-secondary font-semibold text-xs rounded-xl px-5 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
                 >
                   Close Window
                 </Button>
@@ -638,9 +638,9 @@ export default function AdminReportsPage() {
               <div className="flex gap-2 justify-end pt-2">
                 <Button
                   
-                  className="btn-secondary" onClick={() => setIsDismissModalOpen(false)}
+                   onClick={() => setIsDismissModalOpen(false)}
                   isDisabled={isDismissing}
-                  className="font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
+                  className="btn-secondary font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
                 >
                   Cancel
                 </Button>
@@ -704,9 +704,9 @@ export default function AdminReportsPage() {
               <div className="flex gap-2 justify-end pt-2">
                 <Button
                   
-                  className="btn-secondary" onClick={() => setIsDeleteModalOpen(false)}
+                   onClick={() => setIsDeleteModalOpen(false)}
                   isDisabled={isDeleting}
-                  className="font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
+                  className="btn-secondary font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
                 >
                   Cancel
                 </Button>

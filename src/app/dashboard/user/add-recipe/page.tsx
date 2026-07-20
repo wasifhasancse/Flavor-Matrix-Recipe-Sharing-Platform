@@ -482,8 +482,8 @@ export default function AddRecipePage() {
           <Button
             type="button"
             
-            className="btn-secondary" onClick={() => router.push("/dashboard/user")}
-            className="border border-default-200 dark:border-zinc-800 px-5 py-2.5 text-xs font-semibold text-foreground rounded-xl cursor-pointer"
+             onClick={() => router.push("/dashboard/user")}
+            className="btn-secondary border border-default-200 dark:border-zinc-800 px-5 py-2.5 text-xs font-semibold text-foreground rounded-xl cursor-pointer"
           >
             Cancel
           </Button>

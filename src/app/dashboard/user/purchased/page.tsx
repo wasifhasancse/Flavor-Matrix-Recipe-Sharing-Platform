@@ -308,8 +308,8 @@ export default function PurchasedRecipesPage() {
                   
                   size="sm"
                   isDisabled={currentPage === 1}
-                  className="btn-secondary" onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                  className="font-bold text-xs rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer disabled:opacity-40"
+                   onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  className="btn-secondary font-bold text-xs rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer disabled:opacity-40"
                 >
                   Previous
                 </Button>
@@ -334,8 +334,8 @@ export default function PurchasedRecipesPage() {
                   
                   size="sm"
                   isDisabled={currentPage === totalPages}
-                  className="btn-secondary" onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                  className="font-bold text-xs rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer disabled:opacity-40"
+                   onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  className="btn-secondary font-bold text-xs rounded-xl border border-default-200 dark:border-zinc-800 cursor-pointer disabled:opacity-40"
                 >
                   Next
                 </Button>

@@ -688,9 +688,9 @@ export default function UserProfilePage() {
                   <Button
                     type="button"
                     
-                    className="btn-secondary" onClick={() => setIsEditModalOpen(false)}
+                     onClick={() => setIsEditModalOpen(false)}
                     isDisabled={isSaving}
-                    className="font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
+                    className="btn-secondary font-semibold text-xs rounded-xl px-4 py-2 border border-default-200 dark:border-zinc-800 cursor-pointer"
                   >
                     Cancel
                   </Button>
