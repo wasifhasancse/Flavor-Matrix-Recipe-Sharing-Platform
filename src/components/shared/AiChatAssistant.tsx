@@ -74,11 +74,17 @@ export function AiChatAssistant() {
 
       if (!response.ok) {
         setMessages((prev) =>
-          prev.map((msg) =>
-            msg.id === assistantMsgId
-              ? { ...msg, content: response.status === 401 ? "You must be logged in to use the Flavor Matrix AI Assistant. Please 'Log In' to continue." : "Sorry, the AI server is currently unavailable." }
-              : msg
-          )
+          prev.map((msg) => {
+            if (msg.id !== assistantMsgId) return msg;
+
+            if (response.status === 401) {
+              return { ...msg, content: "You must be logged in to use the Flavor Matrix AI Assistant. Please 'Log In' to continue." };
+            } else if (response.status === 429) {
+              return { ...msg, content: "You've reached the free tier limit for AI requests! Please wait a moment before trying again." };
+            } else {
+              return { ...msg, content: "Sorry, the AI server is currently unavailable." };
+            }
+          })
         );
         setIsStreaming(false);
         return;
