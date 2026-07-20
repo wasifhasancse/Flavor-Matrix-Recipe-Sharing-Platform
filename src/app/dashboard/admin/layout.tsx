@@ -1,28 +1,32 @@
 "use client";
 
-import React, { useState } from "react";
 import { authClient } from "@/lib/auth-client";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { Button } from "@heroui/react";
 import {
-  LayoutDashboard,
-  Users,
-  BookOpen,
-  Flag,
-  CreditCard,
-  Menu,
-  X,
-  Shield,
-  Loader2,
-  LogOut,
-  Settings,
-  Wallet,
-  Tags,
-  Radio,
+    BookOpen,
+    CreditCard,
+    Flag,
+    LayoutDashboard,
+    Loader2,
+    LogOut,
+    Menu,
+    Radio,
+    Settings,
+    Shield,
+    Tags,
+    Users,
+    Wallet,
+    X,
 } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import React, { useState } from "react";
 
-export default function AdminDashboardLayout({ children }: { children: React.ReactNode }) {
+export default function AdminDashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const { data: session, isPending } = authClient.useSession();
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -30,13 +34,13 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
   React.useEffect(() => {
     if (session?.user) {
       fetch("/api/auth/token")
-        .then(res => res.json())
-        .then(data => {
+        .then((res) => res.json())
+        .then((data) => {
           if (data.success && data.token) {
             localStorage.setItem("token", data.token);
           }
         })
-        .catch(err => console.error("Failed to sync auth token:", err));
+        .catch((err) => console.error("Failed to sync auth token:", err));
     }
   }, [session]);
 
@@ -57,7 +61,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
   }
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-background">
+    <div className="min-h-screen flex flex-col lg:flex-row overflow-x-hidden bg-background">
       {/* Mobile Toggle Header */}
       <div className="lg:hidden flex items-center justify-between p-4 bg-default-50 dark:bg-zinc-900/60 border-b border-default-100 dark:border-zinc-800 fixed top-16 left-0 right-0 z-30">
         <span className="font-bold text-sm text-foreground">Admin Console</span>
@@ -65,14 +69,20 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           className="p-2 text-default-500 hover:text-foreground cursor-pointer"
         >
-          {isSidebarOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          {isSidebarOpen ? (
+            <X className="h-6 w-6" />
+          ) : (
+            <Menu className="h-6 w-6" />
+          )}
         </button>
       </div>
 
       {/* Sidebar Navigation */}
       <aside
         className={`w-full lg:w-64 bg-default-50/50 dark:bg-zinc-900/40 border-r border-default-100 dark:border-zinc-800 flex flex-col gap-6 p-6 shrink-0 lg:fixed lg:inset-y-0 lg:left-0 lg:z-30 overflow-y-auto lg:h-screen lg:pt-24 mt-[72px] lg:mt-0 ${
-          isSidebarOpen ? "block fixed inset-x-0 inset-y-0 top-16 z-40 bg-background h-[calc(100vh-4rem)] pt-6" : "hidden lg:flex"
+          isSidebarOpen
+            ? "block fixed inset-x-0 inset-y-0 top-16 z-40 bg-background h-[calc(100vh-4rem)] pt-6"
+            : "hidden lg:flex"
         }`}
       >
         <div className="flex flex-col gap-3 pb-6 border-b border-default-100 dark:border-zinc-800">
@@ -81,22 +91,58 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
               <Shield className="h-5 w-5" />
             </div>
             <div className="flex flex-col truncate">
-              <span className="font-extrabold text-sm text-foreground truncate">{session.user.name}</span>
-              <span className="text-[10px] text-danger font-extrabold tracking-wider uppercase">System Admin</span>
+              <span className="font-extrabold text-sm text-foreground truncate">
+                {session.user.name}
+              </span>
+              <span className="text-[10px] text-danger font-extrabold tracking-wider uppercase">
+                System Admin
+              </span>
             </div>
           </div>
         </div>
 
         <nav className="flex flex-col gap-1.5 flex-1">
           {[
-            { label: "Overview", icon: LayoutDashboard, href: "/dashboard/admin" },
-            { label: "User Management", icon: Users, href: "/dashboard/admin/users" },
-            { label: "Recipe Approvals", icon: BookOpen, href: "/dashboard/admin/recipes" },
-            { label: "Moderation Reports", icon: Flag, href: "/dashboard/admin/reports" },
-            { label: "Platform Settings", icon: Settings, href: "/dashboard/admin/settings" },
-            { label: "Revenue & Withdrawals", icon: Wallet, href: "/dashboard/admin/withdrawals" },
-            { label: "Categories", icon: Tags, href: "/dashboard/admin/categories" },
-            { label: "Broadcasts", icon: Radio, href: "/dashboard/admin/broadcasts" },
+            {
+              label: "Overview",
+              icon: LayoutDashboard,
+              href: "/dashboard/admin",
+            },
+            {
+              label: "User Management",
+              icon: Users,
+              href: "/dashboard/admin/users",
+            },
+            {
+              label: "Recipe Approvals",
+              icon: BookOpen,
+              href: "/dashboard/admin/recipes",
+            },
+            {
+              label: "Moderation Reports",
+              icon: Flag,
+              href: "/dashboard/admin/reports",
+            },
+            {
+              label: "Platform Settings",
+              icon: Settings,
+              href: "/dashboard/admin/settings",
+            },
+            {
+              label: "Revenue & Withdrawals",
+              icon: Wallet,
+              href: "/dashboard/admin/withdrawals",
+            },
+            {
+              label: "Categories",
+              icon: Tags,
+              href: "/dashboard/admin/categories",
+            },
+            {
+              label: "Broadcasts",
+              icon: Radio,
+              href: "/dashboard/admin/broadcasts",
+            },
           ].map((item) => {
             const isSelected = pathname === item.href;
             return (
@@ -119,12 +165,15 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
 
         {/* Transactions Direct Link */}
         <div className="pb-4">
-          <Link href="/dashboard/admin/transactions" className="no-underline block" onClick={() => setIsSidebarOpen(false)}>
+          <Link
+            href="/dashboard/admin/transactions"
+            className="no-underline block"
+            onClick={() => setIsSidebarOpen(false)}
+          >
             <Button
-              
               className={`btn-secondary w-full font-bold text-xs py-2.5 rounded-xl border border-default-200 dark:border-zinc-800 flex items-center justify-center gap-2 cursor-pointer transition-smooth ${
-                pathname === "/dashboard/admin/transactions" 
-                  ? "bg-default-200 dark:bg-zinc-700 text-foreground border-default-400" 
+                pathname === "/dashboard/admin/transactions"
+                  ? "bg-default-200 dark:bg-zinc-700 text-foreground border-default-400"
                   : "hover:bg-default-100 dark:hover:bg-zinc-800 text-default-600"
               }`}
             >
@@ -148,7 +197,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-grow flex flex-col min-w-0 w-full lg:ml-64 relative z-10 pt-4 lg:pt-0">
+      <main className="flex-grow flex flex-col min-w-0 w-full lg:ml-64 relative z-10 pt-20 lg:pt-0">
         {children}
       </main>
     </div>

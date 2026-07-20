@@ -1,37 +1,41 @@
 "use client";
 
-import React, { useState } from "react";
 import { authClient } from "@/lib/auth-client";
+import { Avatar, Button, Chip } from "@heroui/react";
+import {
+  ArrowDownToLine,
+  Award,
+  BarChart3,
+  Bookmark,
+  BookOpen,
+  LayoutDashboard,
+  Loader2,
+  LogOut,
+  Menu,
+  PlusCircle,
+  Receipt,
+  ShoppingBag,
+  Sparkles,
+  Star,
+  User,
+  X,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Avatar,
-  Button,
-  Chip,
-} from "@heroui/react";
-import {
-  LayoutDashboard,
-  BookOpen,
-  Star,
-  ShoppingBag,
-  Bookmark,
-  BarChart3,
-  Receipt,
-  User,
-  PlusCircle,
-  Menu,
-  X,
-  Sparkles,
-  Loader2,
-  Award,
-} from "lucide-react";
-import { LogOut, ArrowDownToLine } from "lucide-react";
+import React, { useState } from "react";
 
-export default function UserDashboardLayout({ children }: { children: React.ReactNode }) {
+export default function UserDashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const { data: session, isPending } = authClient.useSession();
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [planData, setPlanData] = useState<{ plan: string; isActive: boolean } | null>(null);
+  const [planData, setPlanData] = useState<{
+    plan: string;
+    isActive: boolean;
+  } | null>(null);
   const [availableBalance] = useState<number>(47.88); // mocked for display
 
   React.useEffect(() => {
@@ -62,34 +66,51 @@ export default function UserDashboardLayout({ children }: { children: React.Reac
   }
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-background">
+    <div className="min-h-screen flex flex-col lg:flex-row overflow-x-hidden bg-background">
       {/* Mobile Toggle Header */}
       <div className="lg:hidden flex items-center justify-between p-4 bg-default-50 dark:bg-zinc-900/60 border-b border-default-100 dark:border-zinc-800 fixed top-16 left-0 right-0 z-30">
-        <span className="font-bold text-sm text-foreground">User Dashboard</span>
+        <span className="font-bold text-sm text-foreground">
+          User Dashboard
+        </span>
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           className="p-2 text-default-500 hover:text-foreground cursor-pointer"
         >
-          {isSidebarOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          {isSidebarOpen ? (
+            <X className="h-6 w-6" />
+          ) : (
+            <Menu className="h-6 w-6" />
+          )}
         </button>
       </div>
 
       {/* Sidebar Navigation */}
       <aside
         className={`w-full lg:w-64 bg-default-50/50 dark:bg-zinc-900/20 border-r border-default-100 dark:border-zinc-800 flex flex-col gap-6 p-6 shrink-0 lg:fixed lg:inset-y-0 lg:left-0 lg:z-30 overflow-y-auto lg:h-screen lg:pt-24 mt-[72px] lg:mt-0 ${
-          isSidebarOpen ? "block fixed inset-x-0 inset-y-0 top-16 z-40 bg-background h-[calc(100vh-4rem)] pt-6" : "hidden lg:flex"
+          isSidebarOpen
+            ? "block fixed inset-x-0 inset-y-0 top-16 z-40 bg-background h-[calc(100vh-4rem)] pt-6"
+            : "hidden lg:flex"
         }`}
       >
         {/* User Card & Premium Badge */}
         <div className="flex flex-col gap-3 pb-6 border-b border-default-100 dark:border-zinc-800">
           <div className="flex items-center gap-3">
             <Avatar.Root className="w-10 h-10 rounded-full border-2 border-primary/20 shrink-0 overflow-hidden bg-primary/10 flex items-center justify-center font-bold text-primary">
-              <Avatar.Image src={session.user.image || ""} alt={session.user.name || "User"} />
-              <Avatar.Fallback>{session.user.name?.charAt(0).toUpperCase() || "U"}</Avatar.Fallback>
+              <Avatar.Image
+                src={session.user.image || ""}
+                alt={session.user.name || "User"}
+              />
+              <Avatar.Fallback>
+                {session.user.name?.charAt(0).toUpperCase() || "U"}
+              </Avatar.Fallback>
             </Avatar.Root>
             <div className="flex flex-col truncate">
-              <span className="font-bold text-sm text-foreground truncate">{session.user.name}</span>
-              <span className="text-[11px] text-default-400 truncate">{session.user.email}</span>
+              <span className="font-bold text-sm text-foreground truncate">
+                {session.user.name}
+              </span>
+              <span className="text-[11px] text-default-400 truncate">
+                {session.user.email}
+              </span>
             </div>
           </div>
 
@@ -116,15 +137,51 @@ export default function UserDashboardLayout({ children }: { children: React.Reac
         {/* Sidebar Nav Items */}
         <nav className="flex flex-col gap-1.5 flex-1 pb-6">
           {[
-            { label: "Overview", icon: LayoutDashboard, href: "/dashboard/user" },
-            { label: "My Recipes", icon: BookOpen, href: "/dashboard/user/my-recipes" },
-            { label: "Favorites", icon: Star, href: "/dashboard/user/favorites" },
-            { label: "Purchased", icon: ShoppingBag, href: "/dashboard/user/purchased" },
-            { label: "My Bookmarks", icon: Bookmark, href: "/dashboard/user/bookmarks" },
-            { label: "Recipe Analytics", icon: BarChart3, href: "/dashboard/user/analytics" },
-            { label: "Transactions", icon: Receipt, href: "/dashboard/user/transactions" },
-            { label: "My Profile", icon: User, href: "/dashboard/user/profile" },
-            { label: "Add Recipe", icon: PlusCircle, href: "/dashboard/user/add-recipe" },
+            {
+              label: "Overview",
+              icon: LayoutDashboard,
+              href: "/dashboard/user",
+            },
+            {
+              label: "My Recipes",
+              icon: BookOpen,
+              href: "/dashboard/user/my-recipes",
+            },
+            {
+              label: "Favorites",
+              icon: Star,
+              href: "/dashboard/user/favorites",
+            },
+            {
+              label: "Purchased",
+              icon: ShoppingBag,
+              href: "/dashboard/user/purchased",
+            },
+            {
+              label: "My Bookmarks",
+              icon: Bookmark,
+              href: "/dashboard/user/bookmarks",
+            },
+            {
+              label: "Recipe Analytics",
+              icon: BarChart3,
+              href: "/dashboard/user/analytics",
+            },
+            {
+              label: "Transactions",
+              icon: Receipt,
+              href: "/dashboard/user/transactions",
+            },
+            {
+              label: "My Profile",
+              icon: User,
+              href: "/dashboard/user/profile",
+            },
+            {
+              label: "Add Recipe",
+              icon: PlusCircle,
+              href: "/dashboard/user/add-recipe",
+            },
           ].map((item) => {
             const isSelected = pathname === item.href;
             return (
@@ -148,13 +205,19 @@ export default function UserDashboardLayout({ children }: { children: React.Reac
         {/* Chef Earnings Quick Widget on Sidebar */}
         <div className="p-4 rounded-2xl border border-emerald-500/20 bg-emerald-500/5 flex flex-col gap-2 mt-auto shrink-0 mb-8 lg:mb-0">
           <div className="flex justify-between items-center text-xs">
-            <span className="text-default-400 font-medium">Available Payout</span>
-            <Chip color="success" variant="soft" size="sm" className="font-extrabold text-[10px]">
+            <span className="text-default-400 font-medium">
+              Available Payout
+            </span>
+            <Chip
+              color="success"
+              variant="soft"
+              size="sm"
+              className="font-extrabold text-[10px]"
+            >
               ${availableBalance.toFixed(2)}
             </Chip>
           </div>
           <Button
-            
             size="sm"
             className="btn-primary w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs py-2 rounded-xl border-none cursor-pointer flex items-center justify-center gap-1.5 shadow-md shadow-emerald-500/20"
           >
@@ -177,7 +240,7 @@ export default function UserDashboardLayout({ children }: { children: React.Reac
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-grow flex flex-col min-w-0 w-full lg:ml-64 relative z-10 pt-4 lg:pt-0">
+      <main className="flex-grow flex flex-col min-w-0 w-full lg:ml-64 relative z-10 pt-20 lg:pt-0">
         {children}
       </main>
     </div>

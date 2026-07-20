@@ -24,7 +24,7 @@ export function AiChatAssistant() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
-  
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const router = useRouter();
@@ -55,8 +55,8 @@ export function AiChatAssistant() {
       const tokenData = await tokenRes.json();
       const token = tokenData.success ? tokenData.token : "";
 
-      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://127.0.0.1:5000";
-      
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+
       const response = await fetch(`${baseUrl}/api/ai/chat`, {
         method: "POST",
         headers: {
@@ -73,14 +73,32 @@ export function AiChatAssistant() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to connect to AI server");
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === assistantMsgId
+              ? { ...msg, content: response.status === 401 ? "You must be logged in to use the Flavor Matrix AI Assistant. Please 'Log In' to continue." : "Sorry, the AI server is currently unavailable." }
+              : msg
+          )
+        );
+        setIsStreaming(false);
+        return;
       }
 
-      if (!response.body) throw new Error("No response body");
+      if (!response.body) {
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === assistantMsgId
+              ? { ...msg, content: "Sorry, I received an empty response from the server." }
+              : msg
+          )
+        );
+        setIsStreaming(false);
+        return;
+      }
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder("utf-8");
-      
+
       let assistantFullText = "";
 
       while (true) {
@@ -88,31 +106,31 @@ export function AiChatAssistant() {
         if (done) break;
 
         const chunk = decoder.decode(value, { stream: true });
-        
+
         // SSE lines look like: data: {"text":"..."}\n\n
         const lines = chunk.split("\n\n");
-        
+
         for (const line of lines) {
           if (line.startsWith("data: ")) {
             const dataStr = line.replace("data: ", "").trim();
-            
+
             if (dataStr === "[DONE]") {
-               break;
+              break;
             }
-            
+
             if (dataStr) {
               try {
                 const parsed = JSON.parse(dataStr);
                 if (parsed.text) {
                   assistantFullText = assistantFullText + parsed.text;
-                  
+
                   // Intercept navigation commands silently
                   const navMatch = assistantFullText.match(/\[NAVIGATE:\s*(.+?)\]/);
                   if (navMatch) {
                     const navPath = navMatch[1].trim();
                     // Remove the token from the visible text
                     assistantFullText = assistantFullText.replace(navMatch[0], "");
-                    
+
                     // Execute navigation
                     router.push(navPath);
                   }
@@ -133,8 +151,8 @@ export function AiChatAssistant() {
           }
         }
       }
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      console.warn("AI Chat Assistant Error:", error.message || error);
       setMessages((prev) =>
         prev.map((msg) =>
           msg.id === assistantMsgId
@@ -182,10 +200,10 @@ export function AiChatAssistant() {
                   </div>
                 </div>
               </div>
-              <Button 
-                isIconOnly 
-                size="sm" 
-                onPress={() => setIsOpen(false)} 
+              <Button
+                isIconOnly
+                size="sm"
+                onPress={() => setIsOpen(false)}
                 className="rounded-full bg-orange-400 text-white hover:bg-orange-500 dark:bg-orange-400 dark:hover:bg-orange-500 text-default-500 transition-colors"
               >
                 <X className="w-4 h-4" />
@@ -195,7 +213,7 @@ export function AiChatAssistant() {
             {/* Chat Area */}
             <ScrollShadow ref={scrollRef} className="flex-1 p-5 flex flex-col gap-5 relative z-10">
               {messages.length === 0 && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
                   className="flex-1 flex flex-col items-center justify-center text-center gap-4 mt-8"
                 >
@@ -211,7 +229,7 @@ export function AiChatAssistant() {
                   </div>
                 </motion.div>
               )}
-              
+
               {messages.map((msg) => (
                 <motion.div
                   key={msg.id}
@@ -226,25 +244,24 @@ export function AiChatAssistant() {
                     </div>
                   )}
                   <div
-                    className={`max-w-[80%] px-4 py-3 text-sm shadow-sm ${
-                      msg.role === "user"
-                        ? "bg-gradient-to-tr from-orange-500 to-amber-500 text-white rounded-2xl rounded-br-sm shadow-orange-500/20 font-medium"
-                        : "bg-white dark:bg-zinc-900/90 text-foreground rounded-2xl rounded-bl-sm border border-black/5 dark:border-white/5"
-                    }`}
+                    className={`max-w-[80%] px-4 py-3 text-sm shadow-sm ${msg.role === "user"
+                      ? "bg-gradient-to-tr from-orange-500 to-amber-500 text-white rounded-2xl rounded-br-sm shadow-orange-500/20 font-medium"
+                      : "bg-white dark:bg-zinc-900/90 text-foreground rounded-2xl rounded-bl-sm border border-black/5 dark:border-white/5"
+                      }`}
                   >
                     {/* Render content, checking if it's currently empty (streaming start) */}
                     {msg.role === "assistant" && msg.content === "" && isStreaming ? (
-                       <div className="flex gap-1.5 items-center h-6 px-1">
-                          <motion.div className="w-2 h-2 bg-orange-500 rounded-full" animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 1, delay: 0 }} />
-                          <motion.div className="w-2 h-2 bg-amber-500 rounded-full" animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 1, delay: 0.2 }} />
-                          <motion.div className="w-2 h-2 bg-orange-400 rounded-full" animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 1, delay: 0.4 }} />
-                       </div>
+                      <div className="flex gap-1.5 items-center h-6 px-1">
+                        <motion.div className="w-2 h-2 bg-orange-500 rounded-full" animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 1, delay: 0 }} />
+                        <motion.div className="w-2 h-2 bg-amber-500 rounded-full" animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 1, delay: 0.2 }} />
+                        <motion.div className="w-2 h-2 bg-orange-400 rounded-full" animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 1, delay: 0.4 }} />
+                      </div>
                     ) : (
                       <div className="whitespace-pre-wrap leading-relaxed">
                         {msg.content}
                         {msg.role === "assistant" && msg.content && msg.id === messages[messages.length - 1]?.id && isStreaming && (
-                          <motion.span 
-                            animate={{ opacity: [1, 0] }} 
+                          <motion.span
+                            animate={{ opacity: [1, 0] }}
                             transition={{ repeat: Infinity, duration: 0.7 }}
                             className="inline-block w-1.5 h-3.5 bg-orange-500 ml-1 translate-y-[2px]"
                           />
@@ -274,7 +291,7 @@ export function AiChatAssistant() {
                   ))}
                 </div>
               )}
-              
+
               <div className="flex gap-2 items-end relative">
                 <input
                   type="text"

@@ -1,12 +1,11 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
 import { Button } from "@heroui/react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, EffectFade, Pagination } from "swiper/modules";
+import { ArrowRight, Compass, Sparkles } from "lucide-react";
 import { motion } from "motion/react";
-import { Compass, Sparkles, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { Autoplay, EffectFade, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper core and module styles
 import "swiper/css";
@@ -29,7 +28,8 @@ export interface BannerProps {
 const DEFAULT_SLIDES: BannerSlide[] = [
   {
     id: "slide-1",
-    image: "https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&w=1920&q=80",
+    image:
+      "https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&w=1920&q=80",
     badge: "Featured Recipe",
     title: "Master the Art of Authentic Italian Pasta",
     description:
@@ -37,7 +37,8 @@ const DEFAULT_SLIDES: BannerSlide[] = [
   },
   {
     id: "slide-2",
-    image: "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?auto=format&fit=crop&w=1920&q=80",
+    image:
+      "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?auto=format&fit=crop&w=1920&q=80",
     badge: "Chef's Special",
     title: "Exotic & Fragrant Thai Culinary Creations",
     description:
@@ -45,7 +46,8 @@ const DEFAULT_SLIDES: BannerSlide[] = [
   },
   {
     id: "slide-3",
-    image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=1920&q=80",
+    image:
+      "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=1920&q=80",
     badge: "Trending Flavor",
     title: "Crispy Golden Avocado Street Tacos",
     description:
@@ -53,7 +55,8 @@ const DEFAULT_SLIDES: BannerSlide[] = [
   },
   {
     id: "slide-4",
-    image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=1920&q=80",
+    image:
+      "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=1920&q=80",
     badge: "Decadent Dessert",
     title: "Warm Molten Chocolate Lava Cakes",
     description:
@@ -85,7 +88,10 @@ const itemVariants = {
   },
 };
 
-export function Banner({ slides = DEFAULT_SLIDES, autoPlayDelay = 5000 }: BannerProps) {
+export function Banner({
+  slides = DEFAULT_SLIDES,
+  autoPlayDelay = 5000,
+}: BannerProps) {
   return (
     <section className="relative w-full overflow-hidden bg-zinc-950">
       {/* Custom Swiper Pagination Styling */}
@@ -144,10 +150,13 @@ export function Banner({ slides = DEFAULT_SLIDES, autoPlayDelay = 5000 }: Banner
         pagination={{
           clickable: true,
         }}
-        className="recipe-banner-swiper w-full h-[520px] sm:h-[600px] lg:h-[650px]"
+        className="recipe-banner-swiper w-full h-[460px] sm:h-[600px] lg:h-[650px]"
       >
         {slides.map((slide) => (
-          <SwiperSlide key={slide.id} className="relative w-full h-full overflow-hidden">
+          <SwiperSlide
+            key={slide.id}
+            className="relative w-full h-full overflow-hidden"
+          >
             {/* Background Culinary Image */}
             <img
               src={slide.image}
@@ -165,7 +174,7 @@ export function Banner({ slides = DEFAULT_SLIDES, autoPlayDelay = 5000 }: Banner
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                className="max-w-2xl backdrop-blur-sm bg-white/5 border border-white/10 p-6 sm:p-8 rounded-2xl shadow-2xl text-white flex flex-col items-start gap-4"
+                className="w-full max-w-xl sm:max-w-2xl backdrop-blur-sm bg-white/5 border border-white/10 p-5 sm:p-8 rounded-2xl shadow-2xl text-white flex flex-col items-start gap-4"
               >
                 {/* Badge Tag */}
                 <motion.div
@@ -179,7 +188,7 @@ export function Banner({ slides = DEFAULT_SLIDES, autoPlayDelay = 5000 }: Banner
                 {/* Striking Title */}
                 <motion.h1
                   variants={itemVariants}
-                  className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight"
+                  className="text-2xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight"
                 >
                   {slide.title}
                 </motion.h1>
@@ -201,7 +210,6 @@ export function Banner({ slides = DEFAULT_SLIDES, autoPlayDelay = 5000 }: Banner
                 >
                   <Link href="/recipes" className="no-underline inline-block">
                     <Button
-                      
                       size="lg"
                       className="btn-primary font-bold bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-[0_0_20px_rgba(249,115,22,0.4)] hover:shadow-[0_0_30px_rgba(249,115,22,0.6)] transition-all duration-300 rounded-xl px-7 py-3.5 flex items-center gap-2.5 text-base border-none cursor-pointer"
                     >
