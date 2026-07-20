@@ -3,7 +3,7 @@
 Flavor Matrix is a comprehensive full-stack recipe sharing platform where culinary enthusiasts can discover, create, and manage recipes. Users can explore a vast collection of recipes, use AI-powered tools for culinary advice and recipe generation, and purchase premium recipes. Admins and users have dedicated dashboards to manage their interactions and content seamlessly.
 
 ## Live URL
-Client: https://flavor-matrix.vercel.app/ *(Replace with actual URL if deployed)*
+Client: https://flavor-matrix-recipe-sharing-platform.vercel.app
 
 ## Project Purpose
 - Provide a dynamic and interactive platform for culinary enthusiasts to discover, share, and manage recipes.
