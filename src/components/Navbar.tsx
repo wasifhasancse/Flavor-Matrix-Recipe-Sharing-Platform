@@ -60,11 +60,10 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
           ? "bg-background/80 backdrop-blur-lg border-b border-default-200 dark:border-zinc-800 shadow-sm"
           : "bg-background/40 backdrop-blur-md border-b border-transparent"
-      }`}
+        }`}
     >
       <div className={`${isDashboard ? "w-full" : "max-w-7xl mx-auto"} px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between`}>
         {/* Brand Logo & Name */}
@@ -95,11 +94,10 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm transition-colors ${
-                  isActive
+                className={`text-sm transition-colors ${isActive
                     ? "text-orange-500 font-semibold"
                     : "text-foreground/70 hover:text-foreground font-medium"
-                }`}
+                  }`}
               >
                 {link.label}
               </Link>
@@ -108,11 +106,10 @@ export function Navbar() {
           {!isPending && session && (
             <Link
               href={dashboardLink}
-              className={`text-sm transition-colors ${
-                pathname === dashboardLink
+              className={`text-sm transition-colors ${pathname === dashboardLink
                   ? "text-orange-500 font-semibold"
                   : "text-foreground/70 hover:text-foreground font-medium"
-              }`}
+                }`}
             >
               Dashboard
             </Link>
@@ -223,9 +220,8 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`w-full text-lg py-2 ${
-                    isActive ? "text-orange-500 font-semibold" : "text-foreground/70 font-medium hover:text-foreground"
-                  }`}
+                  className={`w-full text-lg py-2 ${isActive ? "text-orange-500 font-semibold" : "text-foreground/70 font-medium hover:text-foreground"
+                    }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}
