@@ -18,14 +18,23 @@ import {
   Tag,
 } from "lucide-react";
 import { mockRecipes, Recipe } from "@/data/recipes";
-
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 interface CheckoutPageProps {
   params: Promise<{ recipeId: string }>;
 }
 
 export default function CheckoutSummaryPage(props: CheckoutPageProps) {
-  // Unwrap dynamic params using React 19 use()
   const { recipeId } = use(props.params);
+  const router = useRouter();
+  const { data: session } = authClient.useSession();
+
+  const handleCheckoutSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    if (!session) {
+      e.preventDefault();
+      router.push(`/login?callbackURL=/checkout/${recipeId}`);
+    }
+  };
 
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [isLoadingRecipe, setIsLoadingRecipe] = useState<boolean>(true);
@@ -302,7 +311,7 @@ export default function CheckoutSummaryPage(props: CheckoutPageProps) {
             </form>
 
             {/* Primary Confirm Payment - HTML Form for direct Stripe redirect */}
-            <form action="/api/checkout-session" method="POST">
+            <form action="/api/checkout-session" method="POST" onSubmit={handleCheckoutSubmit}>
               {/* Hidden metadata bindings */}
               <input type="hidden" name="recipeId" value={recipe.id} />
               <input type="hidden" name="price" value={finalPrice.toFixed(2)} />

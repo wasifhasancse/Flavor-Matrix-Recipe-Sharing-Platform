@@ -117,8 +117,9 @@ function RecipeDetailsContent({ id }: { id: string }) {
         if (res.ok) {
           const data = await res.json();
           if (isMounted && data.recipe) {
-            setRecipe(data.recipe);
-            setLikesCount(data.recipe.likes || 0);
+            const fetchedRecipe = { ...data.recipe, id: data.recipe.id || data.recipe._id };
+            setRecipe(fetchedRecipe);
+            setLikesCount(fetchedRecipe.likes || 0);
             setIsLoadingRecipe(false);
             return;
           }
