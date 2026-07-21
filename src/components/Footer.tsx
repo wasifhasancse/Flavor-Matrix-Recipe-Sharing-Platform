@@ -175,6 +175,7 @@ export function Footer() {
         <div className="flex gap-4">
           <span className="text-xs text-default-400 hover:text-primary cursor-pointer transition-colors">English (US)</span>
           <span className="text-xs text-default-400 hover:text-primary cursor-pointer transition-colors">USD ($)</span>
+          <span className="text-xs text-default-400 hover:text-primary cursor-pointer transition-colors">Developed by <Link target="_blank" rel="noopener noreferrer" href="">Wasif Hasan</Link></span>
         </div>
       </div>
     </footer>
