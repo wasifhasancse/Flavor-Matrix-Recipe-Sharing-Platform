@@ -86,7 +86,7 @@ export default function AboutPage() {
             >
               <h2 className="text-3xl font-bold text-foreground">Our Mission</h2>
               <p className="text-default-500 leading-relaxed text-lg">
-                To democratize culinary expertise by giving creators the tools they need to reach a global audience. Whether you're a Michelin-star chef or a passionate home cook, Flavor Matrix provides the canvas for your culinary masterpieces.
+                To democratize culinary expertise by giving creators the tools they need to reach a global audience. Whether you&apos;re a Michelin-star chef or a passionate home cook, Flavor Matrix provides the canvas for your culinary masterpieces.
               </p>
               <p className="text-default-500 leading-relaxed text-lg">
                 We bridge the gap between inspiration and creation, ensuring that every premium recipe is rewarded and every free recipe finds its way to a hungry audience.
