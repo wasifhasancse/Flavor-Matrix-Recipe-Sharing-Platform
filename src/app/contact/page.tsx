@@ -37,7 +37,7 @@ export default function ContactPage() {
               Get in <span className="text-gradient-primary">Touch</span>
             </h1>
             <p className="text-lg text-default-500 max-w-2xl mx-auto">
-              Have questions, feedback, or just want to say hi? We'd love to hear from you. Drop us a message below and we'll get back to you as soon as possible.
+              Have questions, feedback, or just want to say hi? We&apos;d love to hear from you. Drop us a message below and we&apos;ll get back to you as soon as possible.
             </p>
           </motion.div>
         </div>
@@ -81,7 +81,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-foreground">Phone</h4>
-                    <p className="text-default-500">+1 (555) 123-4567</p>
+                    <p className="text-default-500">+880 1712 345678</p>
                     <p className="text-sm text-default-400 mt-1">Mon-Fri from 8am to 5pm</p>
                   </div>
                 </div>
