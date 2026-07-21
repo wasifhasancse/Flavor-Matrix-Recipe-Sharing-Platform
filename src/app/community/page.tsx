@@ -1,6 +1,4 @@
 "use client";
-
-import React from "react";
 import { motion } from "framer-motion";
 import { DynamicBreadcrumb } from "@/components/shared/DynamicBreadcrumb";
 import { MessageSquare, Users, Star, TrendingUp, Compass, Award } from "lucide-react";

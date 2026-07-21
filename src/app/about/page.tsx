@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { motion } from "framer-motion";
 import { DynamicBreadcrumb } from "@/components/shared/DynamicBreadcrumb";
 import { Users, Heart, Sparkles, Utensils, Globe, ShieldCheck } from "lucide-react";
