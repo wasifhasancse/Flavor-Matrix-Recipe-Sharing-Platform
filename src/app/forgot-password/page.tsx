@@ -55,7 +55,7 @@ function ForgotPasswordContent() {
           </div>
           <h2 className="text-2xl font-bold tracking-tight text-foreground">Check your email</h2>
           <p className="text-default-500 text-sm max-w-[260px]">
-            We've sent a password reset link to <span className="font-semibold text-foreground">{email}</span>. Please check your inbox.
+            We&apos;ve sent a password reset link to <span className="font-semibold text-foreground">{email}</span>. Please check your inbox.
           </p>
           <Link 
             href="/login"
@@ -75,7 +75,7 @@ function ForgotPasswordContent() {
               Forgot Password
             </h1>
             <p className="text-sm text-default-500">
-              No worries! Enter your email address and we'll send you a link to reset your password.
+              No worries! Enter your email address and we&apos;ll send you a link to reset your password.
             </p>
           </div>
 
