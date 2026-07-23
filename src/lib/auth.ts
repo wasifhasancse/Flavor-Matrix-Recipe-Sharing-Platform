@@ -5,7 +5,7 @@ import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { MongoClient } from "mongodb";
 import { requiredEnv, validateEnv } from "./env";
 
-// Validate env vars before bootstrapping
+// Validate env vars before bootstrapping 
 validateEnv();
 
 export const client = new MongoClient(requiredEnv.MONGODB_URI!);

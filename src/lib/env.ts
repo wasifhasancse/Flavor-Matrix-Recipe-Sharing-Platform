@@ -7,6 +7,7 @@ export const requiredEnv = {
 };
 
 export function validateEnv() {
+  // 9898
   const missing = Object.entries(requiredEnv)
     .filter(([_, value]) => !value)
     .map(([key]) => key);
