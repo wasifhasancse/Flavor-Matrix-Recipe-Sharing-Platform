@@ -14,7 +14,7 @@ export const db = client.db(process.env.MONGODB_DATABASE_NAME);
 export const auth = betterAuth({
   database: mongodbAdapter(db, {
     client,
-    usePlural: true, // Use pluralized collection names (e.g. users, sessions)
+    usePlural: true, // Use pluralized collection names (users, sessions)
   }),
   user: {
     additionalFields: {
