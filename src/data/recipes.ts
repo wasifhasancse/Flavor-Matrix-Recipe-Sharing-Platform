@@ -31,7 +31,7 @@ export const mockRecipes: Recipe[] = [
     category: "Italian",
     price: 3.99, // Premium recipe
     ingredients: [
-      "350g Spaghetti",
+      "380g Spaghetti",
       "150g Pancetta or Guanciale (cubed)",
       "4 Large Egg yolks + 1 Whole egg",
       "75g Pecorino Romano cheese (grated)",
